@@ -60,6 +60,7 @@
     font-size: 20px;
     width: 300px;
     align-self: center;
+    font-weight: bolder;
 }
 
 .login{
@@ -77,4 +78,5 @@
     width: 200px;
     align-self: center;
     text-decoration: none;
+    font-weight: bolder;
 }

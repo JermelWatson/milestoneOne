@@ -7,7 +7,7 @@ const signin = Router();
 signin.post("/signin", (req, res) => {
   //const hashedPassword = HashedPassword(req.body.password)
   connection.execute(
-    "INSERT INTO user_data (`first_name`, `last_name`, `email`,`password`, `is_admin`) Values( 'nado','waston','fiwiemail@gmail.com','1234567990',false)",
+    "INSERT INTO user_data (`first_name`, `last_name`, `email`,`password`, `is_admin`) Values( 'Vybz','Kartel','fidemwiemail@gmail.com','123hxbs7990',false)",
     function (err, result) {
       if (err) {
         res.json(err.message);

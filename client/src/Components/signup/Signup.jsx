@@ -125,6 +125,7 @@ const Signup = () => {
               ref={emailRef}
               id="email"
               autoComplete="off"
+              aria-autocomplete="off"
               placeholder="Enter email@example.com"
               onChange={(e) => setEmail(e.target.value)}
               onFocus={() => setEmailFocus(true)}

@@ -7,7 +7,7 @@ const login = Router();
 
 login.post('/login', (req, res)=>{
     connection.execute(
-        "select * from user_data where email='email@gmail.com'",
+        "select * from user_data where email='renoldowatson@gmail.com'",
         function(err, result){
             if (err){
                 res.json(err.message)

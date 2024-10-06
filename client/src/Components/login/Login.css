@@ -57,9 +57,7 @@ p{
     
 }
 
-form .signin-button{
-    
-    padding-left: 50px;
+form .loginBtn{
     margin-top: 10px;
     background-color: rgb(8, 161, 8);
     border-radius: 10px;
@@ -68,6 +66,9 @@ form .signin-button{
     width: 150px;
     text-decoration: none;
     color: white;
+    font-weight: bolder;
+    align-items: center;
+    padding: 12px;
 }
 
 
@@ -76,13 +77,16 @@ form .signin-button{
     text-align: center;
 }
 
-.login .login-button{
-    margin: 10px;
+.login .signinBtn{
+    margin: 20px auto;
     background-color: rgb(39, 121, 220);
     border-radius: 10px;
     border: none;
-    padding: 10px;
+    padding: 15px;
     font-size: 20px;
-    width: 200px;
     align-self: center;
+    font-weight: bolder;
+    text-decoration: none;
+    color: white;
+    width: 150px;
 }

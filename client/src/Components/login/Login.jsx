@@ -88,13 +88,14 @@ const Login = () => {
               onBlur={() => setPasswordFocus(false)}
               required
             />
-            <button type="submit" className="signin-button">Login</button>
+            <div className="btn"><button type="submit" className="loginBtn">Login</button></div>
+    
           </div>
           <p><a href="" className="href">Forgot password?</a></p>
         </form>
         <div className="login">
           <p>Don't have an account?</p>
-          <Link to="/" className="login-button">Sign up</Link>
+         <div><Link to="/" className="signinBtn">Sign up</Link></div> 
         </div>
       </div>
     </>
