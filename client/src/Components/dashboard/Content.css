@@ -1,0 +1,74 @@
+.icon{
+    font-size:  1.4rem;
+
+}
+.content{
+    width: 75%;
+}
+
+.content-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-title{
+    color: #526d82;
+}
+
+.header-activity{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-box{
+    background: rgb(232, 234, 235);
+    padding: 8px 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+
+}
+
+.search-box input{
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 5px;
+    outline: none;
+    color: black;
+}
+
+.search-box .icon{
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+    transform: scale(1.3);
+}
+
+.notify{
+    background: #dde6ed;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon:hover{
+    transform: scale(1.2);
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.notify .icon{
+    font-size: 20px;
+    transition: 0.5s ease-in-out;
+}
+
+.card-container{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}

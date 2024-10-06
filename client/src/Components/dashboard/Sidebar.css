@@ -1,0 +1,35 @@
+.menu{
+    display: flex;
+    flex-direction: column;
+    gap: 2.3rem;
+    height: 94vh;
+
+}
+.icon{
+    font-size:  1.4rem;
+
+}
+.menu-list{
+    display: flex;
+    flex-direction: column;
+    gap: 20ps;
+}
+
+.menu-list .item{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    color: rgb(21, 22, 22);
+
+}
+
+.menu-list .item:hover{
+    background-color: rgb(188, 7, 7);
+    color: white;
+}

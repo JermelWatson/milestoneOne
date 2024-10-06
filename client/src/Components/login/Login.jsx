@@ -1,0 +1,95 @@
+import { useRef, useState, useEffect } from "react";
+import React from "react";
+import "./Login.css";
+import { Link } from "react-router-dom";
+import axios from "axios";
+
+const EMAIL_REGEX = /^[^\s@]+@[^s@]+\.[^\s@]+$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
+const Login = () => {
+  //input references
+  const emailRef = useRef();
+  const errRef = useRef();
+  //email input variable
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
+  
+  //password and password validation
+  const [password, setPassword] = useState("");
+  const [passwordFocus, setPasswordFocus] = useState(false);
+
+  //Error handler message
+  const [errMsg, setErrMsg] = useState("");
+
+
+  const fetchLogin = async () => {
+    const response =  await axios.get("http://localhost:3000/login");
+
+    console.log(response);
+  };
+
+  useEffect(() => {
+    fetchLogin();
+  },[]);
+
+    useEffect(() => {
+    emailRef.current.focus();
+  }, []);
+  useEffect(() => {
+    const result = EMAIL_REGEX.test(email);
+    console.log(result);
+    console.log(email);
+    setValidEmail(result);
+  }, [email]);
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [email, password]);
+  return (
+    <>
+      <div className="signin-container">
+        <form className="signup-form">
+        <div className="header">Log in
+        <div className="underline"></div>
+        </div>
+          <div className="input-fields">
+            <input
+              type="email"
+              className="input"
+              ref={emailRef}
+              id="email"
+              autoComplete="off"
+              placeholder="Enter email@example.com"
+              onChange={(e) => setEmail(e.target.value)}
+              onFocus={() => setEmailFocus(true)}
+              onBlur={() => setEmailFocus(false)}
+              required
+            />
+
+            <input
+              type="password"
+              className="input"
+              id="password"
+              autoComplete="off"
+              placeholder="Enter Password"
+              onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => setPasswordFocus(true)}
+              onBlur={() => setPasswordFocus(false)}
+              required
+            />
+            <Link to='/dashboard' type="submit" className="signin-button">Login</Link>
+          </div>
+          <p><a href="" className="href">Forgot password?</a></p>
+        </form>
+        <div className="login">
+        <p>Don't have an account?</p>
+            <Link to="/" type="submit" className="login-button">Sign up</Link>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Login;
