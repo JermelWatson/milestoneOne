@@ -3,57 +3,67 @@ import React from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const EMAIL_REGEX = /^[^\s@]+@[^s@]+\.[^\s@]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Login = () => {
-  //input references
   const emailRef = useRef();
-  const errRef = useRef();
-  //email input variable
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
-  
-  //password and password validation
-  const [password, setPassword] = useState("");
-  const [passwordFocus, setPasswordFocus] = useState(false);
 
-  //Error handler message
-  const [errMsg, setErrMsg] = useState("");
-
-
-  const fetchLogin = async () => {
-    const response =  await axios.get("http://localhost:3000/login");
-
-    console.log(response);
-  };
-
-  useEffect(() => {
-    fetchLogin();
-  },[]);
-
-    useEffect(() => {
-    emailRef.current.focus();
-  }, []);
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
-    console.log(result);
-    console.log(email);
     setValidEmail(result);
   }, [email]);
 
+  const [password, setPassword] = useState("");
+  const [validPassword, setValidPassword] = useState(false);
+  const [passwordFocus, setPasswordFocus] = useState(false);
+
   useEffect(() => {
-    setErrMsg("");
-  }, [email, password]);
+    const result = PWD_REGEX.test(password);
+    setValidPassword(result);
+  }, [password]);
+
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Prevent page reload
+
+    const formBody = {
+      email: email,
+      password: password
+    };
+
+    try {
+      const result = await axios.post("http://localhost:3000/login", formBody, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (result.status === 200) {
+        console.log(result.data);
+        navigate('/dashboard');
+      } else {
+        console.error("Login failed");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
       <div className="signin-container">
-        <form className="signup-form">
-        <div className="header">Log in
-        <div className="underline"></div>
-        </div>
+        <form className="signup-form" onSubmit={handleLogin}>
+          <div className="header">Log in
+            <div className="underline"></div>
+          </div>
           <div className="input-fields">
             <input
               type="email"
@@ -67,7 +77,6 @@ const Login = () => {
               onBlur={() => setEmailFocus(false)}
               required
             />
-
             <input
               type="password"
               className="input"
@@ -79,13 +88,13 @@ const Login = () => {
               onBlur={() => setPasswordFocus(false)}
               required
             />
-            <Link to='/dashboard' type="submit" className="signin-button">Login</Link>
+            <button type="submit" className="signin-button">Login</button>
           </div>
           <p><a href="" className="href">Forgot password?</a></p>
         </form>
         <div className="login">
-        <p>Don't have an account?</p>
-            <Link to="/" type="submit" className="login-button">Sign up</Link>
+          <p>Don't have an account?</p>
+          <Link to="/" className="login-button">Sign up</Link>
         </div>
       </div>
     </>

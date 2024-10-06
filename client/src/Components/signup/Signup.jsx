@@ -14,24 +14,24 @@ const Signup = () => {
   const emailRef = useRef();
   const errRef = useRef();
   //Username input variables
-  const [first_name, setfirst_name] = useState("");
-  const [last_name, setlast_name] = useState("");
+  const [first_name, setfirst_name] = useState();
+  const [last_name, setlast_name] = useState();
   //email input variable
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState();
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
   //password and password validation
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState();
   const [validPassword, setValidPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
   // match-password and match-password validation
-  const [matchPwd, setMatchpwd] = useState("");
+  const [matchPwd, setMatchpwd] = useState();
   const [validMatchpwd, setValidMatchpwd] = useState(false);
   const [matchpwdFocus, setMatchpwdFocus] = useState(false);
   //Error handler message
-  const [errMsg, setErrMsg] = useState("");
+  const [errMsg, setErrMsg] = useState();
 
-  const fetchSignin = async () => {
+  const fetchSignin = async (first_name,last_name,email,password) => {
 
     const formBody=JSON.stringify({
       first_name: first_name,
@@ -51,11 +51,8 @@ const Signup = () => {
 
     if(result.ok){
       const data=result.json();
-      console.log(data)
+      console.log(formBody)
     }
-
-    {/*const response =  await axios.post("http://localhost:3000/signin");
-    console.log(response);*/}
   };
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
@@ -78,7 +75,7 @@ const Signup = () => {
   }, [email, password, matchPwd]);
 
   useEffect(() => {
-    fetchSignin();
+    fetchSignin(first_name,last_name,email,password);
   },[]);
 
   const handleSubmit = async (e) =>{
@@ -90,8 +87,7 @@ const Signup = () => {
       setErrMsg("Invalid Entry");
       return;
     }
-
-    console.log(fetchSignin);
+    fetchSignin;
     navigate('/login')
   }
   return (
@@ -166,6 +162,9 @@ const Signup = () => {
             <p>Already have an account?</p>
             <Link to="/login" type="submit" className="login-button">Log in</Link>
         </div>
+        {
+          console.log(first_name,last_name,email,password)
+        }
       </div>
     </>
   );
