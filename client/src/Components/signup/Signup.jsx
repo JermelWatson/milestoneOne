@@ -14,8 +14,8 @@ const Signup = () => {
   const emailRef = useRef();
   const errRef = useRef();
   //Username input variables
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [first_name, setfirst_name] = useState("");
+  const [last_name, setlast_name] = useState("");
   //email input variable
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
@@ -34,10 +34,10 @@ const Signup = () => {
   const fetchSignin = async () => {
 
     const formBody=JSON.stringify({
-      first_name: firstName,
-      last_name: lastName,
-      email: validEmail,
-      password: validPassword,
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      password: password,
       is_admin: false
     })
 
@@ -106,20 +106,20 @@ const Signup = () => {
             <input
               type="text"
               className="input"
-              id="firstName"
+              id="first_name"
               autoComplete="off"
-              placeholder="Enter Firstname"
-              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="Enter first_name"
+              onChange={(e) => setfirst_name(e.target.value)}
               required
             />
 
             <input
               type="text"
               className="input"
-              id="lastName"
+              id="last_name"
               autoComplete="off"
-              placeholder="Enter Lastname"
-              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Enter last_name"
+              onChange={(e) => setlast_name(e.target.value)}
               required
             />
 
