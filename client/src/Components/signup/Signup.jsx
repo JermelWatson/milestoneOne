@@ -31,8 +31,36 @@ const Signup = () => {
   //Error handler message
   const [errMsg, setErrMsg] = useState();
 
-  const fetchSignin = async (first_name,last_name,email,password) => {
+  useEffect(() => {
+    const result = EMAIL_REGEX.test(email);
+    console.log(result);
+    console.log(email);
+    setValidEmail(result);
+  }, [email]);
+  useEffect(() => {
+    const result = PWD_REGEX.test(password);
+    console.log(result);
+    console.log(password);
+    setValidPassword(result);
+    const match = password === matchPwd;
+    setValidPassword(match);
+  }, [password, matchPwd]);
+  useEffect(() => {
+    setErrMsg("");
+  }, [email, password, matchPwd]);
 
+
+
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
+    const v1 = EMAIL_REGEX.test(email);
+    const v2 = PWD_REGEX.test(password);
+
+    if (!v1 || !v2) {
+      setErrMsg("Invalid Entry");
+      return;
+    }
+    //fetchSignin;
     const formBody=JSON.stringify({
       first_name: first_name,
       last_name: last_name,
@@ -51,43 +79,8 @@ const Signup = () => {
 
     if(result.ok){
       const data=result.json();
-      console.log(formBody)
+      console.log(data)
     }
-  };
-  useEffect(() => {
-    const result = EMAIL_REGEX.test(email);
-    console.log(result);
-    console.log(email);
-    setValidEmail(result);
-  }, [email]);
-
-  useEffect(() => {
-    const result = PWD_REGEX.test(password);
-    console.log(result);
-    console.log(password);
-    setValidPassword(result);
-    const match = password === matchPwd;
-    setValidPassword(match);
-  }, [password, matchPwd]);
-
-  useEffect(() => {
-    setErrMsg("");
-  }, [email, password, matchPwd]);
-
-  useEffect(() => {
-    fetchSignin(first_name,last_name,email,password);
-  },[]);
-
-  const handleSubmit = async (e) =>{
-    e.preventDefault();
-    const v1 = EMAIL_REGEX.test(email);
-    const v2 = PWD_REGEX.test(password);
-
-    if (!v1 || !v2) {
-      setErrMsg("Invalid Entry");
-      return;
-    }
-    fetchSignin;
     navigate('/login')
   }
   return (

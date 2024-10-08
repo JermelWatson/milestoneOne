@@ -33,7 +33,6 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent page reload
-
     const formBody = {
       email: email,
       password: password
@@ -47,7 +46,7 @@ const Login = () => {
       });
 
       if (result.status === 200) {
-        console.log(result.data);
+        console.log(formBody);
         navigate('/dashboard');
       } else {
         console.error("Login failed");

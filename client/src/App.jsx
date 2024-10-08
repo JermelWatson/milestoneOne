@@ -5,6 +5,7 @@ import './App.css'
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from './Components/login/Login';
 import Dashboard from './Components/dashboard/Dashboard';
+import Delete from './Components/delete/Delete';
 function App() {
 
   //Login functionality
@@ -36,7 +37,14 @@ const route = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard />,
   },
-
+  {
+    path: "/delete",
+    element: <Delete />,
+  },
+  {
+    path: "/delete/:email",
+    element: <Login />,
+  }
 ])
   return (
     <>

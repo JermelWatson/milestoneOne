@@ -8,13 +8,13 @@ export function SendMail(email, emailSubject, emailBody) {
         secure: process.env.SECURE,
         requireTLS: true,
         auth: {
-            user: process.env.USER,
+            user: process.env.EMAIL,
             pass: process.env.PASS,
         },
     })
 
     const mailOption = {
-        from: process.env.SMTP_EMAIl,
+        from: process.env.EMAIL,
         to: email,
         subject: emailSubject,
         html: emailBody,
@@ -24,7 +24,7 @@ export function SendMail(email, emailSubject, emailBody) {
     console.log(mailOption);
     transport.sendMail(mailOption, function (err, result) {
         if (err) {
-            console.log(err.message);
+            console.log('MAIL NOT SENT',err.message);
         }
         else {
             console.log("Email sent sucvcessfully!");

@@ -1,14 +1,14 @@
 import { Router } from "express";
 import { connection } from "../database/database.js";
-import { ComparePasword, HashedPassword } from "../utils/helper.js";
 //import { SendMail } from "../utils/SendMail.js";
 const deleteUser = Router();
 
 deleteUser.delete("/delete", (req, res)=>{
     connection.execute(
-        "DELETE FROM `user_data` WHERE `user_data`.`id` = 48;",
+        "DELETE FROM user_data WHERE `user_data`.`id`=?",
         function(err, result){
             if(err){
+                console.log(res.body.id)
                 res.json(err.message)
             }
             else{

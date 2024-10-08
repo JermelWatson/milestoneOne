@@ -2,13 +2,14 @@ import React from "react";
 import {BiCog, BiHome, BiMale, BiPowerOff, } from 'react-icons/bi';
 import { useState } from "react";
 import './Sidebar.css'
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     return (
     <>
     <div>
         <div className="menu">
-            <h2>Dashboard</h2>
+            <h2 className="dash-head">Dashboard</h2>
         <div className="menu-list">
             <a href="#" className="item">
                 <BiHome className="icon"/>
@@ -27,7 +28,7 @@ const Sidebar = () => {
 
             <a href="#" className="item">
                 <BiPowerOff className="icon"/>
-                Sign out
+                <Link to="/login" type="submit" className="sign-out">Sign out</Link>
             </a>
         </div>
     </div>

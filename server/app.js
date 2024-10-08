@@ -8,6 +8,7 @@ import login from "./routes/login.js";
 import signin from "./routes/signin.js";
 import update from "./routes/update.js";
 import deleteUser from "./routes/delete.js";
+import signinHelper from "./routes/signinHelper.js";
 const app = express();
 const port = 3000;
 
@@ -22,11 +23,33 @@ app.use('/',user);
 
 app.use('/', login);
 
+const checkEmail = function(req, res, next){
+    app.get("/", (req, res) => {
+    connection.execute("select * from user_data", function (err, result) {
+      if (err) {
+        res.json(err.message);
+        console.log(err)
+      } else {
+        res.json({
+          status: 200,
+          message: "Response from checker get api",
+          data: result,
+        });
+      }
+    });
+  });
+  console.log(res.json);
+  next()
+}
+app.use(checkEmail)
+
 app.use('/', signin)
 
 app.use('/', update)
 
 app.use('/', deleteUser)
+
+app.use('/', signinHelper)
 
 
 
