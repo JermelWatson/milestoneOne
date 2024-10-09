@@ -3,13 +3,13 @@ import { createTransport } from "nodemailer";
 
 export function SendMail(email, emailSubject, emailBody) {
     const transport = createTransport({
-        host: process.env.HOST,
-        port: process.env.EMAIL_PORT,
-        secure: process.env.SECURE,
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
         requireTLS: true,
         auth: {
-            user: process.env.EMAIL,
-            pass: process.env.PASS,
+            user: 'jermel.watson26@gmail.com',
+            pass: 'nqax mbno wmdq kjnc',
         },
     })
 
@@ -17,17 +17,14 @@ export function SendMail(email, emailSubject, emailBody) {
         from: process.env.EMAIL,
         to: email,
         subject: emailSubject,
-        html: emailBody,
+        text: `Your verification code is: ${emailBody}`,
     };
-
-
-    console.log(mailOption);
     transport.sendMail(mailOption, function (err, result) {
         if (err) {
             console.log('MAIL NOT SENT',err.message);
         }
         else {
-            console.log("Email sent sucvcessfully!");
+            console.log("Email sent sucvcessfully!"+ result.response);
         }
     })
 

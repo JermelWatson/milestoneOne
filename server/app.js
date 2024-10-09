@@ -9,6 +9,8 @@ import signin from "./routes/signin.js";
 import update from "./routes/update.js";
 import deleteUser from "./routes/delete.js";
 import signinHelper from "./routes/signinHelper.js";
+import forgotPassword from "./routes/forgotPassword.js";
+import verify from "./routes/verify.js";
 const app = express();
 const port = 3000;
 
@@ -50,6 +52,10 @@ app.use('/', update)
 app.use('/', deleteUser)
 
 app.use('/', signinHelper)
+
+app.use('/', forgotPassword)
+
+app.use('/', verify)
 
 
 

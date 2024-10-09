@@ -1,15 +1,18 @@
 import React from "react";
 import {BiCog, BiHome, BiMale, BiPowerOff, } from 'react-icons/bi';
 import { useState } from "react";
-import './Sidebar.css'
+import './AdminView.css'
 import { Link } from "react-router-dom";
+import Content from "../dashboard/Content";
+import ContentHeader from "../dashboard/ContentHeader";
 
-const Sidebar = () => {
+
+const AdminView = () => {
     return (
     <>
-    <div>
+    <div className="sidebaer">
         <div className="menu">
-            <h2 className="dash-head">Dashboard</h2>
+            <h2 className="dash-head">Admin</h2>
         <div className="menu-list">
             <a href="#" className="item">
                 <BiHome className="icon"/>
@@ -33,8 +36,10 @@ const Sidebar = () => {
         </div>
     </div>
     </div>
+
+
     </>
     )
 }
 
-export default Sidebar;
+export default AdminView;

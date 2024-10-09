@@ -33,10 +33,10 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent page reload
-    const formBody = {
+    const formBody = JSON.stringify({
       email: email,
       password: password
-    };
+    });
 
     try {
       const result = await axios.post("http://localhost:3000/login", formBody, {
@@ -46,7 +46,6 @@ const Login = () => {
       });
 
       if (result.status === 200) {
-        console.log(formBody);
         navigate('/dashboard');
       } else {
         console.error("Login failed");
@@ -90,7 +89,7 @@ const Login = () => {
             <div className="btn"><button type="submit" className="loginBtn">Login</button></div>
     
           </div>
-          <p><a href="" className="href">Forgot password?</a></p>
+          <p><Link to="/forgot-password" className="href">Forgot password?</Link></p>
         </form>
         <div className="login">
           <p>Don't have an account?</p>

@@ -34,13 +34,12 @@ const Signup = () => {
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
     console.log(result);
-    console.log(email);
     setValidEmail(result);
   }, [email]);
   useEffect(() => {
     const result = PWD_REGEX.test(password);
     console.log(result);
-    console.log(password);
+
     setValidPassword(result);
     const match = password === matchPwd;
     setValidPassword(match);
@@ -53,6 +52,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
+    navigate('/verify')
     const v1 = EMAIL_REGEX.test(email);
     const v2 = PWD_REGEX.test(password);
 
@@ -60,7 +60,7 @@ const Signup = () => {
       setErrMsg("Invalid Entry");
       return;
     }
-    //fetchSignin;
+
     const formBody=JSON.stringify({
       first_name: first_name,
       last_name: last_name,
@@ -69,7 +69,7 @@ const Signup = () => {
       is_admin: false
     })
 
-    const result = await fetch("http://localhost:3000/signin", {
+    const result = await fetch("http://localhost:3000/signinHelper", {
       method: "POST",
       body:formBody,
       headers:{
@@ -79,14 +79,14 @@ const Signup = () => {
 
     if(result.ok){
       const data=result.json();
-      console.log(data)
+      navigate('/verify')
     }
-    navigate('/login')
   }
   return (
     <>
       <div className="signin-container">
         <form className="signup-form" onSubmit={handleSubmit}>
+        <div className="header">Course Advising</div>
         <div className="header">Sign up
         <div className="underline"></div>
         </div>
@@ -150,15 +150,13 @@ const Signup = () => {
               required
             />
             <button type="submit" className="signin-button">Sign up</button>
+            
           </div>
         </form>
         <div className="login">
             <p>Already have an account?</p>
             <Link to="/login" type="submit" className="login-button">Log in</Link>
         </div>
-        {
-          console.log(first_name,last_name,email,password)
-        }
       </div>
     </>
   );

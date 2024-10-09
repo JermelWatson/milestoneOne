@@ -6,23 +6,11 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from './Components/login/Login';
 import Dashboard from './Components/dashboard/Dashboard';
 import Delete from './Components/delete/Delete';
+import ForgotPassword from './Components/forgotPassword/ForgotPassword.jsx';
+import AdminView from './Components/adminView/AdminView.jsx';
+import Verify from './Components/verification/Verify.jsx';
 function App() {
 
-  //Login functionality
-  const [user, setUser] = useState([]);
-
-
-
-  const fetchUser = async () => {
-    const response =  await axios.get("http://localhost:3000/");
-    setUser(response)
-
-    console.log(response);
-  };
-
-  useEffect(()=>{
-    fetchUser();
-  },[]);
 
 const route = createBrowserRouter([
   {
@@ -42,8 +30,16 @@ const route = createBrowserRouter([
     element: <Delete />,
   },
   {
-    path: "/delete/:email",
-    element: <Login />,
+    path: "/forgot-password",
+    element: <ForgotPassword />
+  },
+  {
+    path: "/admin",
+    element: <AdminView />
+  },
+  {
+    path: "/verify",
+    element: <Verify />
   }
 ])
   return (

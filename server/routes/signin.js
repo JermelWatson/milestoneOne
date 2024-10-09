@@ -1,11 +1,47 @@
-import { Router } from "express";
+import { response, Router } from "express";
 import { connection } from "../database/database.js";
 import { HashedPassword } from "../utils/helper.js";
+import verify from "./verify.js";
 const signin = Router();
 
-signin.post("/signin", (req, res) => {
+const sendVerificationCode = async (email) => {
+  try {
+    const formBody = JSON.stringify({
+      email: email
+    })
+    const response = await fetch('/signinHelper', {
+      method: "POST",
+      body: formBody,
+      headers:{
+        'content-type':'application/json'
+      }
+    });
+  } catch (error) {
+    console.error('Error sending verification code:', error);
+  }
+};
 
+signin.post("/signin", (req, res) => {
     const hashedPassword = HashedPassword(req.body.password)
+
+    sendVerificationCode(req.body.email)
+
+    connection.execute(
+      "Select token from user_data WHERE email=?",[req.body.email],
+      function(err, result){
+          if (err){
+              res.json("Incorrect code",err.message)
+              return;
+          }
+          if (result.ok){
+              res.json({
+                  status: "200",
+                  message: "Verification successful",
+                  data: result
+              })
+          }
+      }
+  );
 
     connection.execute(
       "INSERT INTO user_data (`first_name`, `last_name`, `email`,`password`, `is_admin`) Values(?,?,?,?,?)",
