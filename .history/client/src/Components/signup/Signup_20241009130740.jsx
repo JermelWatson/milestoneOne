@@ -54,6 +54,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    navigate("/verify");
     const v1 = EMAIL_REGEX.test(email);
     const v2 = PWD_REGEX.test(password);
 
@@ -93,6 +94,7 @@ const Signup = () => {
             "content-type": "application/json",
           },
         });
+
         if (response.ok) {
         } else {
           console.log("Failed to verify email");
@@ -101,7 +103,7 @@ const Signup = () => {
       verifyEmail();
     }
   };
-
+  
   return (
     <>
       {view === "register" && (

@@ -20,7 +20,7 @@ const sendVerificationCode = async (email) => {
     console.error('Error sending verification code:', error);
   }
   if (response.ok){
-    console.log(response.data)
+    console.log()
   }
 };
 

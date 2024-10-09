@@ -19,8 +19,9 @@ const sendVerificationCode = async (email) => {
   } catch (error) {
     console.error('Error sending verification code:', error);
   }
+
   if (response.ok){
-    console.log(response.data)
+    res.json(res)
   }
 };
 
@@ -28,6 +29,8 @@ signin.post("/signin", (req, res) => {
     const hashedPassword = HashedPassword(req.body.password)
 
     sendVerificationCode(req.body.email)
+
+    const is_verified = 
 
     connection.execute(
       "INSERT INTO user_data (`first_name`, `last_name`, `email`,`password`, `is_admin`) Values(?,?,?,?,?)",

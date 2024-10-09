@@ -19,9 +19,7 @@ const sendVerificationCode = async (email) => {
   } catch (error) {
     console.error('Error sending verification code:', error);
   }
-  if (response.ok){
-    console.log(response.data)
-  }
+  if (response.ok)
 };
 
 signin.post("/signin", (req, res) => {

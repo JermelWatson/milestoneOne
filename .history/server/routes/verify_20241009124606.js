@@ -2,7 +2,7 @@ import { Router } from "express";
 import { connection } from "../database/database.js";
 const verify = Router();
 
-verify.post('/verify', (req, res) => {
+verify.post('/verify',)
   connection.execute(
     "Select token from user_data WHERE email=?",[req.body.email],
     function(err, result){
@@ -19,6 +19,5 @@ verify.post('/verify', (req, res) => {
         }
     }
   );
-})
 
 export default verify

@@ -19,6 +19,5 @@ verify.post('/verify', (req, res) => {
         }
     }
   );
-})
 
 export default verify

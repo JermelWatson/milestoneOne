@@ -19,15 +19,29 @@ const sendVerificationCode = async (email) => {
   } catch (error) {
     console.error('Error sending verification code:', error);
   }
-  if (response.ok){
-    console.log(response.data)
-  }
 };
 
 signin.post("/signin", (req, res) => {
     const hashedPassword = HashedPassword(req.body.password)
 
     sendVerificationCode(req.body.email)
+
+    connection.execute(
+      "Select token from user_data WHERE email=?",[req.body.email],
+      function(err, result){
+          if (err){
+              res.json("Incorrect code",err.message)
+              return;
+          }
+          if (result.ok){
+              res.json({
+                  status: "200",
+                  message: "Verification successful",
+                  data: result
+              })
+          }
+      }
+  );
 
     connection.execute(
       "INSERT INTO user_data (`first_name`, `last_name`, `email`,`password`, `is_admin`) Values(?,?,?,?,?)",

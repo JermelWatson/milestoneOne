@@ -54,6 +54,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    navigate("/verify");
     const v1 = EMAIL_REGEX.test(email);
     const v2 = PWD_REGEX.test(password);
 
