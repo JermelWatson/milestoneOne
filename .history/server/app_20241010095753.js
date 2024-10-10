@@ -27,6 +27,26 @@ app.use('/',user);
 
 app.use('/', login);
 
+const checkEmail = function(req, res, next){
+    app.get("/", (req, res) => {
+    connection.execute("select * from user_data", function (err, result) {
+      if (err) {
+        res.json(err.message);
+        console.log(err)
+      } else {
+        res.json({
+          status: 200,
+          message: "Response from checker get api",
+          data: result,
+        });
+      }
+    });
+  });
+  console.log(res.json);
+  next()
+}
+app.use(checkEmail)
+
 app.use('/', signin)
 
 app.use('/', update)
@@ -41,7 +61,7 @@ app.use('/', verify)
 
 app.use('/', testEmail)
 
-app.use('/', addUser)
+app.use('/',addUser)
 
 
 

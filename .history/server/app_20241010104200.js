@@ -12,7 +12,6 @@ import signinHelper from "./routes/signinHelper.js";
 import forgotPassword from "./routes/forgotPassword.js";
 import verify from "./routes/verify.js";
 import testEmail from "./routes/testEmail.js";
-import addUser from "./routes/addUser.js";
 const app = express();
 const port = 3000;
 
