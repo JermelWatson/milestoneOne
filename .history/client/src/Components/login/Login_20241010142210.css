@@ -1,0 +1,92 @@
+.login-button{
+    color: white;
+}
+p{
+    padding: 20px;
+}
+.signup-form{
+    margin: 25px auto;
+    width: 40%;
+    background-color: aliceblue;
+    padding: 20px;
+    border-radius: 25px;
+    box-shadow: 1px 1px 9px rgba(0,0,0,0.065);
+}
+
+
+.header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    font-size: px;
+    color: rgb(0,0,0);
+    font-weight: 750;
+    text-transform: uppercase;
+}
+
+.underline{
+    width: 100px;
+    height: 12px;
+    background: rgb(0,0,0);
+    border-radius: 10px;
+    align-items: center;
+    padding-left: 50px;
+}
+
+.input-fields{
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    gap: 12px;
+    
+}
+
+.input-fields .input{
+    display: flex;
+    width: 300px;
+    height: 55px;
+    margin: auto;
+    align-items: center;
+    background: #ffff;
+    border: none;
+    border-radius: 10px;
+    padding-left: 24px;
+    color: black;
+    
+}
+
+form .loginBtn{
+    margin-top: 10px;
+    background-color: rgb(8, 161, 8);
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    width: 150px;
+    text-decoration: none;
+    color: white;
+    font-weight: bolder;
+    align-items: center;
+    padding: 12px;
+}
+
+
+.login{
+    margin-top: 10px;
+    text-align: center;
+}
+
+.login .signinBtn{
+    margin: 20px auto;
+    background-color: rgb(39, 121, 220);
+    border-radius: 10px;
+    border: none;
+    padding: 15px;
+    font-size: 20px;
+    align-self: center;
+    font-weight: bolder;
+    text-decoration: none;
+    color: white;
+    width: 150px;
+}
