@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import React from "react";
 import "./ForgotPassword.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const EMAIL_REGEX = /^[^\s@]+@[^s@]+\.[^\s@]+$/;
@@ -11,10 +12,9 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
-  const [view, setView] = useState("forgot");  // Initial view set to "forgot"
-  const [code, setCode] = useState("");        // Initialize with an empty string for code
+  const [view, setView] = useState("forgot");
+  const [code, setCode] = useState("verify");
 
-  // Validate email on change
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
     setValidEmail(result);
@@ -22,7 +22,6 @@ const ForgotPassword = () => {
 
   const navigate = useNavigate();
 
-  // Handle verification code submission
   const handleVerify = async (e) => {
     e.preventDefault(); // Prevent form submission reload
 
@@ -42,29 +41,23 @@ const ForgotPassword = () => {
 
       if (response.ok) {
         const result = await response.json(); // Parse the response body
-
-        if (result.status === 200) {
-          // Check if the user is admin or not
-          console.log(result.data)
-          if (result.data[0].is_admin === 1) {
+        if (result.data && result.data[0].token === code) {
+          if (result.data && result.data[0].is === code) {
             console.log("IS ADMIN USER");
             navigate("/admin");
           } else {
             console.log("IS NORMAL USER");
             navigate("/dashboard");
           }
-        } else {
-          console.error("Verification failed: Invalid code or no token found.");
         }
       } else {
-        console.error("Failed to verify email");
+        console.log("Failed to verify email");
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
-  // Handle forgot password email submission
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent page reload
 
@@ -72,28 +65,21 @@ const ForgotPassword = () => {
       email: email,
     });
 
-    try {
-      const result = await fetch("http://localhost:3000/forgot-password", {
-        method: "POST",
-        body: formBody,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (result.ok) {
-        setView("verify");  // Switch to the verification view
-      } else {
-        console.error("Verification failed: Unable to send verification code.");
-      }
-    } catch (error) {
-      console.error("Error during request:", error);
+    const result = await fetch("http://localhost:3000/forgot-password", {
+      method: "POST",
+      body: formBody,
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    if (result.status === 200) {
+      setView("verify");
+    } else {
+      console.error("verificatiion failed");
     }
   };
-
   return (
     <>
-      {/* Forgot Password View */}
       {view === "forgot" && (
         <div className="signin-container">
           <form className="signup-form" onSubmit={handleLogin}>
@@ -129,7 +115,6 @@ const ForgotPassword = () => {
         </div>
       )}
 
-      {/* Verification Code View */}
       {view === "verify" && (
         <div className="signin-container">
           <form className="signup-form" onSubmit={handleVerify}>
@@ -140,11 +125,11 @@ const ForgotPassword = () => {
               <input
                 type="text"
                 className="input"
-                value={code} // Bind the code value to the state
+                value={code} // Correctly bind the value
                 id="code"
                 autoComplete="off"
                 placeholder="Enter code"
-                onChange={(e) => setCode(e.target.value)} // Update the code state on input
+                onChange={(e) => setCode(e.target.value)} // Update the state
                 required
               />
               <div className="btn">

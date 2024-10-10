@@ -45,7 +45,6 @@ const ForgotPassword = () => {
 
         if (result.status === 200) {
           // Check if the user is admin or not
-          console.log(result.data)
           if (result.data[0].is_admin === 1) {
             console.log("IS ADMIN USER");
             navigate("/admin");

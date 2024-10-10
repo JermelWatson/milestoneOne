@@ -43,9 +43,8 @@ const ForgotPassword = () => {
       if (response.ok) {
         const result = await response.json(); // Parse the response body
 
-        if (result.status === 200) {
+        if (result.data && result.data[0].token === code) {
           // Check if the user is admin or not
-          console.log(result.data)
           if (result.data[0].is_admin === 1) {
             console.log("IS ADMIN USER");
             navigate("/admin");

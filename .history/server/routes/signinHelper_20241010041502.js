@@ -15,9 +15,6 @@ signinHelper.post("/signinHelper", (req, res) => {
                 res.json({ status: "500", message: "Database error", error: err.message });
                 return;
             }
-            
-            //Send verification email
-            SendMail(req.body.email, "Login Verification", verification_code);
                return res.json({
                 status: "200",
                 message: "Verification code sent to email",
