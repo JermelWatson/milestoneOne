@@ -9,8 +9,6 @@ const ProfileHeader =() => {
                 <h2 className="profile-title">Profile</h2>
                 <div className="edit">
                     <BiEdit className="icon"/>
-                    
-
                 </div>
             </div>
         </>

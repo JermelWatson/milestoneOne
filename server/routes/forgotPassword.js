@@ -36,7 +36,6 @@ forgotPassword.post("/forgot-password", (req, res) => {
           message: "User has logged in",
           data: result,
         });
-        console.log(result);
       }
     }
   );

@@ -10,6 +10,10 @@ import ForgotPassword from "./Components/forgotPassword/ForgotPassword.jsx";
 import AdminView from "./Components/adminView/AdminView.jsx";
 import { UserProvider } from "./Components/UserContext.jsx";
 import MyAccount from "./Components/dashboard/MyAccount.jsx";
+import ApproveCourses from "./Components/adminView/ApproveCourses.jsx";
+import SelectPrereqs from "./Components/adminView/SelectPrereqs.jsx";
+import CourseAdvisingForm from "./Components/courseAdvising/CourseAdvisingForm.jsx";
+import CourseAdvisingHistory from "./Components/courseAdvising/CourseAdvisingHistory.jsx";
 function App() {
   const route = createBrowserRouter([
     {
@@ -39,15 +43,31 @@ function App() {
     {
       path: "/my-account",
       element: <MyAccount />,
+    },
+    {
+      path: "/approve_courses",
+      element: <ApproveCourses/>,
+    },
+    {
+      path: "/select_prereqs",
+      element: <SelectPrereqs/>
+    },
+    {
+      path: "/course_Advising_form",
+      element: <CourseAdvisingForm/>,
+    },
+    {
+      path: "/course_Advising_history",
+      element: <CourseAdvisingHistory/>
     }
   ]);
   return (
     <>
-      <UserProvider>
-        <div>
+      <div>
+        <UserProvider>
           <RouterProvider router={route}></RouterProvider>
-        </div>
-      </UserProvider>
+        </UserProvider>
+      </div>
     </>
   );
 }

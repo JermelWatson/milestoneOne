@@ -1,0 +1,5 @@
+Use recapture 2.0 for demnp
+
+import REACPTCHA from {react}
+
+put icon in public file

@@ -3,7 +3,7 @@
 
 }
 .content{
-    width: 75%;
+    width:75%;
 }
 
 .content-header{
@@ -14,6 +14,7 @@
 
 .header-title{
     color: #000000;
+    
 }
 
 .header-activity{
@@ -71,4 +72,40 @@
     display: flex;
     gap: 20px;
     align-items: center;
+    margin-top: 2rem;
+}
+
+.card{
+    flex: 1;
+    background: #dde6ed;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    transform: 0.5s ease-in-out;
+
+}
+.card:hover{
+    transform: scale(1.04);
+}
+.card-cover{
+    background: #fff;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 20px;
+    color: #969393;
+}
+.card-title{
+    background: #ffffffc0;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #000000;
+    border-radius: 10px;
 }

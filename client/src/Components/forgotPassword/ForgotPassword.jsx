@@ -3,6 +3,7 @@ import React from "react";
 import "./ForgotPassword.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { BiArrowBack } from "react-icons/bi";
 
 const EMAIL_REGEX = /^[^\s@]+@[^s@]+\.[^\s@]+$/;
 
@@ -13,6 +14,10 @@ const ForgotPassword = () => {
   const [emailFocus, setEmailFocus] = useState(false);
   const [view, setView] = useState("forgot");  // Initial view set to "forgot"
   const [code, setCode] = useState("");        // Initialize with an empty string for code
+
+  const goBack = () => {
+    navigate(-1);
+};
 
   // Validate email on change
   useEffect(() => {
@@ -47,7 +52,7 @@ const ForgotPassword = () => {
           // Check if the user is admin or not
           if (result.data[0].is_admin === 1) {
             console.log("IS ADMIN USER");
-            navigate("/admin");
+            navigate("/my-account");
           } else {
             console.log("IS NORMAL USER");
             navigate("/my-account");
@@ -95,6 +100,9 @@ const ForgotPassword = () => {
       {/* Forgot Password View */}
       {view === "forgot" && (
         <div className="signin-container">
+        <button onClick={goBack}>
+                <BiArrowBack /> Back
+            </button>
           <form className="signup-form" onSubmit={handleLogin}>
             <div className="forgot-password">Enter existing email address</div>
             <div className="input-fields">

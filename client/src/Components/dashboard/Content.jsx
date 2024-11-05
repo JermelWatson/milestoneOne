@@ -10,6 +10,7 @@ const Content = () => {
         <div className="content">
             <ContentHeader />
             <Card />
+            
         </div>
     )
 }

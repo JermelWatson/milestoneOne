@@ -58,10 +58,9 @@ const Login = () => {
           user_id: result.data[0].id,
           first_name: result.data[0].first_name, 
           last_name: result.data[0].last_name,
-          email: 'jane.doe@example.com' 
+          email: result.data[0].email 
         }; // Retrieved from API
         setUser(user); 
-        console.log(user)
         if (result.data && result.data[0].is_admin === 1) {
           console.log("IS ADMIN USER");
           navigate("/admin");

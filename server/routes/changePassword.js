@@ -18,7 +18,7 @@ changePassword.put("/change-password", (req, res)=>{
             else{
                 res.json({
                     status: 200,
-                    message: "changed Passwordd user info updataed",
+                    message: "changed Password user info updated",
                     data:result,
                 });
             }

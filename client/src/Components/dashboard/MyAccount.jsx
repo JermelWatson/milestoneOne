@@ -6,6 +6,7 @@ import axios from "axios";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
 import Profile from "./Profile";
+import { BiArrowBack } from "react-icons/bi";
 
 
 const MyAccount = () => {
@@ -15,6 +16,11 @@ const MyAccount = () => {
   const [oldPassword, setOldPassword] = useState();
   const [newPassword, setNewPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+
+
+  const goBack = () => {
+    navigate(-1);
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,6 +57,9 @@ const MyAccount = () => {
 
   return (
     <>
+    <button onClick={goBack}>
+                <BiArrowBack /> Back
+            </button>
       <div className="signin-container">
         <form className="signup-form" onSubmit={handleSubmit}>
           <div className="header">

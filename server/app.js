@@ -14,6 +14,11 @@ import verify from "./routes/verify.js";
 import testEmail from "./routes/testEmail.js";
 import addUser from "./routes/addUser.js";
 import changePassword from "./routes/changePassword.js";
+import select_prereqs from "./routes/selectPrereqs.js";
+import update_prereqs from "./routes/update_prereqs.js";
+import create_record from "./routes/create_record.js";
+import add_prereqs from "./routes/addPrereqs.js";
+import add_courses from "./routes/addCourses.js";
 const app = express();
 const port = 3000;
 
@@ -45,6 +50,16 @@ app.use('/', testEmail)
 app.use('/', addUser)
 
 app.use('/', changePassword)
+
+app.use('/', select_prereqs)
+
+app.use('/', update_prereqs)
+
+app.use('/', create_record)
+
+app.use('/', add_prereqs)
+
+app.use('/', add_courses)
 
 
 
