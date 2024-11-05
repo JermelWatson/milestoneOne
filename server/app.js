@@ -19,6 +19,7 @@ import update_prereqs from "./routes/update_prereqs.js";
 import create_record from "./routes/create_record.js";
 import add_prereqs from "./routes/addPrereqs.js";
 import add_courses from "./routes/addCourses.js";
+import record_id from "./routes/getRecordId.js";
 const app = express();
 const port = 3000;
 
@@ -60,6 +61,8 @@ app.use('/', create_record)
 app.use('/', add_prereqs)
 
 app.use('/', add_courses)
+
+app.use('/', record_id)
 
 
 

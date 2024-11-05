@@ -58,7 +58,7 @@ function CourseAdvisingForm() {
           if (response.ok) {
             const result = await response.json(); // Parse the response body
             console.log("Form submitted with no error")
-            console.log(result.data)
+            console.log(result)
         }
         else{
             console.log("Error occureed")
