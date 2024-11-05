@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { connection } from "../database/database.js";
-const record_id = Router();
+const advising_record = Router();
 
-record_id.get("/record_id", (req, res) => {
+advising_record.get("/advising_record", (req, res) => {
     connection.execute(
-        "SELECT * FROM `Records` ",
+        "SELECT Records.id AS record_id, Records.date, Records.status, Records.advising_term, user_data.first_name, user_data.last_name FROM Records JOIN  user_data ON Records.student_id = user_data.id;",
         function (err, result) {
             if (err) {
                 res.status(500).json({ 
@@ -14,7 +14,7 @@ record_id.get("/record_id", (req, res) => {
             } else {
                 res.status(200).json({
                     status: 200,
-                    message: "Successfully retrieved record id",
+                    message: "Successfully retrieved advising record id",
                     data: result,
                 });
             }
@@ -23,4 +23,4 @@ record_id.get("/record_id", (req, res) => {
     );
     return
 })
-export default record_id;
+export default advising_record;
