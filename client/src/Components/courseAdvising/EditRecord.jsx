@@ -11,6 +11,7 @@ function EditRecords() {
     const [advising_term, setAdvisingTerm] = useState();
     const [last_term, setLastTerm] = useState();
     const [lastGPA, setLastGPA] = useState();
+    const [record, setRecord] = useState({})
 
     const goBack = () => {
         navigate(-1);
@@ -30,10 +31,10 @@ function EditRecords() {
                         "content-type": "application/json",
                     },
                 });
-
                 if (response.ok) {
                     const result = await response.json();
-               
+                    console.log(result)
+                    setRecord(result.data[0])
                 } else {
                     console.log("Failed to fetch records:", response.statusText);
                 }
@@ -63,8 +64,8 @@ function EditRecords() {
                     const result = await response.json();
 
                     // Separate the records into prerequisites and course plan
-                    const prerequisites = result.data.filter(record => record.level < 300);
-                    const coursePlan = result.data.filter(record => record.level >= 300);
+                    const prerequisites = result.data.filter(record => record.level < 400);
+                    const coursePlan = result.data.filter(record => record.level >= 390);
 
                     setPrerequisites(prerequisites);
                     setCoursePlan(coursePlan);
@@ -98,8 +99,7 @@ function EditRecords() {
                     <input 
                         type="text" 
                         name="lastTerm" 
-                        onChange={(e) => setLastTerm(e.target.value)}
-                        required
+                        value={record.last_term}
                     />
                 </label>
                 <label>
@@ -108,8 +108,7 @@ function EditRecords() {
                         type="number" 
                         step="0.01" 
                         name="lastGPA" 
-                        onChange={(e) => setLastGPA(e.target.value)}
-                        required
+                        value = {record.last_gpa}
                     />
                 </label>
                 <label>
@@ -117,8 +116,7 @@ function EditRecords() {
                     <input 
                         type="text" 
                         name="advisingTerm" 
-                        onChange={(e) => setAdvisingTerm(e.target.value)}
-                        required
+                        value = {record.advising_term}
                     />
                 </label>
             </div>

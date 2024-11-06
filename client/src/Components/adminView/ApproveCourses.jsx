@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { BiArrowBack } from "react-icons/bi";
+import {openRecord} from "./OpenRecord";
 
 function ApproveCourses() {
   const [records, setRecords] = useState([]);
@@ -40,11 +41,33 @@ function ApproveCourses() {
   }, []);
 
   //open record for approval
-  const openRecord = async () => {
-    //get course ids and student id in an object.
+  // Function to create an object with data associated with a specific record_id
+  const sendRecord = (record_id) => {
+    // Find the record with the matching ID
+    const record = records.find((rec) => rec.id === record_id);
 
-  }
+    if (record) {
+      // Create an object with the specific data you want to use
+      const recordData = {
+        student_id: record.student_id,
+        studentName: `${record.first_name} ${record.last_name}`,
+        date: new Date(record.date).toLocaleDateString("en-US", {
+          month: "2-digit",
+          day: "2-digit",
+          year: "numeric",
+        }),
+        term: record.advising_term,
+        status: record.status,
+        // Add other fields as needed
+      };
 
+      console.log("Record data:", recordData);
+      return recordData; // Return the object if needed
+    } else {
+      console.error("Record not found for ID:", record_id);
+    }
+  };
+  
   return (
     <div>
       <button onClick={goBack}>
@@ -70,7 +93,7 @@ function ApproveCourses() {
             {records.map((record) => (
               <tr
                 key={record.id}
-                onClick={() => openRecord}
+                onClick={() => openRecord(sendRecord(record.id))}
                 style={{ cursor: "pointer" }}
               >
                  <td>{record.first_name} {record.last_name}</td>

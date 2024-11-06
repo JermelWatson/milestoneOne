@@ -33,5 +33,4 @@ user.post("/", (req, res) => {
 
 
 
-
 export default user;
