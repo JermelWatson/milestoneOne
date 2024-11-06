@@ -3,10 +3,12 @@
 
 /* General container styles */
 .signin-container {
-  background-image: url('/oduwall.png'); /* Background image from public folder */
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
+  background-image: url('/oduwall.png');
+  background-size: cover;         
+  background-repeat: no-repeat;   
+  background-position: center;    
+  background-attachment: fixed;  
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,9 +33,13 @@
   align-items: center;
   margin-bottom: 20px;
 }
+img.logo{
+  width: 150px;
+  margin-bottom: 20px;
+}
 
 .header img.logo {
-  width: 80px; /* Logo size */
+  width: 20px; 
   margin-bottom: 10px;
 }
 
@@ -133,5 +139,10 @@
 
   .signin-button, .login-button, .signup-button {
     font-size: 14px;
+  }
+  
+  .return{
+    width: 50px;
+    padding: 18px;
   }
 }

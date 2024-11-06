@@ -3,12 +3,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BiArrowBack } from "react-icons/bi";
 
 
 const Verify = () => {
     const [code, setCode] = useState();
     
     const navigate = useNavigate();
+
+    const goBack = () => {
+      navigate(-1);
+  };
 
     const handleVerify = async (e) => {
     

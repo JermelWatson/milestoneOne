@@ -7,6 +7,8 @@ function ApproveCourses() {
   const [records, setRecords] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   const [error, setError] = useState(null); // Add error state
+  const [view, setView] = useState("all_records");
+  const [currentRecord, setCurrentRecord] = useState();
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -67,6 +69,10 @@ function ApproveCourses() {
       console.error("Record not found for ID:", record_id);
     }
   };
+  function setUp (record_id){
+    setView("single_record")
+    setCurrentRecord(record_id)
+  }
   
   return (
     <div>
@@ -75,11 +81,8 @@ function ApproveCourses() {
       </button>
       <h1>Course Advising History</h1>
       
-      {isLoading ? (
-        <p>Loading records...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : records.length > 0 ? (
+      {view === "all_records" && (
+        records.length > 0 ? (
         <table>
           <thead>
             <tr>
@@ -93,7 +96,7 @@ function ApproveCourses() {
             {records.map((record) => (
               <tr
                 key={record.id}
-                onClick={() => openRecord(sendRecord(record.id))}
+                onClick={() => setUp()}
                 style={{ cursor: "pointer" }}
               >
                  <td>{record.first_name} {record.last_name}</td>
@@ -106,7 +109,64 @@ function ApproveCourses() {
         </table>
       ) : (
         <p>No records available. Start by creating a new record.</p>
-      )}
+      ))}
+
+      {
+        view === "single_record" &&(
+          <div>
+          <div>
+                <h2>History</h2>
+                <label>
+                    Last Term:
+                    <input 
+                        type="text" 
+                        name="lastTerm" 
+                        value={record.last_term}
+                    />
+                </label>
+                <label>
+                    Last GPA:
+                    <input 
+                        type="number" 
+                        step="0.01" 
+                        name="lastGPA" 
+                        value = {record.last_gpa}
+                    />
+                </label>
+                <label>
+                    Advising Term:
+                    <input 
+                        type="text" 
+                        name="advisingTerm" 
+                        value = {record.advising_term}
+                    />
+                </label>
+            </div>
+
+            <div>
+                <h2>Prerequisites</h2>
+                <ul>
+                    {prerequisites.map((course, index) => (
+                        <li key={index}>
+                            <strong>Course Name:</strong> {course.course} | <strong>Level:</strong> {course.level}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <div>
+                <h2>Course Plan</h2>
+                <ul>
+                    {coursePlan.map((course, index) => (
+                        <li key={index}>
+                            <strong>Course Name:</strong> {course.course} | <strong>Level:</strong> {course.level}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+          </div>
+        )
+      }
     </div>
   );
 }

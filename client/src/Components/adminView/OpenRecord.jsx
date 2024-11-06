@@ -41,4 +41,66 @@ export function openRecord(record){
           }
         }
         fetchCourses();  
+
+        return (
+            <form onSubmit={handleSubmit}>
+                <button onClick={goBack}>
+                    <BiArrowBack /> Back
+                </button>
+                <h1>Course Advising Form</h1>
+                <div>
+                    <h2>History</h2>
+                    <label>
+                        Last Term:
+                        <input 
+                            type="text" 
+                            name="lastTerm" 
+                            value={record.last_term}
+                        />
+                    </label>
+                    <label>
+                        Last GPA:
+                        <input 
+                            type="number" 
+                            step="0.01" 
+                            name="lastGPA" 
+                            value = {record.last_gpa}
+                        />
+                    </label>
+                    <label>
+                        Advising Term:
+                        <input 
+                            type="text" 
+                            name="advisingTerm" 
+                            value = {record.advising_term}
+                        />
+                    </label>
+                </div>
+    
+                <div>
+                    <h2>Prerequisites</h2>
+                    <ul>
+                        {prerequisites.map((course, index) => (
+                            <li key={index}>
+                                <strong>Course Name:</strong> {course.course} | <strong>Level:</strong> {course.level}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+    
+                <div>
+                    <h2>Course Plan</h2>
+                    <ul>
+                        {coursePlan.map((course, index) => (
+                            <li key={index}>
+                                <strong>Course Name:</strong> {course.course} | <strong>Level:</strong> {course.level}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+    
+                <button type="submit">Submit</button>
+            </form>
+        );
+    
   }

@@ -206,13 +206,14 @@ const Signup = () => {
                 Sign up
               </button>
             </div>
-          </form>
-          <div className="login">
-            <p>Already have an account?</p>
+            <div className="login">
+            <p class="acc">Already have an account?</p>
             <Link to="/login" type="submit" className="login-button">
               Log in
             </Link>
           </div>
+          </form>
+          
         </div>
       )}
 
@@ -238,6 +239,11 @@ const Signup = () => {
                   Enter
                 </button>
               </div>
+            </div>
+            <div>
+               <button width="100px"  onClick={() => setView("login")}>
+               Back
+               </button> 
             </div>
           </form>
         </div>
