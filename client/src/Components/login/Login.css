@@ -1,92 +1,137 @@
-.login-button{
-    color: white;
+/* Import a clean and modern font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* General container styles */
+.signin-container {
+  background-image: url('/oduwall.png'); /* Background image from public folder */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto', sans-serif; /* Font family for the entire page */
 }
-p{
+
+/* Form container styling */
+.signup-form, .login-form {
+  width: 500px;
+  background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent background */
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header img.logo {
+  width: 80px; /* Logo size */
+  margin-bottom: 10px;
+}
+
+.header div {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.underline {
+  width: 60px;
+  height: 3px;
+  background: #333;
+  border-radius: 5px;
+  margin: 8px 0;
+}
+
+/* Input field styles */
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input:focus {
+  border-color: #2979ff; /* Blue border on focus */
+}
+
+/* Button styles */
+.signin-button, .login-button, .signup-button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  background-color: #2979ff; /* Main blue color */
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.signin-button:hover, .login-button:hover, .signup-button:hover {
+  transform: scale(1.05); /* Button hover effect */
+  background-color: #1b5cb8; /* Darker blue on hover */
+}
+
+/* Error message styling */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+/* Option to toggle between sign up and log in */
+.signup-option, .login-option {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+.signup-option p, .login-option p {
+  margin: 0;
+  color: #333;
+}
+
+.signup-button, .login-button {
+  background-color: #bcbcbc; /* Orange color for the toggle buttons */
+}
+
+.signup-button:hover, .login-button:hover {
+  background-color: #0032e5; /* Darker orange on hover */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 500px) {
+  .signup-form, .login-form {
+    width: 90%;
     padding: 20px;
-}
-.signup-form{
-    margin: 25px auto;
-    width: 40%;
-    background-color: aliceblue;
-    padding: 20px;
-    border-radius: 25px;
-    box-shadow: 1px 1px 9px rgba(0,0,0,0.065);
-}
+  }
 
+  .input {
+    font-size: 14px;
+  }
 
-.header{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    font-size: 25px;
-    color: rgb(0,0,0);
-    font-weight: 750;
-    text-transform: uppercase;
-}
-
-.underline{
-    width: 100px;
-    height: 12px;
-    background: rgb(0,0,0);
-    border-radius: 10px;
-    align-items: center;
-    padding-left: 50px;
-}
-
-.input-fields{
-    display: flex;
-    flex-direction: column;
-    margin-top: 40px;
-    gap: 12px;
-    
-}
-
-.input-fields .input{
-    display: flex;
-    width: 300px;
-    height: 55px;
-    margin: auto;
-    align-items: center;
-    background: #ffff;
-    border: none;
-    border-radius: 10px;
-    padding-left: 24px;
-    color: black;
-    
-}
-
-form .loginBtn{
-    margin-top: 10px;
-    background-color: rgb(8, 161, 8);
-    border-radius: 10px;
-    border: none;
-    font-size: 20px;
-    width: 150px;
-    text-decoration: none;
-    color: white;
-    font-weight: bolder;
-    align-items: center;
-    padding: 12px;
-}
-
-
-.login{
-    margin-top: 10px;
-    text-align: center;
-}
-
-.login .signinBtn{
-    margin: 20px auto;
-    background-color: rgb(39, 121, 220);
-    border-radius: 10px;
-    border: none;
-    padding: 15px;
-    font-size: 20px;
-    align-self: center;
-    font-weight: bolder;
-    text-decoration: none;
-    color: white;
-    width: 150px;
+  .signin-button, .login-button, .signup-button {
+    font-size: 14px;
+  }
 }

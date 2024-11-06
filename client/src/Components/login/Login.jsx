@@ -1,196 +1,224 @@
 import { useRef, useState, useEffect } from "react";
 import React from "react";
-import "./Login.css";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { UserContext } from "../UserContext";
-import { useContext } from 'react';
-
+import "./login.css";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const EMAIL_REGEX = /^[^\s@]+@[^s@]+\.[^\s@]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-const Login = () => {
+const Signup = () => {
+  const navigate = useNavigate();
   const emailRef = useRef();
-  const [email, setEmail] = useState("");
+  const errRef = useRef();
+
+  // input state variables
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [errMsg, setErrMsg] = useState();
+  const [view, setView] = useState("login"); // Default to "login" view
+
+  // Signup-specific state variables
+  const [first_name, setFirstName] = useState();
+  const [last_name, setLastName] = useState();
+  const [matchPwd, setMatchPwd] = useState();
   const [validEmail, setValidEmail] = useState(false);
-  const [emailFocus, setEmailFocus] = useState(false);
-  const [view, setView] = useState("login");
-  const [code, setCode] = useState("");
+  const [validPassword, setValidPassword] = useState(false);
+  const [validMatchPwd, setValidMatchPwd] = useState(false);
 
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
     setValidEmail(result);
   }, [email]);
 
-  const [password, setPassword] = useState("");
-  const [validPassword, setValidPassword] = useState(false);
-  const [passwordFocus, setPasswordFocus] = useState(false);
-
   useEffect(() => {
     const result = PWD_REGEX.test(password);
     setValidPassword(result);
-  }, [password]);
+    const match = password === matchPwd;
+    setValidMatchPwd(match);
+  }, [password, matchPwd]);
 
-  const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  useEffect(() => {
+    setErrMsg("");
+  }, [email, password, matchPwd]);
 
-  const handleVerify = async (e) => {
-    e.preventDefault(); // Prevent form submission reload
-    
-    const verifyBody = JSON.stringify({
+  // Handle sign-up submission
+  const handleSignUpSubmit = async (e) => {
+    e.preventDefault();
+    const v1 = EMAIL_REGEX.test(email);
+    const v2 = PWD_REGEX.test(password);
+
+    if (!v1 || !v2) {
+      setErrMsg("Invalid Entry");
+      return;
+    }
+
+    const formBody = JSON.stringify({
+      first_name: first_name,
+      last_name: last_name,
       email: email,
-      code: code,
+      password: password,
+      is_admin: false,
+      token: 0,
     });
 
     try {
-      const response = await fetch("http://localhost:3000/verify", {
+      const test_email = await fetch("http://localhost:3000/test-email", {
         method: "POST",
-        body: verifyBody,
+        body: formBody,
         headers: {
-          "Content-Type": "application/json",
+          "content-type": "application/json",
         },
       });
 
-      if (response.ok) {
-        const result = await response.json(); // Parse the response body
-        const user = { 
-          user_id: result.data[0].id,
-          first_name: result.data[0].first_name, 
-          last_name: result.data[0].last_name,
-          email: result.data[0].email 
-        }; // Retrieved from API
-        setUser(user); 
-        if (result.data && result.data[0].is_admin === 1) {
-          console.log("IS ADMIN USER");
-          navigate("/admin");
+      if (test_email.status === 200) {
+        const response = await test_email.json();
+        if (response.data.length > 0) {
+          alert("Email already in use");
         } else {
-          console.log("IS NORMAL USER");
-          navigate("/dashboard");
+          const result = await fetch("http://localhost:3000/signin", {
+            method: "POST",
+            body: formBody,
+            headers: {
+              "content-type": "application/json",
+            },
+          });
+          if (result.ok) {
+            navigate("/login");
+          }
         }
-      } else {
-        console.log("Failed to verify email");
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error during sign up:", error);
+      setErrMsg("Signup failed");
     }
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault(); // Prevent page reload
-    const formBody = JSON.stringify({
-      email: email,
-      password: password,
-    });
-
-    try {
-      const result = await axios.post("http://localhost:3000/login", formBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (result.status === 200) {
-        if (result.data.status === 400) {
-          alert("Password is incorrect");
-        } else {
-          setView("verify");
-        }
-      } else {
-        console.error("Login failed");
-      }
-    } catch (error) {
-      alert("User does not exist. Please Sign up")
-      console.error("Error:", error);
-    }
+  // Handle login submission
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    // Handle login logic here
+    console.log("Login submitted");
   };
 
   return (
-    <>
-      {view === "login" && (
-        <div className="signin-container">
-          <form className="signup-form" onSubmit={handleLogin}>
-            <div className="header">
-            <div>CSWEB - 518</div>
-            <div>COURSE PORTAL</div>
-              <div>LOG IN</div>
-              <div className="underline"></div>
-            </div>
-            <div className="input-fields">
-              <input
-                type="email"
-                className="input"
-                ref={emailRef}
-                id="email"
-                autoComplete="off"
-                placeholder="Enter email@example.com"
-                onChange={(e) => setEmail(e.target.value)}
-                onFocus={() => setEmailFocus(true)}
-                onBlur={() => setEmailFocus(false)}
-                required
-              />
-              <input
-                type="password"
-                className="input"
-                id="password"
-                autoComplete="off"
-                placeholder="Enter Password"
-                onChange={(e) => setPassword(e.target.value)}
-                onFocus={() => setPasswordFocus(true)}
-                onBlur={() => setPasswordFocus(false)}
-                required
-              />
-              <div className="btn">
-                <button type="submit" className="loginBtn">
-                  Login
-                </button>
-              </div>
-            </div>
-            <p>
-              <Link to="/forgot-password" className="href">
-                Forgot password?
-              </Link>
-            </p>
-          </form>
-          <div className="login">
-            <p>Don't have an account?</p>
-            <div>
-              <Link to="/" className="signinBtn">
-                Sign up
-              </Link>
-            </div>
+    <div className="signin-container">
+      {view === "login" ? (
+        <form className="login-form" onSubmit={handleLoginSubmit}>
+          <div className="header">
+            <img src="/odulogo.png" alt="Course Portal Logo" className="logo" />
+            <div>Course Portal</div>
+            <div className="underline"></div>
           </div>
-        </div>
-      )}
 
-      {view === "verify" && (
-        <div className="signin-container">
-          <form className="signup-form" onSubmit={handleVerify}>
-            <div className="forgot-password">
-              Enter verification code below:
-            </div>
-            <div className="input-fields">
-              <input
-                type="text"
-                className="input"
-                value={code}  // Correctly bind the value
-                id="code"
-                autoComplete="off"
-                placeholder="Enter code"
-                onChange={(e) => setCode(e.target.value)}  // Update the state
-                required
-              />
-              <div className="btn">
-                <button type="submit" className="sendBtn">
-                  Enter
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
+          <div className="input-fields">
+            <input
+              type="email"
+              className="input"
+              id="email"
+              placeholder="Enter email@example.com"
+              onChange={(e) => setEmail(e.target.value)}
+              ref={emailRef}
+              required
+            />
+
+            <input
+              type="password"
+              className="input"
+              id="password"
+              placeholder="Enter Password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button type="submit" className="signin-button">
+              Log in
+            </button>
+          </div>
+
+          <div className="signup-option">
+            <p>Don't have an account?</p>
+            <button
+              type="button"
+              className="signup-button"
+              onClick={() => setView("register")}
+            >
+              Sign up
+            </button>
+          </div>
+        </form>
+      ) : (
+        <form className="signup-form" onSubmit={handleSignUpSubmit}>
+          <div className="header">
+            <img src="/odulogo.png" alt="Course Portal Logo" className="logo" />
+            <div>Course Portal</div>
+            <div className="underline"></div>
+            <div>Sign up</div>
+          </div>
+
+          <div className="input-fields">
+            <input
+              type="text"
+              className="input"
+              id="first_name"
+              placeholder="Enter first name"
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+
+            <input
+              type="text"
+              className="input"
+              id="last_name"
+              placeholder="Enter last name"
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+
+            <input
+              type="email"
+              className="input"
+              id="email"
+              placeholder="Enter email@example.com"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+
+            <input
+              type="password"
+              className="input"
+              id="password"
+              placeholder="Enter Password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            <input
+              type="password"
+              className="input"
+              id="matchPassword"
+              placeholder="Confirm Password"
+              onChange={(e) => setMatchPwd(e.target.value)}
+              required
+            />
+            <button type="submit" className="signin-button">
+              Sign up
+            </button>
+          </div>
+
+          <div className="login-option">
+            <p>Already have an account?</p>
+            <button
+              type="button"
+              className="login-button"
+              onClick={() => setView("login")}
+            >
+              Log in
+            </button>
+          </div>
+        </form>
       )}
-    </>
+    </div>
   );
 };
 
-export default Login;
+export default Signup;

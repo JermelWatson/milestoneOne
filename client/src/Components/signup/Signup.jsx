@@ -136,6 +136,7 @@ const Signup = () => {
         <div className="signin-container">
           <form className="signup-form" onSubmit={handleSubmit}>
             <div className="header">Course Advising</div>
+            <img src="/odulogo.png" alt="Course Portal Logo" className="logo" />
             <div className="header">
             <div>CSWEB - 518</div>
             <div>COURSE PORTAL</div>
@@ -245,4 +246,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signup;    

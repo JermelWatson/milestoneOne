@@ -1,60 +1,77 @@
+/* Add a font import */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-.signup-form{
+.signup-form {
     margin: 50px auto;
     width: 60%;
-    background-color: aliceblue;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 40px;
     border-radius: 25px;
-    box-shadow: 1px 1px 9px rgba(0,0,0,0.065);
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Roboto', sans-serif; /* New font family */
+    position: relative;
 }
 
+/* Container styles with background image */
+.signin-container {
+    background-image: url('/odulogo.png'); /* Replace 'background.jpg' with your image path */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-.header{
+/* Header styling with a logo */
+.header {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
     width: 100%;
     font-size: 25px;
-    color: rgb(0,0,0);
+    color: rgb(0, 0, 0);
     font-weight: 750;
     text-transform: uppercase;
+    font-family: 'Roboto', sans-serif; /* New font family */
 }
 
-.underline{
+.header .logo {
+    width: 80px; /* Adjust logo size */
+    margin-bottom: 10px;
+}
+
+.underline {
     width: 100px;
-    height: 12px;
-    background: rgb(0,0,0);
+    height: 4px;
+    background: rgb(0, 0, 0);
     border-radius: 10px;
-    align-items: center;
-    padding-left: 50px;
+    margin-top: 8px;
 }
 
-.input-fields{
+.input-fields {
     display: flex;
     flex-direction: column;
     margin-top: 40px;
     gap: 12px;
-    
 }
 
-.input-fields .input{
-    display: flex;
+.input-fields .input {
     width: 400px;
     height: 55px;
     margin: auto;
-    align-items: center;
-    background: #ffff;
-    border: none;
+    background: #fff;
+    border: 2px solid silver; /* Silver border */
     border-radius: 10px;
     padding-left: 24px;
     color: black;
-    
+    font-family: 'Roboto', sans-serif; /* New font family */
 }
 
-.signin-button{
+.signin-button {
     margin-top: 10px;
-    background-color: rgb(8, 161, 8);
+    background-color: rgb(8, 92, 161);
     border-radius: 10px;
     border: none;
     padding: 10px;
@@ -62,14 +79,22 @@
     width: 300px;
     align-self: center;
     font-weight: bolder;
+    color: white;
+    transition: transform 0.2s;
 }
 
-.login{
+.signin-button:hover {
+    transform: scale(1.05); /* Button hover effect */
+}
+
+.login {
     margin-top: 10px;
     text-align: center;
+    color: white;
+    font-family: 'Roboto', sans-serif; /* New font family */
 }
 
-.login .login-button{
+.login .login-button {
     margin: 10px;
     background-color: rgb(39, 121, 220);
     border-radius: 10px;
@@ -77,7 +102,12 @@
     padding: 10px;
     font-size: 20px;
     width: 200px;
-    align-self: center;
     text-decoration: none;
     font-weight: bolder;
+    color: white;
+    transition: transform 0.2s;
+}
+
+.login .login-button:hover {
+    transform: scale(1.05); /* Button hover effect */
 }
