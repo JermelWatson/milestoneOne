@@ -1,61 +1,88 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
-import AddPrereqs from './AddPrereqs';
-import AddCourse from './AddCourse';
 
 function EditRecords() {
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
-    const [prerequisites, setPrerequisites] = useState([{ level: '', courseName: '' }]);
-    const [coursePlan, setCoursePlan] = useState([{ level: '', courseName: '' }]);
-    const [advising_term, setAdvisingTerm] = useState()
-    const [last_term, setLastTerm] = useState()
-    const [lastGPA, setLastGPA] = useState()
-    
-    const addRow = (section, setSection) => {
-        setSection([...section, { level: '', courseName: '' }]);
-    };
-
-    const removeRow = (index, section, setSection) => {
-        const newSection = section.filter((_, i) => i !== index);
-        setSection(newSection);
-    };
+    const [prerequisites, setPrerequisites] = useState([]);
+    const [coursePlan, setCoursePlan] = useState([]);
+    const [advising_term, setAdvisingTerm] = useState();
+    const [last_term, setLastTerm] = useState();
+    const [lastGPA, setLastGPA] = useState();
 
     const goBack = () => {
         navigate(-1);
     };
+    //get student record
+    useEffect(() => {
+        const fetchRecords = async () => {
+            const formBody = JSON.stringify({
+                student: user.user_id,
+            });
 
-    const handleChange = (index, value, field, section, setSection) => {
-        const newSection = [...section];
-        newSection[index][field] = value;
-        setSection(newSection);
-    };
+            try {
+                const response = await fetch("http://localhost:3000/get_student_record", {
+                    method: "POST",
+                    body: formBody,
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+               
+                } else {
+                    console.log("Failed to fetch records:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Error fetching records:", error);
+            }
+        };
+        fetchRecords()
+    },[])
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            const formBody = JSON.stringify({
+                student: user.user_id,
+            });
+
+            try {
+                const response = await fetch("http://localhost:3000/get_advising_history", {
+                    method: "POST",
+                    body: formBody,
+                    headers: {
+                        "content-type": "application/json",
+                    },
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+
+                    // Separate the records into prerequisites and course plan
+                    const prerequisites = result.data.filter(record => record.level < 300);
+                    const coursePlan = result.data.filter(record => record.level >= 300);
+
+                    setPrerequisites(prerequisites);
+                    setCoursePlan(coursePlan);
+                } else {
+                    console.log("Failed to fetch records:", response.statusText);
+                }
+            } catch (error) {
+                console.error("Error fetching records:", error);
+            }
+        };
+        fetchCourses();
+    }, [user.user_id]);
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const formBody = JSON.stringify({
-            student: user.user_id,
-          });
-
-          const response = await fetch("http://localhost:3000/get_advising_history", {
-            method: "POST",
-            body: formBody,
-            headers: {
-              "content-type": "application/json",
-            },
-          });
-
-          if (response.ok) {
-            const result = await response.json(); // Parse the response body
-            console.log("Form submitted with no error")
-            alert("Successfully added new advising record")
-        }
-        else{
-            console.log("Error occureed")
-        }
+        // Submit logic goes here
     };
 
     return (
@@ -65,49 +92,59 @@ function EditRecords() {
             </button>
             <h1>Course Advising Form</h1>
             <div>
-            <h2>History</h2>
-            <label>
-                Last Term:
-                <input type="text" 
-                name="lastTerm" 
-                onChange={(e)=>setLastTerm(e.target.value)}
-                required
-                />
-            </label>
-            <label>
-                Last GPA:
-                <input type="number" 
-                step="0.01" 
-                name="lastGPA" 
-                onChange={(e)=> setLastGPA(e.target.value)}
-                required
-                />
-            </label>
-            <label>
-                Advising Term:
-                <input type="text" 
-                name="advisingTerm" 
-                onChange={(e)=> setAdvisingTerm(e.target.value)}
-                required
-                />
-            </label>
-        </div>
-            <AddPrereqs
-                title="Prerequisites"
-                data={prerequisites}
-                setData={setPrerequisites}
-                addRow={() => addRow(prerequisites, setPrerequisites)}
-                removeRow={(index) => removeRow(index, prerequisites, setPrerequisites)}
-                handleChange={handleChange}
-            />
-            <AddCourse
-                title="Course Plan"
-                data={coursePlan}
-                setData={setCoursePlan}
-                addRow={() => addRow(coursePlan, setCoursePlan)}
-                removeRow={(index) => removeRow(index, coursePlan, setCoursePlan)}
-                handleChange={handleChange}
-            />
+                <h2>History</h2>
+                <label>
+                    Last Term:
+                    <input 
+                        type="text" 
+                        name="lastTerm" 
+                        onChange={(e) => setLastTerm(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    Last GPA:
+                    <input 
+                        type="number" 
+                        step="0.01" 
+                        name="lastGPA" 
+                        onChange={(e) => setLastGPA(e.target.value)}
+                        required
+                    />
+                </label>
+                <label>
+                    Advising Term:
+                    <input 
+                        type="text" 
+                        name="advisingTerm" 
+                        onChange={(e) => setAdvisingTerm(e.target.value)}
+                        required
+                    />
+                </label>
+            </div>
+
+            <div>
+                <h2>Prerequisites</h2>
+                <ul>
+                    {prerequisites.map((course, index) => (
+                        <li key={index}>
+                            <strong>Course Name:</strong> {course.course} | <strong>Level:</strong> {course.level}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <div>
+                <h2>Course Plan</h2>
+                <ul>
+                    {coursePlan.map((course, index) => (
+                        <li key={index}>
+                            <strong>Course Name:</strong> {course.course} | <strong>Level:</strong> {course.level}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
             <button type="submit">Submit</button>
         </form>
     );
