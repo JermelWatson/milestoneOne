@@ -51,7 +51,7 @@ create_record.post("/create_record", async (req, res) => {
     try {
         // Insert the main record and get the inserted record ID
         const [result] = await connection.promise().execute(
-            "INSERT INTO Records (`student_id`, `last_gpa`, `last_term`, `advising_term`, `status`, `date`) VALUES (?, ?, ?, ?, ?, ?)",
+            "REPLACE INTO Records (`student_id`, `last_gpa`, `last_term`, `advising_term`, `status`, `date`) VALUES (?, ?, ?, ?, ?, ?)",
             [req.body.student, req.body.lastGPA, req.body.last_term, req.body.advising_term, "Pending", today]
         );
 

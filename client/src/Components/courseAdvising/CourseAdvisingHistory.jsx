@@ -64,7 +64,7 @@ function CourseAdvisingHistory() {
             {records.map((record) => (
               <tr
                 key={record.id}
-                onClick={() => navigate(`/record/${record.id}`)}
+                onClick={() => navigate(`/edit_records`)}
                 style={{ cursor: "pointer" }}
               >
                  <td>{new Date(record.date).toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" })}</td>

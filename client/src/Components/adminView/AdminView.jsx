@@ -15,7 +15,6 @@ const AdminView = () => {
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  console.log(user)
   const handleOptionClick = (option) => {
       setSelectedOption(option);
       setIsOpen(false);

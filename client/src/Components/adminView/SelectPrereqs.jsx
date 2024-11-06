@@ -89,6 +89,7 @@ const SelectPrereqs = () => {
             });
 
             if (response.ok) {
+                alert("Updated Prerequisites Successfully")
                 console.log("Courses updated successfully!");
             } else {
                 console.error("Failed to update courses:", response.statusText);

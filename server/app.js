@@ -21,6 +21,7 @@ import add_prereqs from "./routes/addPrereqs.js";
 import add_courses from "./routes/addCourses.js";
 import record_id from "./routes/getRecordId.js";
 import advising_record from "./routes/advising_record.js";
+import get_advising_history from "./routes/get_advising_history.js";
 const app = express();
 const port = 3000;
 
@@ -66,6 +67,8 @@ app.use('/', add_courses)
 app.use('/', record_id)
 
 app.use('/', advising_record)
+
+app.use('/', get_advising_history)
 
 
 

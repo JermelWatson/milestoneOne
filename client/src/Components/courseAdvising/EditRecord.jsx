@@ -5,7 +5,7 @@ import { UserContext } from "../UserContext";
 import AddPrereqs from './AddPrereqs';
 import AddCourse from './AddCourse';
 
-function CourseAdvisingForm() {
+function EditRecords() {
     const navigate = useNavigate();
     const { user } = useContext(UserContext);
     const [prerequisites, setPrerequisites] = useState([{ level: '', courseName: '' }]);
@@ -35,17 +35,12 @@ function CourseAdvisingForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const formBody = JSON.stringify({
             student: user.user_id,
-            last_term: last_term,
-            lastGPA: lastGPA,
-            advising_term: advising_term,
-            prereqs: prerequisites,
-            courses: coursePlan,
           });
-       
 
-          const response = await fetch("http://localhost:3000/create_record", {
+          const response = await fetch("http://localhost:3000/get_advising_history", {
             method: "POST",
             body: formBody,
             headers: {
@@ -118,4 +113,4 @@ function CourseAdvisingForm() {
     );
 }
 
-export default CourseAdvisingForm;
+export default EditRecords;
