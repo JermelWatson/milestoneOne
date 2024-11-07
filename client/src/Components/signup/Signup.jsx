@@ -86,6 +86,7 @@ const Signup = () => {
         alert("Email already in use");
       }
       else{
+        console.log("Email free for use")
         const result = await fetch(import.meta.env.VITE_API_KEY + "/signin", {
           method: "POST",
           body: formBody,
@@ -94,6 +95,7 @@ const Signup = () => {
           },
         });
 
+        if(result.ok){console.log("User is fine")}
         const data = result.json()
         console.log("This is data",data)
         if (data.status == 200) {
@@ -212,8 +214,8 @@ const Signup = () => {
                 Sign in
               </button>
             </div>
-            <div className="login">
-            <p class="acc">Already have an account?</p>
+            <div>
+            <p>Already have an account?</p>
             <Link to="/login" type="submit" className="login-button">
               Log in
             </Link>
