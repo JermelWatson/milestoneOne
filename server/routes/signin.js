@@ -12,9 +12,9 @@ signin.post("/signin", (req, res) => {
       [req.body.first_name, req.body.last_name, req.body.email, hashedPassword, req.body.is_admin, req.body.token],
       function (err, result) {
         if (err) {
+          console.log(result)
           res.json(err.message);
         } else {
-          console.log(result)
           res.json({
             status: 200,
             message: "User has been added",
