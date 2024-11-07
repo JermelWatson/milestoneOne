@@ -96,6 +96,7 @@ const Signup = () => {
         });
 
         const data = result.json()
+        console.log(data)
         if (data.status == 200) {
           navigate("/login")
         }
@@ -119,7 +120,7 @@ const Signup = () => {
         "content-type": "application/json",
       },
     });
-    if (response.ok) {
+    if (response.status === 200) {
       const result = await response.json(); // Parse the response body
 
       console.log(result);
@@ -131,6 +132,7 @@ const Signup = () => {
         navigate("/dashboard");
       }
     } else {
+      alert("Failed to verify email");
       console.log("Failed to verify email");
     }
   };
