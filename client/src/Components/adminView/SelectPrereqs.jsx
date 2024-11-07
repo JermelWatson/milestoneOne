@@ -23,7 +23,7 @@ const SelectPrereqs = () => {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await fetch("http://localhost:3000/select-prereqs", {
+                const response = await fetch(import.meta.env.VITE_API_KEY + "/select-prereqs", {
                     method: "GET",
                     headers:{
                         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const SelectPrereqs = () => {
         }
         )
         try {
-            const response = await fetch("http://localhost:3000/update-prereqs", {
+            const response = await fetch(import.meta.env.VITE_API_KEY + "/update-prereqs", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

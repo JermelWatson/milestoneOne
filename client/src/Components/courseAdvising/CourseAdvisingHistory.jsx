@@ -17,7 +17,7 @@ function CourseAdvisingHistory() {
   useEffect(() => {
     const fetchRecords = async () => {
       try {
-        const response = await fetch("http://localhost:3000/record_id", {
+        const response = await fetch(import.meta.env.VITE_API_KEY + "/record_id", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

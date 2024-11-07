@@ -45,7 +45,7 @@ function CourseAdvisingForm() {
           });
        
 
-          const response = await fetch("http://localhost:3000/create_record", {
+          const response = await fetch(import.meta.env.VITE_API_KEY + "/create_record", {
             method: "POST",
             body: formBody,
             headers: {

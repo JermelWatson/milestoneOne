@@ -37,7 +37,7 @@ const ForgotPassword = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:3000/verify", {
+      const response = await fetch(import.meta.env.VITE_API_KEY + "/verify", {
         method: "POST",
         body: verifyBody,
         headers: {
@@ -77,7 +77,7 @@ const ForgotPassword = () => {
     });
 
     try {
-      const result = await fetch("http://localhost:3000/forgot-password", {
+      const result = await fetch(import.meta.env.VITE_API_KEY + "/forgot-password", {
         method: "POST",
         body: formBody,
         headers: {

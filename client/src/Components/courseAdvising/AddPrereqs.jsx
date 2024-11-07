@@ -7,7 +7,7 @@ function AddPrereqs({ title, data, setData, addRow, handleChange }) {
     useEffect(() => {
         const fetchCourses = async () => {
             try {
-                const response = await fetch("http://localhost:3000/add_prereqs", {
+                const response = await fetch(import.meta.env.VITE_API_KEY + "/add_prereqs", {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

@@ -23,7 +23,7 @@ const Verify = () => {
       code: code
     })
 
-    const result = await fetch("http://localhost:3000/verify", {
+    const result = await fetch(import.meta.env.VITE_API_KEY + "/verify", {
       method: "POST",
       body:formBody,
       headers:{

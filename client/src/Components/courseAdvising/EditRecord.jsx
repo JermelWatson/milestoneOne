@@ -52,7 +52,7 @@ function EditRecords() {
             });
 
             try {
-                const response = await fetch("http://localhost:3000/get_advising_history", {
+                const response = await fetch(import.meta.env.VITE_API_KEY + "/get_advising_history", {
                     method: "POST",
                     body: formBody,
                     headers: {

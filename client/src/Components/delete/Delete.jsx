@@ -20,7 +20,7 @@ const Delete = () => {
     };
 
     try {
-      const result = await axios.delete("http://localhost:3000/delete", formBody, {
+      const result = await axios.delete(import.meta.env.VITE_API_KEY + "/delete", formBody, {
         headers: {
           'Content-Type': 'application/json'
         }

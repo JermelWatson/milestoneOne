@@ -19,7 +19,7 @@ function ApproveCourses() {
   useEffect(() => {
     const fetchRecords = async () => {
       try {
-        const response = await fetch("http://localhost:3000/advising_record", {
+        const response = await fetch(import.meta.env.VITE_API_KEY + "/advising_record", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

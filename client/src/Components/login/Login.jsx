@@ -46,7 +46,7 @@ const Login = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:3000/verify", {
+      const response = await fetch(import.meta.env.VITE_API_KEY + "/verify", {
         method: "POST",
         body: verifyBody,
         headers: {
@@ -86,7 +86,7 @@ const Login = () => {
     });
 
     try {
-      const result = await axios.post("http://localhost:3000/login", formBody, {
+      const result = await axios.post(import.meta.env.VITE_API_KEY + "/login", formBody, {
         headers: {
           "Content-Type": "application/json",
         },

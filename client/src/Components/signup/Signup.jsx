@@ -71,7 +71,7 @@ const Signup = () => {
       token:0,
     });
 
-    const test_email = await fetch("http://localhost:3000/test-email", {
+    const test_email = await fetch(import.meta.env.VITE_API_KEY + "/test-email", {
       method: "POST",
       body: formBody,
       headers: {
@@ -87,7 +87,7 @@ const Signup = () => {
       }
       else{
         console.log(formBody)
-        const result = await fetch("http://localhost:3000/signin", {
+        const result = await fetch(import.meta.env.VITE_API_KEY + "/signin", {
           method: "POST",
           body: formBody,
           headers: {
@@ -107,7 +107,7 @@ const Signup = () => {
       code: code,
     });
 
-    const response = await fetch("http://localhost:3000/verify", {
+    const response = await fetch(import.meta.env.VITE_API_KEY + "/verify", {
       method: "POST",
       body: verifyBody,
       headers: {

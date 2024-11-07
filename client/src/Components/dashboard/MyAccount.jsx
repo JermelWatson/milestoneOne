@@ -35,7 +35,7 @@ const MyAccount = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:3000/change-password", {
+      const response = await fetch(import.meta.env.VITE_API_KEY + "/change-password", {
         method: "PUT",
         body: formBody,
         headers: {
