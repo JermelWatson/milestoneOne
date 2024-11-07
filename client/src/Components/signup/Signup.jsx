@@ -102,6 +102,7 @@ const Signup = () => {
           navigate("/login")
         }
         else{
+          console.log('promise status', data.status)
           alert("Error creating new user")
         }
       };
