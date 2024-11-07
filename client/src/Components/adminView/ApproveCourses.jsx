@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { BiArrowBack } from "react-icons/bi";
-import {openRecord} from "./OpenRecord";
+import {useOpenRecord} from "./OpenRecord";
 
 function ApproveCourses() {
   const [records, setRecords] = useState([]);
@@ -9,6 +9,8 @@ function ApproveCourses() {
   const [error, setError] = useState(null); // Add error state
   const [view, setView] = useState("all_records");
   const [currentRecord, setCurrentRecord] = useState();
+  const [currentRecordId, setCurrentRecordId] = useState();
+  const [studentRecordData, setStudentRecordData] = useState();
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -64,14 +66,16 @@ function ApproveCourses() {
       };
 
       console.log("Record data:", recordData);
-      return recordData; // Return the object if needed
+      setStudentRecordData(recordData); // Return the object if needed
     } else {
       console.error("Record not found for ID:", record_id);
     }
   };
   function setUp (record_id){
     setView("single_record")
-    setCurrentRecord(record_id)
+    const [prerequisites, coursePlan] = useOpenRecord(record)
+    setCurrentRecordId(record_id)
+    setCurrentRecord(sendRecord(currentRecordId))
   }
   
   return (
@@ -121,7 +125,7 @@ function ApproveCourses() {
                     <input 
                         type="text" 
                         name="lastTerm" 
-                        value={record.last_term}
+                        value={currentRecord.last_term}
                     />
                 </label>
                 <label>
@@ -130,7 +134,7 @@ function ApproveCourses() {
                         type="number" 
                         step="0.01" 
                         name="lastGPA" 
-                        value = {record.last_gpa}
+                        value = {currentRecord.last_gpa}
                     />
                 </label>
                 <label>
@@ -138,7 +142,7 @@ function ApproveCourses() {
                     <input 
                         type="text" 
                         name="advisingTerm" 
-                        value = {record.advising_term}
+                        value = {currentRecord.advising_term}
                     />
                 </label>
             </div>
