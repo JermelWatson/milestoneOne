@@ -160,7 +160,7 @@ const Login = () => {
             </p>
             <p>Don't have an account?</p>
             <div>
-              <Link to="/" className="signinBtn">
+              <Link to="/signup" className="signinBtn">
               <button
               type="button"
               className="signup-button"
