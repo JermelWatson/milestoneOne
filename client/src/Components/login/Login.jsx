@@ -160,9 +160,9 @@ const Login = () => {
               <button
               type="button"
               className="signup-button"
-              onClick={() => setView("register")}
+              onClick={() => navigate("/signup")}
             >
-              Sign up
+              Sign in
             </button>
               </Link>
             </div>

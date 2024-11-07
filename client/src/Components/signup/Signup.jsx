@@ -3,7 +3,7 @@ import React from "react";
 import "./Signup.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
 
 const EMAIL_REGEX = /^[^\s@]+@[^s@]+\.[^\s@]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -96,6 +96,9 @@ const Signup = () => {
         });
         if (result.ok) {
           navigate("/login")
+        }
+        else{
+          alert("Error creating new user")
         }
       };
     }
