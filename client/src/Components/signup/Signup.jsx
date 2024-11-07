@@ -94,7 +94,9 @@ const Signup = () => {
             "content-type": "application/json",
           },
         });
-        if (result.ok) {
+
+        const data = result.json()
+        if (data.status == 200) {
           navigate("/login")
         }
         else{
@@ -206,7 +208,7 @@ const Signup = () => {
                 required
               />
               <button type="submit" className="signin-button">
-                Sign up
+                Sign in
               </button>
             </div>
             <div className="login">

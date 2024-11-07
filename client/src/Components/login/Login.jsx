@@ -166,7 +166,7 @@ const Login = () => {
               className="signup-button"
               onClick={() => navigate("/signup")}
             >
-              Sign in
+              Sign up
             </button>
               </Link>
             </div>
