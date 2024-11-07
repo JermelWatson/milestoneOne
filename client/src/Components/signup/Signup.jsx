@@ -96,7 +96,7 @@ const Signup = () => {
         });
 
         const data = result.json()
-        console.log(data)
+        console.log("This is data",data)
         if (data.status == 200) {
           navigate("/login")
         }
