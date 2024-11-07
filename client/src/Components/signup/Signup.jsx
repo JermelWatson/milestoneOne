@@ -86,7 +86,6 @@ const Signup = () => {
         alert("Email already in use");
       }
       else{
-        console.log(formBody)
         const result = await fetch(import.meta.env.VITE_API_KEY + "/signin", {
           method: "POST",
           body: formBody,

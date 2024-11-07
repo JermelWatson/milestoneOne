@@ -14,6 +14,7 @@ signin.post("/signin", (req, res) => {
         if (err) {
           res.json(err.message);
         } else {
+          console.log(result)
           res.json({
             status: 200,
             message: "User has been added",
