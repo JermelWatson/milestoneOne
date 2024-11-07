@@ -31,7 +31,7 @@ app.use(express.json());
 
 app.use(bodyParser.json());
 app.use(cors({
-    origin:"'https://milestonetwo-6ec19.web.app'"
+    origin:"https://milestonetwo-6ec19.web.app"
 }))
 app.use('/',user);
 
