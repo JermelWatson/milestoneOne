@@ -30,6 +30,7 @@ login.post('/login', (req, res)=>{
                 res.json(err.message)
             }else{
                 //check if is a admin user
+                if (result.length > 0){
                 if (ComparePasword(req.body.password, result[0].password)){
                     sendVerificationCode(req.body.email)
                         res.json({
@@ -45,6 +46,10 @@ login.post('/login', (req, res)=>{
                         message: "Invalid password"
                     })
                 }
+              }
+              else{
+                alert("User does not exist, Please sign up")
+              }
             }
         }
     );
