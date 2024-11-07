@@ -54,6 +54,10 @@ const Login = () => {
         },
       });
 
+      if (response.status === 400) {
+        alert("Failed to verify email");
+      }
+
       if (response.ok) {
         const result = await response.json(); // Parse the response body
         const user = { 
