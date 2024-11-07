@@ -160,11 +160,11 @@ const Login = () => {
             </p>
             <p>Don't have an account?</p>
             <div>
-              <Link to="/signup" className="signinBtn">
+              <Link to="/" className="signinBtn">
               <button
               type="button"
               className="signup-button"
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/")}
             >
               Sign up
             </button>

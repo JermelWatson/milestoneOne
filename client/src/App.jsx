@@ -18,7 +18,7 @@ import EditRecords from "./Components/courseAdvising/EditRecord.jsx";
 function App() {
   const route = createBrowserRouter([
     {
-      path: "/signup",
+      path: "/",
       element: <Signup />,
     },
     {
