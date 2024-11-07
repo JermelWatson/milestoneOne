@@ -7,31 +7,32 @@ const updateRecordMap = async (body, record_id) => {
         const prereqs = body.prereqs;
         const courses = body.courses;
         
-        // Extract course IDs from each array by mapping over the objects
+        // Extract course IDs from each array
         const prereqsCourseIds = prereqs.map(course => course.courseId);
         const coursesCourseIds = courses.map(course => course.courseId);
         
         // Combine both arrays and remove duplicates
         const allCourseIds = Array.from(new Set([...prereqsCourseIds, ...coursesCourseIds]));
         
-        // Log the combined course IDs array for debugging
         console.log("Combined Course IDs:", allCourseIds);
-        
-        // Insert each unique course ID into the records_mapping table
-        const updatePromises = allCourseIds.map(courseId => {
-            return new Promise((resolve, reject) => {
-                connection.execute(
+
+        const updatePromises = allCourseIds.map(async (courseId) => {
+            // Check if a record with the same student_id and course_id already exists
+            const [existingRecords] = await connection.promise().execute(
+                "SELECT * FROM records_mapping WHERE record_id = ? AND course_id = ? AND student_id = ?",
+                [record_id, courseId, body.student]
+            );
+
+            // If no existing record is found, proceed with insertion
+            if (existingRecords.length === 0) {
+                return connection.promise().execute(
                     "INSERT INTO records_mapping (`record_id`, `course_id`, `student_id`) VALUES (?, ?, ?)",
-                    [record_id, courseId, body.student],
-                    function (err, result) {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve(result);
-                        }
-                    }
+                    [record_id, courseId, body.student]
                 );
-            });
+            } else {
+                alert(`Duplicate found for courseId: ${courseId}, skipping insert.`)
+                console.log(`Duplicate found for courseId: ${courseId}, skipping insert.`);
+            }
         });
 
         await Promise.all(updatePromises);
