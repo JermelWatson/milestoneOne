@@ -95,11 +95,7 @@ const Signup = () => {
           },
         });
 
-        if(result.ok){console.log("User is fine")}
-        const data = result.json()
-        console.log(data)
-        if (data.data.status === 200) {
-          alert("User successfully created")
+        if(result.ok){alert("User successfully created")
           navigate("/login")
         }
         else{
