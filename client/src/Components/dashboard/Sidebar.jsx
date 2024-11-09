@@ -6,11 +6,13 @@ import {
   BiMale,
   BiPowerOff,
 } from "react-icons/bi";
-import { useState } from "react";
+import { useState, useContext} from "react";
 import "./Sidebar.css";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../UserContext";
 
 const Sidebar = () => {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -21,14 +23,24 @@ const Sidebar = () => {
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
-    console.log(option)
     setIsOpen(false);
-    if (option === "Course Advising History") {
+    if (user.is_admin === true){
+      if (option === "Course Advising History") {
         console.log(option)
       navigate("/course_Advising_history");
     } else {
       navigate("/course_Advising_form");
     }
+    }
+    else{
+      if (option === "Course Advising History") {
+        console.log(option)
+      navigate("/student_history");
+    } else {
+      navigate("/course_Advising_form");
+    }
+    }
+    
   };
   return (
     <>
