@@ -15,6 +15,7 @@ import SelectPrereqs from "./Components/adminView/SelectPrereqs.jsx";
 import CourseAdvisingForm from "./Components/courseAdvising/CourseAdvisingForm.jsx";
 import CourseAdvisingHistory from "./Components/courseAdvising/CourseAdvisingHistory.jsx";
 import EditRecords from "./Components/courseAdvising/EditRecord.jsx";
+import StudentCourseAdvisingHistory from "./Components/courseAdvising/StudentCourseAdvisingHistory.jsx";
 function App() {
   const route = createBrowserRouter([
     {
@@ -65,6 +66,10 @@ function App() {
       path: "/edit_records",
       element: <EditRecords/>
     },
+    {
+      path: "/student_history",
+      element: <StudentCourseAdvisingHistory/>
+    }
   ]);
   return (
     <>
