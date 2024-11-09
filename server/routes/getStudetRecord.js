@@ -7,6 +7,7 @@ getStudentRecord.post("/get_student_record", (req, res) => {
         "SELECT * FROM `Records` WHERE student_id = ? ",[req.body.student],
         function (err, result) {
             if (err) {
+                console.log(req.body.student)
                 res.status(500).json({ 
                     status: 500,
                     message: err.message 

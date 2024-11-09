@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./courseAdvising.css";
-import React, { useState, useEffect } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from "../UserContext";
@@ -24,7 +23,7 @@ function StudentCourseAdvisingHistory() {
         });
 
         try {
-            const response = await fetch("http://localhost:3000/get_student_record", {
+            const response = await fetch(import.meta.env.VITE_API_KEY + "/get_student_record", {
                 method: "POST",
                 body: formBody,
                 headers: {
