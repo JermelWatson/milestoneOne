@@ -18,6 +18,12 @@ function StudentCourseAdvisingHistory() {
   // Fetch records from records table
   useEffect(() => {
     const fetchRecords = async () => {
+        if (!user || !user.user_id) {
+          setError("User ID is missing.");
+          setIsLoading(false);
+          return;
+        }
+
         const formBody = JSON.stringify({
             student: user.user_id,
         });
@@ -32,17 +38,19 @@ function StudentCourseAdvisingHistory() {
             });
             if (response.ok) {
                 const result = await response.json();
-                console.log(result)
-                setRecords(result.data[0])
+                setRecords(result.data[0]);
+                setError(null); // Clear any previous error
             } else {
-                console.log("Failed to fetch records:", response.statusText);
+                setError("Failed to fetch records: " + response.statusText);
             }
         } catch (error) {
-            console.error("Error fetching records:", error);
+            setError("Error fetching records: " + error.message);
+        } finally {
+            setIsLoading(false);
         }
     };
-    fetchRecords()
-},[])
+    fetchRecords();
+  }, [user]);
 
   return (
     <div>
