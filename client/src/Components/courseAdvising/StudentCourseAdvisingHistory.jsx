@@ -51,8 +51,6 @@ function StudentCourseAdvisingHistory() {
     fetchRecords();
   }, [user]);
 
-  console.log("This is records", records.length)
-
   return (
     <div>
       <button onClick={goBack}>
@@ -64,7 +62,7 @@ function StudentCourseAdvisingHistory() {
         <p>Loading records...</p>
       ) : error ? (
         <p>{error}</p>
-      ) : records.length > 0 ? (
+      ) : records.id > 0 ? (
         <table>
           <thead>
             <tr>
