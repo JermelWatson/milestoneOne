@@ -38,6 +38,7 @@ function StudentCourseAdvisingHistory() {
             });
             if (response.ok) {
                 const result = await response.json();
+                setIsLoading(false);
                 setRecords(result.data[0]);
                 setError(null); // Clear any previous error
             } else {
@@ -45,12 +46,12 @@ function StudentCourseAdvisingHistory() {
             }
         } catch (error) {
             setError("Error fetching records: " + error.message);
-        } finally {
-            setIsLoading(false);
         }
     };
     fetchRecords();
   }, [user]);
+
+  console.log(records)
 
   return (
     <div>
