@@ -51,7 +51,7 @@ function StudentCourseAdvisingHistory() {
     fetchRecords();
   }, [user]);
 
-  console.log(records)
+  console.log("This is records", records)
 
   return (
     <div>
