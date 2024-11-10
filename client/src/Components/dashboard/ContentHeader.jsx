@@ -4,8 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Content.css"
 import { UserContext } from "../UserContext";
 
-
-
 const ContentHeader = () => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext); // Accessing userData from context

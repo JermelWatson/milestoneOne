@@ -49,7 +49,7 @@ function StudentCourseAdvisingHistory() {
       <button onClick={goBack}>
         <BiArrowBack /> Back
       </button>
-      <h1>Course Advising History</h1>
+      <h1>Student Course Advising History</h1>
       
       {isLoading ? (
         <p>Loading records...</p>
