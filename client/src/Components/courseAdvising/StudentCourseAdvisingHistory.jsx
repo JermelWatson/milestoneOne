@@ -50,7 +50,7 @@ function StudentCourseAdvisingHistory() {
     };
     fetchRecords();
   }, [user]);
-
+console.log(records)
   return (
     <div>
       <button onClick={goBack}>
