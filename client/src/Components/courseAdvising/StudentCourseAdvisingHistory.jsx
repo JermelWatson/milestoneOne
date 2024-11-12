@@ -39,7 +39,9 @@ function StudentCourseAdvisingHistory() {
             if (response.ok) {
                 const result = await response.json();
                 setIsLoading(false);
-                setRecords(result.data[0]);
+
+                // Ensure result.data[0] is an array
+                setRecords(Array.isArray(result.data[0]) ? result.data[0] : []);
                 setError(null); // Clear any previous error
             } else {
                 setError("Failed to fetch records: " + response.statusText);
@@ -62,7 +64,7 @@ function StudentCourseAdvisingHistory() {
         <p>Loading records...</p>
       ) : error ? (
         <p>{error}</p>
-      ) : records.id > 0 ? (
+      ) : records.length > 0 ? (
         <table>
           <thead>
             <tr>
