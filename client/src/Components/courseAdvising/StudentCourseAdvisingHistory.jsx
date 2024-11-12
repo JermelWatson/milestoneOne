@@ -62,7 +62,7 @@ console.log(records)
         <p>Loading records...</p>
       ) : error ? (
         <p>{error}</p>
-      ) : Object.keys(records).length > 0 ? (
+      ) : records.length > 0 ? (
         <table>
           <thead>
             <tr>
@@ -72,17 +72,15 @@ console.log(records)
             </tr>
           </thead>
           <tbody>
-            {Object.values(records).map((record) => (
               <tr
-                key={record.id}
+                key={records.id}
                 onClick={() => navigate(`/edit_records`)}
                 style={{ cursor: "pointer" }}
               >
-                <td>{new Date(record.date).toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" })}</td>
-                <td>{record.advising_term}</td>
-                <td>{record.status}</td>
+                <td>{new Date(records.date).toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" })}</td>
+                <td>{records.advising_term}</td>
+                <td>{records.status}</td>
               </tr>
-            ))}
           </tbody>
         </table>
       ) : (
