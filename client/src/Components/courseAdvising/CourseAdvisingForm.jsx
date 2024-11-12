@@ -59,7 +59,7 @@ function CourseAdvisingForm() {
             alert("Successfully added new advising record")
         }
         else{
-            console.log("Error occureed")
+            console.log("Error occurred")
         }
     };
 
