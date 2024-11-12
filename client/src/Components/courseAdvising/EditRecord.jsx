@@ -8,15 +8,12 @@ function EditRecords() {
     const { user } = useContext(UserContext);
     const [prerequisites, setPrerequisites] = useState([]);
     const [coursePlan, setCoursePlan] = useState([]);
-    const [advising_term, setAdvisingTerm] = useState();
-    const [last_term, setLastTerm] = useState();
-    const [lastGPA, setLastGPA] = useState();
-    const [record, setRecord] = useState({})
+    const [record, setRecord] = useState({ last_term: "", last_gpa: "", advising_term: "" });
 
     const goBack = () => {
         navigate(-1);
     };
-    //get student record
+
     useEffect(() => {
         const fetchRecords = async () => {
             const formBody = JSON.stringify({
@@ -33,8 +30,7 @@ function EditRecords() {
                 });
                 if (response.ok) {
                     const result = await response.json();
-                    console.log(result)
-                    setRecord(result.data[0])
+                    setRecord(result.data[0] || { last_term: "", last_gpa: "", advising_term: "" });
                 } else {
                     console.log("Failed to fetch records:", response.statusText);
                 }
@@ -42,8 +38,8 @@ function EditRecords() {
                 console.error("Error fetching records:", error);
             }
         };
-        fetchRecords()
-    },[])
+        fetchRecords();
+    }, [user.user_id]);
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -62,11 +58,8 @@ function EditRecords() {
 
                 if (response.ok) {
                     const result = await response.json();
-
-                    // Separate the records into prerequisites and course plan
                     const prerequisites = result.data.filter(record => record.level < 400);
                     const coursePlan = result.data.filter(record => record.level >= 390);
-
                     setPrerequisites(prerequisites);
                     setCoursePlan(coursePlan);
                 } else {
@@ -79,11 +72,18 @@ function EditRecords() {
         fetchCourses();
     }, [user.user_id]);
 
-
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setRecord(prevRecord => ({
+            ...prevRecord,
+            [name]: value
+        }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         // Submit logic goes here
+        console.log("Submitted data:", record);
     };
 
     return (
@@ -98,8 +98,9 @@ function EditRecords() {
                     Last Term:
                     <input 
                         type="text" 
-                        name="lastTerm" 
+                        name="last_term" 
                         value={record.last_term}
+                        onChange={handleChange}
                     />
                 </label>
                 <label>
@@ -107,16 +108,18 @@ function EditRecords() {
                     <input 
                         type="number" 
                         step="0.01" 
-                        name="lastGPA" 
-                        value = {record.last_gpa}
+                        name="last_gpa" 
+                        value={record.last_gpa}
+                        onChange={handleChange}
                     />
                 </label>
                 <label>
                     Advising Term:
                     <input 
                         type="text" 
-                        name="advisingTerm" 
-                        value = {record.advising_term}
+                        name="advising_term" 
+                        value={record.advising_term}
+                        onChange={handleChange}
                     />
                 </label>
             </div>
