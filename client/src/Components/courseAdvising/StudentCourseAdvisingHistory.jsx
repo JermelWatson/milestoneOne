@@ -18,39 +18,41 @@ function StudentCourseAdvisingHistory() {
   // Fetch records from records table
   useEffect(() => {
     const fetchRecords = async () => {
-        if (!user || !user.user_id) {
-          setError("User ID is missing.");
-          setIsLoading(false);
-          return;
-        }
+      if (!user || !user.user_id) {
+        setError("User ID is missing.");
+        setIsLoading(false);
+        return;
+      }
 
-        const formBody = JSON.stringify({
-            student: user.user_id,
+      const formBody = JSON.stringify({
+        student: user.user_id,
+      });
+
+      try {
+        const response = await fetch(import.meta.env.VITE_API_KEY + "/get_student_record", {
+          method: "POST",
+          body: formBody,
+          headers: {
+            "content-type": "application/json",
+          },
         });
-
-        try {
-            const response = await fetch(import.meta.env.VITE_API_KEY + "/get_student_record", {
-                method: "POST",
-                body: formBody,
-                headers: {
-                    "content-type": "application/json",
-                },
-            });
-            if (response.ok) {
-                const result = await response.json();
-                setIsLoading(false);
-                setRecords(result.data[0]);
-                setError(null); // Clear any previous error
-            } else {
-                setError("Failed to fetch records: " + response.statusText);
-            }
-        } catch (error) {
-            setError("Error fetching records: " + error.message);
+        if (response.ok) {
+          const result = await response.json();
+          setIsLoading(false);
+          setRecords(result.data[0] || {}); // Set to an empty object if no data
+          setError(null); // Clear any previous error
+        } else {
+          setError("Failed to fetch records: " + response.statusText);
         }
+      } catch (error) {
+        setError("Error fetching records: " + error.message);
+      }
     };
     fetchRecords();
   }, [user]);
-  console.log('This is records:',records)
+
+  console.log('This is records:', records);
+
   return (
     <div>
       <button onClick={goBack}>
@@ -62,7 +64,7 @@ function StudentCourseAdvisingHistory() {
         <p>Loading records...</p>
       ) : error ? (
         <p>{error}</p>
-      ) : records.length > 0 ? (
+      ) : Object.keys(records).length > 0 ? ( // Check if records has any keys
         <table>
           <thead>
             <tr>
@@ -72,15 +74,14 @@ function StudentCourseAdvisingHistory() {
             </tr>
           </thead>
           <tbody>
-              <tr
-                key={records.id}
-                onClick={() => navigate(`/edit_records`)}
-                style={{ cursor: "pointer" }}
-              >
-                <td>{new Date(records.date).toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" })}</td>
-                <td>{records.advising_term}</td>
-                <td>{records.status}</td>
-              </tr>
+            <tr
+              onClick={() => navigate(`/edit_records`)}
+              style={{ cursor: "pointer" }}
+            >
+              <td>{new Date(records.date).toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" })}</td>
+              <td>{records.advising_term}</td>
+              <td>{records.status}</td>
+            </tr>
           </tbody>
         </table>
       ) : (
