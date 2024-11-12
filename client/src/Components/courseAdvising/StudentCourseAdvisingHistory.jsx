@@ -5,7 +5,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from "../UserContext";
 
 function StudentCourseAdvisingHistory() {
-  const [records, setRecords] = useState([]);
+  const [records, setRecords] = useState({});
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   const [error, setError] = useState(null); // Add error state
   const { user } = useContext(UserContext);
@@ -39,9 +39,7 @@ function StudentCourseAdvisingHistory() {
             if (response.ok) {
                 const result = await response.json();
                 setIsLoading(false);
-
-                // Ensure result.data[0] is an array
-                setRecords(Array.isArray(result.data[0]) ? result.data[0] : []);
+                setRecords(result.data[0]);
                 setError(null); // Clear any previous error
             } else {
                 setError("Failed to fetch records: " + response.statusText);
@@ -52,7 +50,7 @@ function StudentCourseAdvisingHistory() {
     };
     fetchRecords();
   }, [user]);
-console.log("THIS IS RECORDS",records)
+
   return (
     <div>
       <button onClick={goBack}>
@@ -64,7 +62,7 @@ console.log("THIS IS RECORDS",records)
         <p>Loading records...</p>
       ) : error ? (
         <p>{error}</p>
-      ) : records.length > 0 ? (
+      ) : Object.keys(records).length > 0 ? (
         <table>
           <thead>
             <tr>
@@ -74,14 +72,14 @@ console.log("THIS IS RECORDS",records)
             </tr>
           </thead>
           <tbody>
-            {records.map((record) => (
+            {Object.values(records).map((record) => (
               <tr
                 key={record.id}
                 onClick={() => navigate(`/edit_records`)}
                 style={{ cursor: "pointer" }}
               >
-                 <td>{new Date(record.date).toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" })}</td>
-                 <td>{record.advising_term}</td>
+                <td>{new Date(record.date).toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" })}</td>
+                <td>{record.advising_term}</td>
                 <td>{record.status}</td>
               </tr>
             ))}
