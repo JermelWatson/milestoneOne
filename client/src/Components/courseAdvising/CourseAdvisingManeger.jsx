@@ -169,7 +169,7 @@ function CourseAdvisingManager() {
         </label>
       </div>
       <div>
-        <h2>Prerequisites</h2>
+        <h2>Current Prerequisites</h2>
         <ul>
           {prerequisites.map((course, index) => (
             <li key={index}>
@@ -198,7 +198,7 @@ function CourseAdvisingManager() {
       />
 
       <div>
-        <h2>Course Plan</h2>
+        <h2>Current Course Plan</h2>
         <ul>
           {coursePlan.map((course, index) => (
             <li key={index}>
