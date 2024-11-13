@@ -16,6 +16,7 @@ import CourseAdvisingForm from "./Components/courseAdvising/CourseAdvisingForm.j
 import CourseAdvisingHistory from "./Components/courseAdvising/CourseAdvisingHistory.jsx";
 import EditRecords from "./Components/courseAdvising/EditRecord.jsx";
 import StudentCourseAdvisingHistory from "./Components/courseAdvising/StudentCourseAdvisingHistory.jsx";
+import CourseAdvisingManager from "./Components/courseAdvising/CourseAdvisingManeger.jsx";
 function App() {
   const route = createBrowserRouter([
     {
@@ -63,8 +64,8 @@ function App() {
       element: <CourseAdvisingHistory/>
     },
     {
-      path: "/edit_records",
-      element: <EditRecords/>
+      path: "/course_Advising_manager",
+      element: <CourseAdvisingManager/>
     },
     {
       path: "/student_history",

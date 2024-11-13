@@ -75,7 +75,7 @@ function StudentCourseAdvisingHistory() {
           </thead>
           <tbody>
             <tr
-              onClick={() => navigate(`/course_Advising_form`)}
+              onClick={() => navigate(`/course_Advising_manager`)}
               style={{ cursor: "pointer" }}
             >
               <td>{new Date(records.date).toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" })}</td>
