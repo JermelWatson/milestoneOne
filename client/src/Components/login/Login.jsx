@@ -56,7 +56,7 @@ const Login = () => {
 
       if (response.ok) {
         const result = await response.json(); // Parse the response body
-        if (result.data){
+        if (result.data[0]){
         const user = { 
           user_id: result.data[0].id,
           first_name: result.data[0].first_name, 
