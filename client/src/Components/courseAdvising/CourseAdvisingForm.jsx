@@ -36,6 +36,7 @@ function CourseAdvisingForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+    
         const formBody = JSON.stringify({
             student: user.user_id,
             last_term: last_term,
@@ -43,26 +44,36 @@ function CourseAdvisingForm() {
             advising_term: advising_term,
             prereqs: prerequisites,
             courses: coursePlan,
-          });
-       
-
-          const response = await fetch(import.meta.env.VITE_API_KEY + "/create_record", {
-            method: "POST",
-            body: formBody,
-            headers: {
-              "content-type": "application/json",
-            },
-          });
-
-          if (response.ok) {
-            const result = await response.json(); // Parse the response body
-            console.log("Form submitted with no error")
-            alert("Successfully added new advising record")
-        }
-        else{
-            console.log("Error occurred")
+        });
+    
+        try {
+            const response = await fetch(import.meta.env.VITE_API_KEY + "/create_record", {
+                method: "POST",
+                body: formBody,
+                headers: {
+                    "content-type": "application/json",
+                },
+            });
+    
+            if (response.ok) {
+                const result = await response.json(); // Parse the response body
+                console.log("Form submitted with no error");
+                alert("Successfully added new advising record");
+    
+                // Reset all fields to their initial values
+                setLastTerm('');
+                setLastGPA('');
+                setAdvisingTerm('');
+                setPrerequisites([{ level: '', courseName: '' }]);
+                setCoursePlan([{ level: '', courseName: '' }]);
+            } else {
+                console.error("Error occurred during submission");
+            }
+        } catch (error) {
+            console.error("Error occurred:", error);
         }
     };
+    
 
     return (
         <form onSubmit={handleSubmit}>
