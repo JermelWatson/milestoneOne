@@ -77,3 +77,9 @@ h1, h2 {
     display: inline-block;
     padding-bottom: 5px;
   }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+  }
