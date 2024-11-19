@@ -53,7 +53,7 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       });
-
+      console.log(response)
       if (response.status === 400) {
         alert("Failed to verify email");
       }
