@@ -81,10 +81,10 @@ function CourseAdvisingForm() {
             </label>
             <label>
                 Last GPA:
-                <input type="number" 
+                <input type="text" 
                 step="0.01" 
                 name="lastGPA" 
-                onChange={(e)=> setLastGPA(e.target.value)}
+                onChange={(e)=> setLastGPA(parseFloat(e.target.value))}
                 required
                 />
             </label>
