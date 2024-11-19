@@ -18,7 +18,7 @@ verify.post('/verify', (req, res) => {
         res.json({ 
           status: 400,
           message: "Inccorect verification code",
-          data: []})
+          data: result})
         }
     }
   );
