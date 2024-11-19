@@ -14,6 +14,7 @@ function CourseAdvisingManager() {
     last_term: "",
     last_gpa: "",
     advising_term: "",
+    status: "", // Include status in record state
   });
 
   // Fetch initial advising records and course history
@@ -32,9 +33,11 @@ function CourseAdvisingManager() {
           }
         );
         if (recordResponse.ok) {
+
+            
           const result = await recordResponse.json();
           setRecord(
-            result.data[0] || { last_term: "", last_gpa: "", advising_term: "" }
+            result.data[0] || { last_term: "", last_gpa: "", advising_term: "", status: "" }
           );
         }
 
@@ -168,57 +171,63 @@ function CourseAdvisingManager() {
           />
         </label>
       </div>
-      <div>
-        <h2>Current Prerequisites</h2>
-        <ul>
-          {prerequisites.map((course, index) => (
-            <li key={index}>
-              <strong>Course Name:</strong> {course.course} |{" "}
-              <strong>Level:</strong> {course.level}
-            </li>
-          ))}
-        </ul>
-      </div>
 
-      <AddPrereqs
-        title="Prerequisites"
-        data={prerequisites}
-        setData={setPrerequisites}
-        addRow={() => addRow(prerequisites, setPrerequisites)}
-        removeRow={(index) => removeRow(index, prerequisites, setPrerequisites)}
-        handleChange={(index, value, field) =>
-          handleSectionChange(
-            index,
-            value,
-            field,
-            prerequisites,
-            setPrerequisites
-          )
-        }
-      />
+      {record.status !== "Pending" ? (
+        <>
+          <div>
+            <h2>Current Prerequisites</h2>
+            <ul>
+              {prerequisites.map((course, index) => (
+                <li key={index}>
+                  <strong>Course Name:</strong> {course.course} |{" "}
+                  <strong>Level:</strong> {course.level}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h2>Current Course Plan</h2>
+            <ul>
+              {coursePlan.map((course, index) => (
+                <li key={index}>
+                  <strong>Course Name:</strong> {course.course} |{" "}
+                  <strong>Level:</strong> {course.level}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      ) : (
+        <>
+          <AddPrereqs
+            title="Prerequisites"
+            data={prerequisites}
+            setData={setPrerequisites}
+            addRow={() => addRow(prerequisites, setPrerequisites)}
+            removeRow={(index) => removeRow(index, prerequisites, setPrerequisites)}
+            handleChange={(index, value, field) =>
+              handleSectionChange(
+                index,
+                value,
+                field,
+                prerequisites,
+                setPrerequisites
+              )
+            }
+          />
 
-      <div>
-        <h2>Current Course Plan</h2>
-        <ul>
-          {coursePlan.map((course, index) => (
-            <li key={index}>
-              <strong>Course Name:</strong> {course.course} |{" "}
-              <strong>Level:</strong> {course.level}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <AddCourse
-        title="Course Plan"
-        data={coursePlan}
-        setData={setCoursePlan}
-        addRow={() => addRow(coursePlan, setCoursePlan)}
-        removeRow={(index) => removeRow(index, coursePlan, setCoursePlan)}
-        handleChange={(index, value, field) =>
-          handleSectionChange(index, value, field, coursePlan, setCoursePlan)
-        }
-      />
+          <AddCourse
+            title="Course Plan"
+            data={coursePlan}
+            setData={setCoursePlan}
+            addRow={() => addRow(coursePlan, setCoursePlan)}
+            removeRow={(index) => removeRow(index, coursePlan, setCoursePlan)}
+            handleChange={(index, value, field) =>
+              handleSectionChange(index, value, field, coursePlan, setCoursePlan)
+            }
+          />
+        </>
+      )}
 
       <button type="submit">Submit</button>
     </form>

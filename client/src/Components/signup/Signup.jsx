@@ -209,7 +209,7 @@ const Signup = () => {
                 required
               />
               <button type="submit" className="signin-button">
-                Sign in
+                Sign up
               </button>
             </div>
             <div>
