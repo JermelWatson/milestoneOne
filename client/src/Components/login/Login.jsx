@@ -53,13 +53,10 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       });
-      console.log(response)
-      if (response.status === 400) {
-        alert("Failed to verify email");
-      }
 
       if (response.ok) {
         const result = await response.json(); // Parse the response body
+        if (result.data[0].length > 0){
         const user = { 
           user_id: result.data[0].id,
           first_name: result.data[0].first_name, 
@@ -74,6 +71,8 @@ const Login = () => {
           console.log("IS NORMAL USER");
           navigate("/dashboard");
         }
+      }
+      else{alert("Incorrect verification code. Try again")}
       } else {
         console.log("Failed to verify email");
       }
