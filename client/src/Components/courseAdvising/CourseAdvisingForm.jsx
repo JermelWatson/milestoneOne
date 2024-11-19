@@ -86,6 +86,7 @@ function CourseAdvisingForm() {
             <label>
                 Last Term:
                 <input type="text" 
+                value={last_term}
                 name="lastTerm" 
                 onChange={(e)=>setLastTerm(e.target.value)}
                 required
@@ -94,6 +95,7 @@ function CourseAdvisingForm() {
             <label>
                 Last GPA:
                 <input type="text" 
+                value = {lastGPA}
                 step="0.01" 
                 name="lastGPA" 
                 onChange={(e)=> setLastGPA(parseFloat(e.target.value))}
@@ -103,6 +105,7 @@ function CourseAdvisingForm() {
             <label>
                 Advising Term:
                 <input type="text" 
+                value={advising_term}
                 name="advisingTerm" 
                 onChange={(e)=> setAdvisingTerm(e.target.value)}
                 required
