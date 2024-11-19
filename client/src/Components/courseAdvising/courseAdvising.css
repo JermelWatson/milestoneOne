@@ -98,7 +98,7 @@ h2 {
 }
 
 label {
-    display: block;
+    display: flex;
     font-weight: bold;
     margin-top: 15px;
 }
@@ -136,4 +136,16 @@ div {
 .add-row:hover,
 .remove-row:hover {
     opacity: 0.8;
+}
+
+
+button[type="submit"]{
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
