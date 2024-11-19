@@ -17,8 +17,8 @@ verify.post('/verify', (req, res) => {
         console.log("Verification not successful")
         res.json({ 
           status: 400,
-        message: "Inccorect verification code",
-        data: []})
+          message: "Inccorect verification code",
+          data: []})
         }
     }
   );
