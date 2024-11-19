@@ -78,7 +78,7 @@ h1, h2 {
     padding-bottom: 5px;
   }
 
-  label {
+  label #label1 {
     display: block;
     font-weight: bold;
     margin-top: 15px;
