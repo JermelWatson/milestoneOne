@@ -55,3 +55,7 @@ table, th, td {
         white-space: nowrap;
     }
 }
+
+input{
+    background-color: rgb(242, 242, 242);
+}

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import AddPrereqs from './AddPrereqs';
 import AddCourse from './AddCourse';
+import "./courseAdvising.css"
 
 function CourseAdvisingForm() {
     const navigate = useNavigate();
