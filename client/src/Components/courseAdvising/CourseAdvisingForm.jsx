@@ -72,7 +72,7 @@ function CourseAdvisingForm() {
             <h1>Course Advising Form</h1>
             <div>
             <h2>History</h2>
-            <label id="label1">
+            <label>
                 Last Term:
                 <input type="text" 
                 name="lastTerm" 
