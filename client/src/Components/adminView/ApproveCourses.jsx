@@ -104,7 +104,7 @@ function ApproveCourses() {
               {records.map((record) => (
                 <tr
                   key={record.id}
-                  onClick={() => sendRecord(record.id)}
+                  onClick={() => setUp(record.id)}
                   style={{ cursor: "pointer" }}
                 >
                   <td>{record.first_name} {record.last_name}</td>
