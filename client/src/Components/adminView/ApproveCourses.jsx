@@ -51,7 +51,6 @@ function ApproveCourses() {
   const sendRecord = (record_id) => {
     const record = records.find((rec) => rec.id === record_id);
 
-    console.log("This is record",record)
     if (record) {
       const recordData = {
         student_id: record.student_id,
@@ -154,7 +153,6 @@ function ApproveCourses() {
                 value={currentRecord.term || ""}
                 readOnly
                 className="single-record"
-                style={{ color: "black" }} // Corrected style object
               />
             </label>
           </div>
