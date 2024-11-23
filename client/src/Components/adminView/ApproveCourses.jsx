@@ -153,6 +153,7 @@ function ApproveCourses() {
                 value={currentRecord.term || ""}
                 readOnly
                 className="single-record"
+                style={{ color: "black" }} // Corrected style object
               />
             </label>
           </div>
