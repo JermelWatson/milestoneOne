@@ -77,7 +77,7 @@ function ApproveCourses() {
     
 
     sendRecord(record_id);
-    
+    //put api call to get courses in this function
 
     const [prerequisites, coursePlan] = useOpenRecord({ student_id: record_id });
     setCurrentPrerequisites(prerequisites);
