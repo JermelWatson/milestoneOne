@@ -72,8 +72,10 @@ function ApproveCourses() {
   const setUp = async (record_id) => {
     setView("single_record");
     setCurrentRecordId(record_id);
+    console.log(record_id)
 
     sendRecord(record_id);
+    console.log(currentRecord)
 
     const [prerequisites, coursePlan] = useOpenRecord({ student_id: record_id });
     setCurrentPrerequisites(prerequisites);
