@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { useOpenRecord } from "./OpenRecord";
+import "./AdminView.css";
 
 function ApproveCourses() {
   const [records, setRecords] = useState([]);
@@ -130,6 +131,7 @@ function ApproveCourses() {
                 name="lastTerm"
                 value={currentRecord.last_term }
                 readOnly
+                className="single-record"
               />
             </label>
             <label>
@@ -140,6 +142,7 @@ function ApproveCourses() {
                 name="lastGPA"
                 value={currentRecord.last_gpa || ""}
                 readOnly
+                className="single-record"
               />
             </label>
             <label>
@@ -149,6 +152,7 @@ function ApproveCourses() {
                 name="advisingTerm"
                 value={currentRecord.term || ""}
                 readOnly
+                className="single-record"
               />
             </label>
           </div>

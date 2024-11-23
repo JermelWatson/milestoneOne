@@ -54,3 +54,7 @@
     background-color: #a1d1fd; 
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow for lifted effect */
 }
+
+.single-record{
+    color: #000;
+}
