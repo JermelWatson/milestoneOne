@@ -62,8 +62,6 @@ function ApproveCourses() {
         term: record.advising_term,
         status: record.status,
       };
-
-      console.log("This is record data: ", recordData)
       setCurrentRecord(recordData); // Set currentRecord directly
     } else {
       console.error("Record not found for ID:", record_id);
@@ -105,7 +103,7 @@ function ApproveCourses() {
               {records.map((record) => (
                 <tr
                   key={record.id}
-                  onClick={() => setUp(record.id)}
+                  onClick={() => sendRecord(record.id)}
                   style={{ cursor: "pointer" }}
                 >
                   <td>{record.first_name} {record.last_name}</td>
@@ -130,7 +128,7 @@ function ApproveCourses() {
               <input
                 type="text"
                 name="lastTerm"
-                value={currentRecord.last_term || ""}
+                value={currentRecord.last_term }
                 readOnly
               />
             </label>
