@@ -60,7 +60,9 @@ function ApproveCourses() {
           day: "2-digit",
           year: "numeric",
         }),
-        term: record.advising_term,
+        advising_term: record.advising_term,
+        last_term: record.last_term,
+        last_gpa: record.last_gpa,
         status: record.status,
       };
       setCurrentRecord(recordData); // Set currentRecord directly
@@ -150,7 +152,7 @@ function ApproveCourses() {
               <input
                 type="text"
                 name="advisingTerm"
-                value={currentRecord.term || ""}
+                value={currentRecord.advising_term || ""}
                 readOnly
                 className="single-record"
               />
