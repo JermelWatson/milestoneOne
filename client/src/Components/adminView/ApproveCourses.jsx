@@ -50,7 +50,7 @@ function ApproveCourses() {
   // Function to prepare student record data and set current record state
   const sendRecord = (record_id) => {
     const record = records.find((rec) => rec.id === record_id);
-
+    console.log(record)
     if (record) {
       const recordData = {
         student_id: record.student_id,
