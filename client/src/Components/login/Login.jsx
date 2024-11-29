@@ -4,9 +4,7 @@ import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../UserContext";
-import { useContext } from 'react';
-import { BiArrowBack } from "react-icons/bi";
-
+import ReCAPTCHA from "react-google-recaptcha";
 
 const EMAIL_REGEX = /^[^\s@]+@[^s@]+\.[^\s@]+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -18,6 +16,7 @@ const Login = () => {
   const [emailFocus, setEmailFocus] = useState(false);
   const [view, setView] = useState("login");
   const [code, setCode] = useState("");
+  const recaptchaRef = useRef(null);
 
   useEffect(() => {
     const result = EMAIL_REGEX.test(email);
@@ -27,7 +26,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
-
 
   useEffect(() => {
     const result = PWD_REGEX.test(password);
@@ -39,7 +37,7 @@ const Login = () => {
 
   const handleVerify = async (e) => {
     e.preventDefault(); // Prevent form submission reload
-    
+
     const verifyBody = JSON.stringify({
       email: email,
       code: code,
@@ -56,23 +54,24 @@ const Login = () => {
 
       if (response.ok) {
         const result = await response.json(); // Parse the response body
-        if (result.data[0]){
-        const user = { 
-          user_id: result.data[0].id,
-          first_name: result.data[0].first_name, 
-          last_name: result.data[0].last_name,
-          email: result.data[0].email 
-        }; // Retrieved from API
-        setUser(user); 
-        if (result.data && result.data[0].is_admin === 1) {
-          console.log("IS ADMIN USER");
-          navigate("/admin");
+        if (result.data[0]) {
+          const user = {
+            user_id: result.data[0].id,
+            first_name: result.data[0].first_name,
+            last_name: result.data[0].last_name,
+            email: result.data[0].email,
+          }; // Retrieved from API
+          setUser(user);
+          if (result.data && result.data[0].is_admin === 1) {
+            console.log("IS ADMIN USER");
+            navigate("/admin");
+          } else {
+            console.log("IS NORMAL USER");
+            navigate("/dashboard");
+          }
         } else {
-          console.log("IS NORMAL USER");
-          navigate("/dashboard");
+          alert("Incorrect verification code. Try again");
         }
-      }
-      else{alert("Incorrect verification code. Try again")}
       } else {
         console.log("Failed to verify email");
       }
@@ -88,12 +87,22 @@ const Login = () => {
       password: password,
     });
 
+    const token = recaptchaRef.current.getValue();
+    console.log("ReCAPTCHA Token:", token);
+
+    // Reset reCAPTCHA if needed
+    recaptchaRef.current.reset();
+
     try {
-      const result = await axios.post(import.meta.env.VITE_API_KEY + "/login", formBody, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const result = await axios.post(
+        import.meta.env.VITE_API_KEY + "/login",
+        formBody,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (result.status === 200) {
         if (result.data.status === 400) {
@@ -105,7 +114,7 @@ const Login = () => {
         console.error("Login failed");
       }
     } catch (error) {
-      alert("User does not exist. Please Sign up")
+      alert("User does not exist. Please Sign up");
       console.error("Error:", error);
     }
   };
@@ -115,10 +124,10 @@ const Login = () => {
       {view === "login" && (
         <div className="signin-container">
           <form className="signup-form" onSubmit={handleLogin}>
-          <img src="/odulogo.png" alt="Course Portal Logo" className="logo" />
-          <div className="header">
-            <div>CSWEB - 518</div>
-            <div>COURSE PORTAL</div>
+            <img src="/odulogo.png" alt="Course Portal Logo" className="logo" />
+            <div className="header">
+              <div>CSWEB - 518</div>
+              <div>COURSE PORTAL</div>
               <div>LOG IN</div>
               <div className="underline"></div>
             </div>
@@ -146,6 +155,12 @@ const Login = () => {
                 onBlur={() => setPasswordFocus(false)}
                 required
               />
+              <div>
+                <ReCAPTCHA
+                  ref={recaptchaRef} // Assign the ref to the component
+                  sitekey={import.meta.env.VITE_SITE_KEY} // Set the site key from environment
+                />
+              </div>
               <div className="btn">
                 <button type="submit" className="signup-button">
                   Login
@@ -160,13 +175,13 @@ const Login = () => {
             <p>Don't have an account?</p>
             <div>
               <Link to="/" className="signinBtn">
-              <button
-              type="button"
-              className="signup-button"
-              onClick={() => navigate("/")}
-            >
-              Sign up
-            </button>
+                <button
+                  type="button"
+                  className="signup-button"
+                  onClick={() => navigate("/")}
+                >
+                  Sign up
+                </button>
               </Link>
             </div>
           </form>
@@ -183,11 +198,11 @@ const Login = () => {
               <input
                 type="text"
                 className="input"
-                value={code}  // Correctly bind the value
+                value={code} // Correctly bind the value
                 id="code"
                 autoComplete="off"
                 placeholder="Enter code"
-                onChange={(e) => setCode(e.target.value)}  // Update the state
+                onChange={(e) => setCode(e.target.value)} // Update the state
                 required
               />
               <div className="btn">
@@ -196,12 +211,12 @@ const Login = () => {
                 </button>
               </div>
               <div className="login">
-            <div>
-               <button width="100px"  onClick={() => setView("login")}>
-               Back
-               </button> 
-            </div>
-          </div>
+                <div>
+                  <button width="100px" onClick={() => setView("login")}>
+                    Back
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </div>
