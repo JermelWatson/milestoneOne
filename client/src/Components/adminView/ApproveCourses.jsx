@@ -11,7 +11,6 @@ function ApproveCourses() {
   const [view, setView] = useState("all_records");
   const [currentRecord, setCurrentRecord] = useState(null);
   const [currentRecordId, setCurrentRecordId] = useState(null);
-  const [studentRecordData, setStudentRecordData] = useState(null);
   const [currentPrerequisites, setCurrentPrerequisites] = useState([]);
   const [currentCourses, setCurrentCourses] = useState([]);
   const navigate = useNavigate();
@@ -24,12 +23,15 @@ function ApproveCourses() {
   useEffect(() => {
     const fetchRecords = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_API_KEY + "/advising_record", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          `${import.meta.env.VITE_API_KEY}/advising_record`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         if (response.ok) {
           const data = await response.json();
           setRecords(data.data);
@@ -47,10 +49,9 @@ function ApproveCourses() {
     fetchRecords();
   }, []);
 
-  // Function to prepare student record data and set current record state
+  // Prepare student record data and set current record state
   const sendRecord = (record_id) => {
     const record = records.find((rec) => rec.id === record_id);
-    console.log(record)
     if (record) {
       const recordData = {
         student_id: record.student_id,
@@ -65,25 +66,30 @@ function ApproveCourses() {
         last_gpa: record.last_gpa,
         status: record.status,
       };
-      setCurrentRecord(recordData); // Set currentRecord directly
+      setCurrentRecord(recordData);
     } else {
       console.error("Record not found for ID:", record_id);
     }
   };
 
+  // Set up details for a single record
   const setUp = async (record_id) => {
     setView("single_record");
     setCurrentRecordId(record_id);
-    
-
     sendRecord(record_id);
-    //put api call to get courses in this function
 
-    const [prerequisites, coursePlan] = useOpenRecord({ student_id: record_id });
-    setCurrentPrerequisites(prerequisites);
-    setCurrentCourses(coursePlan);
+    const [prerequisites, coursePlan, loading, error] = useOpenRecord({
+      student_id: record_id,
+    });
+    if (!loading && !error) {
+      setCurrentPrerequisites(prerequisites);
+      setCurrentCourses(coursePlan);
+    } else if (error) {
+      console.error("Error loading data:", error);
+    }
   };
 
+  // Main render
   return (
     <div>
       <button onClick={goBack}>
@@ -91,8 +97,13 @@ function ApproveCourses() {
       </button>
       <h1>Course Advising History</h1>
 
+      {/* All Records View */}
       {view === "all_records" && (
-        records.length > 0 ? (
+        isLoading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>Error: {error}</p>
+        ) : records.length > 0 ? (
           <table>
             <thead>
               <tr>
@@ -110,7 +121,13 @@ function ApproveCourses() {
                   style={{ cursor: "pointer" }}
                 >
                   <td>{record.first_name} {record.last_name}</td>
-                  <td>{new Date(record.date).toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" })}</td>
+                  <td>
+                    {new Date(record.date).toLocaleDateString("en-US", {
+                      month: "2-digit",
+                      day: "2-digit",
+                      year: "numeric",
+                    })}
+                  </td>
                   <td>{record.advising_term}</td>
                   <td>{record.status}</td>
                 </tr>
@@ -122,8 +139,10 @@ function ApproveCourses() {
         )
       )}
 
+      {/* Single Record View */}
       {view === "single_record" && currentRecord && (
         <div>
+          {/* History Section */}
           <div>
             <h2>History</h2>
             <label>
@@ -131,7 +150,7 @@ function ApproveCourses() {
               <input
                 type="text"
                 name="lastTerm"
-                value={currentRecord.last_term }
+                value={currentRecord.last_term}
                 readOnly
                 className="single-record"
               />
@@ -159,26 +178,54 @@ function ApproveCourses() {
             </label>
           </div>
 
+          {/* Prerequisites Section */}
           <div>
             <h2>Prerequisites</h2>
-            <ul>
-              {currentPrerequisites.map((course, index) => (
-                <li key={index}>
-                  <strong>Course Name:</strong> {course.course} | <strong>Level:</strong> {course.level}
-                </li>
-              ))}
-            </ul>
+            {currentPrerequisites.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Level</th>
+                    <th>Course Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentPrerequisites.map((prereq) => (
+                    <tr key={prereq.id}>
+                      <td>{prereq.level}</td>
+                      <td>{prereq.course_name}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No prerequisites found.</p>
+            )}
           </div>
 
+          {/* Course Plan Section */}
           <div>
             <h2>Course Plan</h2>
-            <ul>
-              {currentCourses.map((course, index) => (
-                <li key={index}>
-                  <strong>Course Name:</strong> {course.course} | <strong>Level:</strong> {course.level}
-                </li>
-              ))}
-            </ul>
+            {currentCourses.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Level</th>
+                    <th>Course</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentCourses.map((course) => (
+                    <tr key={course.id}>
+                      <td>{course.level}</td>
+                      <td>{course.course}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No courses found in the plan.</p>
+            )}
           </div>
         </div>
       )}
