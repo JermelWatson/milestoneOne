@@ -88,6 +88,10 @@ const Login = () => {
     });
 
     const token = recaptchaRef.current.getValue();
+
+    if (token === ""){
+      alert("Please verify that you are not a Robot!")
+    }
     console.log("ReCAPTCHA Token:", token);
 
     // Reset reCAPTCHA if needed
