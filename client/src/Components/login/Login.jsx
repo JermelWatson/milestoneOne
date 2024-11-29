@@ -95,7 +95,6 @@ const Login = () => {
       navigate('/login')
       return
     }
-    console.log("ReCAPTCHA Token:", token);
 
     // Reset reCAPTCHA if needed
 
