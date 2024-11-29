@@ -93,7 +93,7 @@ const Login = () => {
       alert("Please verify that you are not a Robot!")
       setView('login')
       navigate('/login')
-      
+      return
     }
     console.log("ReCAPTCHA Token:", token);
 
