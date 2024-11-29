@@ -155,18 +155,18 @@ const Login = () => {
                 onBlur={() => setPasswordFocus(false)}
                 required
               />
-              <div>
-                <ReCAPTCHA
-                  ref={recaptchaRef} // Assign the ref to the component
-                  sitekey={import.meta.env.VITE_SITE_KEY} // Set the site key from environment
-                />
-              </div>
               <div className="btn">
                 <button type="submit" className="signup-button">
                   Login
                 </button>
               </div>
             </div>
+            <div>
+            <ReCAPTCHA
+                  ref={recaptchaRef} // Assign the ref to the component
+                  sitekey={import.meta.env.VITE_SITE_KEY} // Set the site key from environment
+                />
+              </div>
             <p>
               <Link to="/forgot-password" className="href">
                 Forgot password?
