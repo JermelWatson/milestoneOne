@@ -98,7 +98,6 @@ const Login = () => {
     console.log("ReCAPTCHA Token:", token);
 
     // Reset reCAPTCHA if needed
-    recaptchaRef.current.reset();
 
     try {
       const result = await axios.post(
