@@ -92,6 +92,7 @@ const Login = () => {
     if (token === ""){
       alert("Please verify that you are not a Robot!")
       setView('login')
+      navigate('/login')
       
     }
     console.log("ReCAPTCHA Token:", token);
