@@ -157,7 +157,7 @@ function ApproveCourses() {
                   key={record.record_id}
                   onClick={
                     () => {console.log("Record:", record);
-                    console.log("Clicked Record ID:", record.id);
+                    console.log("Clicked Record ID:", record);
                     setUp(record.record_id)}
                     }
                   style={{ cursor: "pointer" }}
