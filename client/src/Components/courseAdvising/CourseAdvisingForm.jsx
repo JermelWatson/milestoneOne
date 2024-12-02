@@ -58,7 +58,8 @@ function CourseAdvisingForm() {
             if (response.ok) {
                 const result = await response.json(); // Parse the response body
                 console.log("Form submitted with no error");
-                alert("Successfully added new advising record");
+                console.log(result)
+                //alert("Successfully added new advising record");
     
                 // Reset all fields to their initial values
                 setLastTerm('');

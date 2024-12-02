@@ -10,7 +10,6 @@ function ApproveCourses() {
   const [error, setError] = useState(null);
   const [view, setView] = useState("all_records");
   const [currentRecord, setCurrentRecord] = useState(null);
-  const [currentRecordId, setCurrentRecordId] = useState(null);
   const [currentPrerequisites, setCurrentPrerequisites] = useState([]);
   const [currentCourses, setCurrentCourses] = useState([]);
   const navigate = useNavigate();
@@ -72,45 +71,49 @@ function ApproveCourses() {
     }
   };
 
-  const fetchCourses = async () => {
-    const formBody = JSON.stringify({
-        student: currentRecord.student_id,
-    });
-
-    try {
-        const response = await fetch(import.meta.env.VITE_API_KEY+ "/get_advising_history", {
-            method: "POST",
-            body: formBody,
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            console.log("This is result", result)
-            // Separate the records into prerequisites and course plan
-            //setPrerequisites(result.data.filter(course => course.level < 400));
-            //setCoursePlan(result.data.filter(course => course.level >= 390));
-        } else {
-            console.log("Failed to fetch records:", response.statusText);
-        }
-    } catch (error) {
-        console.error("Error fetching records:", error);
+  const fetchCourses = async (record_id) => {
+    const record = records.find((rec) => rec.id === record_id);
+    if (!record) {
+      console.error("Record not found");
+      setError("Record not found.");
+      return;
     }
-};
+
+    const formBody = JSON.stringify({ student: record.student_id });
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_KEY}/get_advising_history`,
+        {
+          method: "POST",
+          body: formBody,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("This is result", result);
+        // Handle prerequisites and courses here
+        setCurrentPrerequisites(
+          result.data.filter((course) => course.level < 400)
+        );
+        setCurrentCourses(result.data.filter((course) => course.level >= 390));
+      } else {
+        console.log("Failed to fetch courses:", response.statusText);
+        setError("Failed to load courses");
+      }
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
+  };
 
   // Set up details for a single record
   const setUp = async (record_id) => {
     setView("single_record");
-    setCurrentRecordId(record_id);
     sendRecord(record_id);
-    fetchCourses(record_id)
-    if (!error) {
-      console.log("We made it!!")
-    } else if (error) {
-      console.error("Error loading data:", error);
-    }
+    await fetchCourses(record_id);
   };
 
   // Main render
@@ -120,10 +123,9 @@ function ApproveCourses() {
         <BiArrowBack /> Back
       </button>
       <h1>Course Advising History</h1>
-
       {/* All Records View */}
-      {view === "all_records" && (
-        isLoading ? (
+      {view === "all_records" &&
+        (isLoading ? (
           <p>Loading...</p>
         ) : error ? (
           <p>Error: {error}</p>
@@ -144,7 +146,9 @@ function ApproveCourses() {
                   onClick={() => setUp(record.id)}
                   style={{ cursor: "pointer" }}
                 >
-                  <td>{record.first_name} {record.last_name}</td>
+                  <td>
+                    {record.first_name} {record.last_name}
+                  </td>
                   <td>
                     {new Date(record.date).toLocaleDateString("en-US", {
                       month: "2-digit",
@@ -160,12 +164,13 @@ function ApproveCourses() {
           </table>
         ) : (
           <p>No records available. Start by creating a new record.</p>
-        )
-      )}
-
+        ))}
       {/* Single Record View */}
       {view === "single_record" && currentRecord && (
         <div>
+          <button onClick={() => setView("all_records")}>
+            Back to All Records
+          </button>
           {/* History Section */}
           <div>
             <h2>History</h2>
@@ -205,7 +210,6 @@ function ApproveCourses() {
       )}
       <button>Approve</button> <button>Reject</button>
     </div>
-    
   );
 }
 export default ApproveCourses;
