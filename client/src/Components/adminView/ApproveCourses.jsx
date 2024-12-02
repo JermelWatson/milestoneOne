@@ -116,6 +116,16 @@ function ApproveCourses() {
     await fetchCourses(record_id);
   };
 
+  const resetRecord = ()=>{
+    setCurrentRecord({
+    last_term:'',
+    last_gpa:'',
+    advising_term:'',
+  })
+
+  
+  }
+
   // Main render
   return (
     <div>
@@ -168,7 +178,7 @@ function ApproveCourses() {
       {/* Single Record View */}
       {view === "single_record" && currentRecord && (
         <div>
-          <button onClick={() => setView("all_records")}>
+          <button onClick={() => {setView("all_records"); resetRecord()}}>
             Back to All Records
           </button>
           {/* History Section */}
