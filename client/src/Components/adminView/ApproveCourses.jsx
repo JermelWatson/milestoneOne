@@ -51,7 +51,7 @@ function ApproveCourses() {
 
   // Prepare student record data and set current record state
   const sendRecord = (record_id) => {
-    const record = records.find((rec) => rec.id === record_id);
+    const record = records.find((rec) => rec.record_id === record_id);
     if (record) {
       const recordData = {
         student_id: record.student_id,
@@ -73,7 +73,7 @@ function ApproveCourses() {
   };
 
   const fetchCourses = async (record_id) => {
-    const record = records.find((rec) => rec.id === record_id);
+    const record = records.find((rec) => rec.record_id === record_id);
     console.log(record)
     if (!record) {
       console.error("Record not found");
@@ -157,7 +157,7 @@ function ApproveCourses() {
                   key={record.record_id}
                   onClick={
                     () => {console.log("Record:", record);
-                    console.log("Clicked Record ID:", record);
+                    console.log("Clicked Record ID:", record.record_id);
                     setUp(record.record_id)}
                     }
                   style={{ cursor: "pointer" }}

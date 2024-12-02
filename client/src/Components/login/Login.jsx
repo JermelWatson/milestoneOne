@@ -203,6 +203,7 @@ const Login = () => {
                 className="input"
                 value={code} // Correctly bind the value
                 id="code"
+                onFocus={true}
                 autoComplete="off"
                 placeholder="Enter code"
                 onChange={(e) => setCode(e.target.value)} // Update the state
