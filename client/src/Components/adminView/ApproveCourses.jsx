@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { useOpenRecord } from "./OpenRecord";
 import "./AdminView.css";
+import DisplayRecord from "./DisplayRecord";
 
 function ApproveCourses() {
   const [records, setRecords] = useState([]);
@@ -177,60 +178,11 @@ function ApproveCourses() {
               />
             </label>
           </div>
-
-          {/* Prerequisites Section */}
-          <div>
-            <h2>Prerequisites</h2>
-            {currentPrerequisites.length > 0 ? (
-              <table>
-                <thead>
-                  <tr>
-                    <th>Level</th>
-                    <th>Course Name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentPrerequisites.map((prereq) => (
-                    <tr key={prereq.id}>
-                      <td>{prereq.level}</td>
-                      <td>{prereq.course_name}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p>No prerequisites found.</p>
-            )}
-          </div>
-
-          {/* Course Plan Section */}
-          <div>
-            <h2>Course Plan</h2>
-            {currentCourses.length > 0 ? (
-              <table>
-                <thead>
-                  <tr>
-                    <th>Level</th>
-                    <th>Course</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentCourses.map((course) => (
-                    <tr key={course.id}>
-                      <td>{course.level}</td>
-                      <td>{course.course}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p>No courses found in the plan.</p>
-            )}
-          </div>
         </div>
       )}
+      <DisplayRecord/>
     </div>
+    
   );
 }
-
 export default ApproveCourses;
