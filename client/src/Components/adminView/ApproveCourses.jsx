@@ -153,11 +153,11 @@ function ApproveCourses() {
             <tbody>
               {records.map((record) => (
                 <tr
-                  key={record.id}
+                  key={record.record_id}
                   onClick={
                     () => {console.log("Record:", record);
                     console.log("Clicked Record ID:", record.id);
-                    setUp(record.id)}
+                    setUp(record.record_id)}
                     }
                   style={{ cursor: "pointer" }}
                 >
