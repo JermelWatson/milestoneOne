@@ -16,7 +16,7 @@ LEFT JOIN
 WHERE 
   rm.student_id = ?
 `,
-    [req.body.student],
+    [req.body.student_id],
     function (err, result) {
       if (err) {
         res.status(500).json({
