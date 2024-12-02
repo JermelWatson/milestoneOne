@@ -23,6 +23,7 @@ import record_id from "./routes/getRecordId.js";
 import advising_record from "./routes/advising_record.js";
 import get_advising_history from "./routes/get_advising_history.js";
 import getStudentRecord from "./routes/getStudetRecord.js";
+import approve_courses from "./routes/approve_courses.js";
 const app = express();
 const port = 3000;
 
@@ -72,6 +73,8 @@ app.use('/', advising_record)
 app.use('/', get_advising_history)
 
 app.use('/', getStudentRecord)
+
+app.use('/', approve_courses)
 
 
 
