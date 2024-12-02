@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { connection } from "../database/database.js";
-import { SendMail } from "../utils/SendMail.js";
+//import { SendMail } from "../utils/SendMail.js";
 const approve_courses = Router();
 
 approve_courses.put("/approve_courses", (req, res)=>{
