@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { BiArrowBack } from "react-icons/bi";
-import { useOpenRecord } from "./OpenRecord";
 import "./AdminView.css";
 import DisplayRecord from "./DisplayRecord";
 
@@ -73,18 +72,42 @@ function ApproveCourses() {
     }
   };
 
+  const fetchCourses = async () => {
+    const formBody = JSON.stringify({
+        student: currentRecord.student_id,
+    });
+
+    try {
+        const response = await fetch(import.meta.env.VITE_API_KEY+ "/get_advising_history", {
+            method: "POST",
+            body: formBody,
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log("This is result", result)
+            // Separate the records into prerequisites and course plan
+            //setPrerequisites(result.data.filter(course => course.level < 400));
+            //setCoursePlan(result.data.filter(course => course.level >= 390));
+        } else {
+            console.log("Failed to fetch records:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error fetching records:", error);
+    }
+};
+
   // Set up details for a single record
   const setUp = async (record_id) => {
     setView("single_record");
     setCurrentRecordId(record_id);
     sendRecord(record_id);
-
-    const [prerequisites, coursePlan] = useOpenRecord({
-      student_id: record_id,
-    });
+    fetchCourses(record_id)
     if (!error) {
-      setCurrentPrerequisites(prerequisites);
-      setCurrentCourses(coursePlan);
+      console.log("We made it!!")
     } else if (error) {
       console.error("Error loading data:", error);
     }

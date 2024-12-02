@@ -1,7 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { BiArrowBack } from "react-icons/bi";
-import { useOpenRecord } from "./OpenRecord";
 import "./AdminView.css";
 
 function DisplayRecord() {
