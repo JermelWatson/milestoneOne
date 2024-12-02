@@ -125,9 +125,20 @@ function ApproveCourses() {
     last_gpa:'',
     advising_term:'',
   })
-
-
   }
+
+  const approveRecord = () => {
+    console.log("Approve clicked for record:", currentRecord);
+    // Add logic for approving the record
+    
+
+};
+
+const rejectRecord = () => {
+    console.log("Reject clicked for record:", currentRecord);
+    // Add logic for rejecting the record
+};
+
 
   // Main render
   return (
@@ -223,9 +234,9 @@ function ApproveCourses() {
               />
             </label>
           </div>
+          <button onClick={()=> approveRecord()}>Approve</button> <button onClick={()=> rejectRecord()}>Reject</button>
         </div>
       )}
-      <button>Approve</button> <button>Reject</button>
     </div>
   );
 }
