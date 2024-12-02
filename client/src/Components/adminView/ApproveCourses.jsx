@@ -154,7 +154,11 @@ function ApproveCourses() {
               {records.map((record) => (
                 <tr
                   key={record.id}
-                  onClick={() => setUp(record.id)}
+                  onClick={
+                    () => {console.log("Record:", record);
+                    console.log("Clicked Record ID:", record.id);
+                    setUp(record.id)}
+                    }
                   style={{ cursor: "pointer" }}
                 >
                   <td>
