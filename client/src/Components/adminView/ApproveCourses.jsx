@@ -79,10 +79,10 @@ function ApproveCourses() {
     setCurrentRecordId(record_id);
     sendRecord(record_id);
 
-    const [prerequisites, coursePlan, loading, error] = useOpenRecord({
+    const [prerequisites, coursePlan] = useOpenRecord({
       student_id: record_id,
     });
-    if (!loading && !error) {
+    if (!error) {
       setCurrentPrerequisites(prerequisites);
       setCurrentCourses(coursePlan);
     } else if (error) {
@@ -180,7 +180,6 @@ function ApproveCourses() {
           </div>
         </div>
       )}
-      <DisplayRecord/>
       <button>Approve</button> <button>Reject</button>
     </div>
     

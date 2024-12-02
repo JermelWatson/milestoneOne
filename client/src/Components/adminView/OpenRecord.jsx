@@ -21,6 +21,7 @@ export function useOpenRecord(record) {
         
                 if (response.ok) {
                     const result = await response.json();
+                    console.log("This is result", result)
                     // Separate the records into prerequisites and course plan
                     setPrerequisites(result.data.filter(course => course.level < 400));
                     setCoursePlan(result.data.filter(course => course.level >= 390));
