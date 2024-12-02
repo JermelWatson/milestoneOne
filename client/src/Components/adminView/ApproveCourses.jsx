@@ -73,6 +73,7 @@ function ApproveCourses() {
 
   const fetchCourses = async (record_id) => {
     const record = records.find((rec) => rec.id === record_id);
+    console.log(record)
     if (!record) {
       console.error("Record not found");
       setError("Record not found.");
@@ -123,7 +124,7 @@ function ApproveCourses() {
     advising_term:'',
   })
 
-  
+
   }
 
   // Main render
