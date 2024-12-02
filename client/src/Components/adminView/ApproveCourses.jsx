@@ -34,6 +34,7 @@ function ApproveCourses() {
         if (response.ok) {
           const data = await response.json();
           setRecords(data.data);
+          console.log("This is records object: ", data.data)
         } else {
           console.error("Failed to fetch records:", response.statusText);
           setError("Failed to load records");
