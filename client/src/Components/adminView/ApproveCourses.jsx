@@ -181,6 +181,7 @@ function ApproveCourses() {
         </div>
       )}
       <DisplayRecord/>
+      <button>Approve</button> <button>Reject</button>
     </div>
     
   );

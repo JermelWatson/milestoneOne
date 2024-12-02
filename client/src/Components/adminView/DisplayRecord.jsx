@@ -32,6 +32,11 @@ function DisplayRecord() {
     };
     fetchRecords();
   }, []);
+  return(
+    <>
+        <h2>Records</h2>
+    </>
+  )
 }
 
 export default DisplayRecord;
