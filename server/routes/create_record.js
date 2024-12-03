@@ -47,7 +47,6 @@ create_record.post("/create_record", async (req, res) => {
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
     const year = today.getFullYear();
-    const formattedDate = `${month}/${day}/${year}`;
     
     try {
         // Insert the main record and get the inserted record ID
