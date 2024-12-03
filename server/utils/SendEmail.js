@@ -17,7 +17,7 @@ export function SendMail(email, emailSubject, emailBody) {
         from: process.env.EMAIL,
         to: email,
         subject: emailSubject,
-        text: `Your verification code is: ${emailBody}`,
+        text: `${emailBody}`,
     };
     transport.sendMail(mailOption, function (err, result) {
         if (err) {

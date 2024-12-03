@@ -17,7 +17,7 @@ signinHelper.post("/signinHelper", (req, res) => {
             }
             
             //Send verification email
-            SendMail(req.body.email, "Login Verification", verification_code);
+            SendMail(req.body.email, "Login Verification Code", `Your verification code is: ${verification_code}`);
                return res.json({
                 status: "200",
                 message: "Verification code sent to email",
