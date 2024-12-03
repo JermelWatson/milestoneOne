@@ -131,7 +131,7 @@ function ApproveCourses() {
   const approveRecord = async () => {
     console.log("Approve clicked for record:", currentRecord);
     // Add logic for approving the record
-    const formBody = JSON.stringify({ student: currentRecord.student_id });
+    const formBody = JSON.stringify({ student_id: currentRecord.student_id });
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_KEY}/get_advising_history`,
