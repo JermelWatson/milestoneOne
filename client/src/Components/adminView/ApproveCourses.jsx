@@ -131,12 +131,15 @@ function ApproveCourses() {
   const approveRecord = async () => {
     console.log("Approve clicked for record:", currentRecord);
     // Add logic for approving the record
-    const formBody = JSON.stringify({ student_id: currentRecord.student_id });
+    const formBody = JSON.stringify({ 
+      student_id: currentRecord.student_id,
+    email: currentRecord.email 
+  });
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_KEY}/approve_courses`,
         {
-          method: "POST",
+          method: "PUT",
           body: formBody,
           headers: {
             "Content-Type": "application/json",
@@ -146,7 +149,7 @@ function ApproveCourses() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("This is result", result);
+        console.log("Approved courses successfully", result);
         // Handle prerequisites and courses here
         setCurrentPrerequisites(
           result.data.filter((course) => course.level < 400)
