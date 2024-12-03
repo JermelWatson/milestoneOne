@@ -34,7 +34,6 @@ function ApproveCourses() {
         if (response.ok) {
           const data = await response.json();
           setRecords(data.data);
-          console.log("This is records object: ", data.data)
         } else {
           console.error("Failed to fetch records:", response.statusText);
           setError("Failed to load records");
@@ -76,7 +75,6 @@ function ApproveCourses() {
 
   const fetchCourses = async (record_id) => {
     const record = records.find((rec) => rec.record_id === record_id);
-    console.log(record)
     if (!record) {
       console.error("Record not found");
       setError("Record not found.");
@@ -98,7 +96,6 @@ function ApproveCourses() {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("This is result", result);
         // Handle prerequisites and courses here
         setCurrentPrerequisites(
           result.data.filter((course) => course.level < 400)
@@ -135,7 +132,6 @@ function ApproveCourses() {
       student_id: currentRecord.student_id,
       email: currentRecord.email 
   });
-  console.log("This is form body",formBody)
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_KEY}/approve_courses`,
@@ -151,6 +147,7 @@ function ApproveCourses() {
       if (response.ok) {
         const result = await response.json();
         console.log("Approved courses successfully", result);
+        alert(" Successfully Approved selections")
       }
     } catch (error) {
       console.error("Failed to approve courses", error);
@@ -158,9 +155,33 @@ function ApproveCourses() {
 
 };
 
-const rejectRecord = () => {
+const rejectRecord = async () => {
     console.log("Reject clicked for record:", currentRecord);
     // Add logic for rejecting the record
+    const formBody = JSON.stringify({ 
+      student_id: currentRecord.student_id,
+      email: currentRecord.email 
+  });
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_KEY}/reject_courses`,
+        {
+          method: "PUT",
+          body: formBody,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Rejected student courses selection ", result);
+        alert(" Successfully rejected selections")
+      }
+    } catch (error) {
+      console.error("Failed to approve courses", error);
+    }
 };
 
 
@@ -192,8 +213,7 @@ const rejectRecord = () => {
                 <tr
                   key={record.record_id}
                   onClick={
-                    () => {console.log("Record:", record);
-                    console.log("Clicked Record ID:", record.record_id);
+                    () => {
                     setUp(record.record_id)}
                     }
                   style={{ cursor: "pointer" }}
