@@ -98,10 +98,8 @@ function ApproveCourses() {
 
         console.log("API results", result.data)
         // Handle prerequisites and courses here
-        setCurrentPrerequisites(
-          result.data.filter((course) => course.level < 400)
-        );
-        setCurrentCourses(result.data.filter((course) => course.level >= 390));
+        setCurrentPrerequisites(result.data.prerequisites)
+        setCurrentCourses(result.data.courses)
       } else {
         console.log("Failed to fetch courses:", response.statusText);
         setError("Failed to load courses");
