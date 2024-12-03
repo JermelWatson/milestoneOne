@@ -58,8 +58,7 @@ function CourseAdvisingForm() {
             if (response.ok) {
                 const result = await response.json(); // Parse the response body
                 console.log("Form submitted with no error");
-                console.log(result)
-                //alert("Successfully added new advising record");
+                alert("Successfully added new advising record");
     
                 // Reset all fields to their initial values
                 setLastTerm('');
@@ -87,7 +86,7 @@ function CourseAdvisingForm() {
             <label>
                 Last Term:
                 <input type="text" 
-                value={last_term}
+                //value={last_term}
                 name="lastTerm" 
                 onChange={(e)=>setLastTerm(e.target.value)}
                 required
@@ -96,7 +95,7 @@ function CourseAdvisingForm() {
             <label>
                 Last GPA:
                 <input type="text" 
-                value = {lastGPA}
+                //value = {lastGPA}
                 step="0.01" 
                 name="lastGPA" 
                 onChange={(e)=> setLastGPA(parseFloat(e.target.value))}
@@ -106,7 +105,7 @@ function CourseAdvisingForm() {
             <label>
                 Advising Term:
                 <input type="text" 
-                value={advising_term}
+                //value={advising_term}
                 name="advisingTerm" 
                 onChange={(e)=> setAdvisingTerm(e.target.value)}
                 required
