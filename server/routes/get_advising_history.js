@@ -13,10 +13,10 @@ FROM
   records_mapping rm
 JOIN 
   course c ON rm.course_id = c.id
-JOIN 
+LEFT JOIN 
   prerequisites p ON rm.course_id = p.id
 WHERE 
-  rm.student_id = ?
+  rm.student_id = ?;
 `,
     [req.body.student_id],
     function (err, result) {
