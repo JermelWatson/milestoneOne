@@ -133,8 +133,9 @@ function ApproveCourses() {
     // Add logic for approving the record
     const formBody = JSON.stringify({ 
       student_id: currentRecord.student_id,
-    email: currentRecord.email 
+      email: currentRecord.email 
   });
+  console.log("This is form body",formBody)
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_KEY}/approve_courses`,
