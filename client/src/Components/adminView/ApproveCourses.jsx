@@ -277,6 +277,8 @@ const rejectRecord = async () => {
                 className="single-record"
               />
             </label>
+            {console.log("This is prereqs:", currentPrerequisites)}
+            {console.log("This is Courses:", currentCourses)}
           </div>
           <button onClick={()=> approveRecord()}>Approve</button> <button onClick={()=> rejectRecord()}>Reject</button>
         </div>
