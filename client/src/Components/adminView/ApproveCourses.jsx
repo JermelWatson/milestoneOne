@@ -134,7 +134,7 @@ function ApproveCourses() {
     const formBody = JSON.stringify({ student_id: currentRecord.student_id });
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_KEY}/get_advising_history`,
+        `${import.meta.env.VITE_API_KEY}/approve_courses`,
         {
           method: "POST",
           body: formBody,
