@@ -24,7 +24,7 @@ export function SendMail(email, emailSubject, emailBody) {
             console.log('MAIL NOT SENT',err.message);
         }
         else {
-            console.log("Email sent sucvcessfully!");
+            console.log("Email sent successfully!");
         }
     })
 return
