@@ -208,6 +208,10 @@ const Signup = () => {
                 onBlur={() => setMatchpwdFocus(false)}
                 required
               />
+              <p> Password must have at least 8 characters</p>
+              <p> Password must have a number</p>
+              <p> Password must have a capital letter</p>
+              <p> Password must have a special character</p>
               <button type="submit" className="signin-button">
                 Sign up
               </button>
