@@ -12,17 +12,12 @@ approve_courses.put("/approve_courses", (req, res)=>{
                 res.json(err.message)
             }
             else{
+                SendMail(req.body.email, "Admin decision","Your courses have been approved");
                 res.json({
                     status: 200,
                     message: "Approved courses successfully",
                 });
             }
-
-            SendMail(req.body.email, "Admin decision","Your courses have been approved");
-               return res.json({
-                status: "200",
-                message: "Approve message sent to email",
-            });
         }
     );
 });
