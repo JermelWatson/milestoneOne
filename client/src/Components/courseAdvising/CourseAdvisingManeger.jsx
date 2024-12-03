@@ -19,7 +19,9 @@ function CourseAdvisingManager() {
 
   // Fetch initial advising records and course history
   useEffect(() => {
+    const { user } = useContext(UserContext);
     const fetchInitialRecords = async () => {
+      
       const formBody = JSON.stringify({ student_id: user.user_id });
 
       try {
@@ -58,6 +60,8 @@ function CourseAdvisingManager() {
           const coursePlan = result.data.filter(
             (course) => course.level >= 390
           );
+          console.log('Prereqs', prerequisites)
+          console.log("Course", coursePlan)
           setPrerequisites(prerequisites);
           setCoursePlan(coursePlan);
         }
