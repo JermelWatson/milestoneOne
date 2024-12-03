@@ -80,7 +80,6 @@ function ApproveCourses() {
       setError("Record not found.");
       return;
     }
-
     const formBody = JSON.stringify({ student_id: record.student_id});
     try {
       const response = await fetch(

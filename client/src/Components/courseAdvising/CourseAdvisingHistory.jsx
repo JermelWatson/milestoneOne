@@ -1,12 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./courseAdvising.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../UserContext";
 import { BiArrowBack } from "react-icons/bi";
 
 function CourseAdvisingHistory() {
-  const [records, setRecords] = useState([]);
+  const [record, setRecords] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   const [error, setError] = useState(null); // Add error state
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -15,10 +17,14 @@ function CourseAdvisingHistory() {
 
   // Fetch records from records table
   useEffect(() => {
-    const fetchRecords = async () => {
+    const fetchRecord = async () => {
+      const formBody = JSON.stringify({
+        student_id: user.user_id
+    });
       try {
-        const response = await fetch(import.meta.env.VITE_API_KEY + "/record_id", {
+        const response = await fetch(import.meta.env.VITE_API_KEY + "/get_student_record", {
           method: "GET",
+          body: formBody,
           headers: {
             "Content-Type": "application/json",
           },
@@ -37,7 +43,7 @@ function CourseAdvisingHistory() {
         setIsLoading(false); // Set loading to false once data is fetched
       }
     };
-    fetchRecords();
+    fetchRecord();
   }, []);
 
   return (
@@ -51,7 +57,7 @@ function CourseAdvisingHistory() {
         <p>Loading records...</p>
       ) : error ? (
         <p>{error}</p>
-      ) : records.length > 0 ? (
+      ) : record.length > 0 ? (
         <table>
           <thead>
             <tr>
@@ -61,7 +67,7 @@ function CourseAdvisingHistory() {
             </tr>
           </thead>
           <tbody>
-            {records.map((record) => (
+            {record.map((record) => (
               <tr
                 key={record.id}
                 onClick={() => navigate(`/edit_records`)}
