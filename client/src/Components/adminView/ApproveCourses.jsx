@@ -150,17 +150,9 @@ function ApproveCourses() {
       if (response.ok) {
         const result = await response.json();
         console.log("Approved courses successfully", result);
-        // Handle prerequisites and courses here
-        setCurrentPrerequisites(
-          result.data.filter((course) => course.level < 400)
-        );
-        setCurrentCourses(result.data.filter((course) => course.level >= 390));
-      } else {
-        console.log("Failed to fetch courses:", response.statusText);
-        setError("Failed to load courses");
       }
     } catch (error) {
-      console.error("Error fetching courses:", error);
+      console.error("Failed to approve courses", error);
     }
 
 };
