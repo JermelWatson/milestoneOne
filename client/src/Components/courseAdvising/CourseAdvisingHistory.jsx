@@ -30,9 +30,9 @@ function CourseAdvisingHistory() {
           },
         });
         if (response.ok) {
+          console.log("Successfully retrieved Student record");
           const data = await response.json();
           setRecords(data.data); // Update the records state
-          console.log("Student record: ", record)
         } else {
           console.error("Failed to fetch records:", response.statusText);
           setError("Failed to load records");
@@ -71,7 +71,7 @@ function CourseAdvisingHistory() {
             {record.map((record) => (
               <tr
                 key={record.id}
-                onClick={() => navigate(`/edit_records`)}
+                onClick={() => navigate(`/course_Advising_manager`)}
                 style={{ cursor: "pointer" }}
               >
                  <td>{new Date(record.date).toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" })}</td>

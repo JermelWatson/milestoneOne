@@ -20,7 +20,7 @@ function CourseAdvisingManager() {
   // Fetch initial advising records and course history
   useEffect(() => {
     const fetchInitialRecords = async () => {
-      const formBody = JSON.stringify({ student: user.user_id });
+      const formBody = JSON.stringify({ student_id: user.user_id });
 
       try {
         // Fetch student record data
