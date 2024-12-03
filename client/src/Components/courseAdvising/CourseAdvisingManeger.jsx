@@ -116,7 +116,7 @@ function CourseAdvisingManager() {
         }
       );
       if (response.ok) {
-        alert("Successfully updated and added new advising record");
+        //alert("Successfully updated and added new advising record");
       } else {
         console.log("Error occurred:", response.statusText);
       }

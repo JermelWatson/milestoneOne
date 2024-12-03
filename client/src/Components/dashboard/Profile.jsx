@@ -1,26 +1,29 @@
 import React, { useContext } from "react";
 import { UserContext } from "../UserContext";
-import {BiCog, BiHome, BiMale, BiPowerOff, BiUser, } from 'react-icons/bi';
+import { BiCog, BiHome, BiMale, BiPowerOff, BiUser } from "react-icons/bi";
 import { useState } from "react";
-import './Profile.css'
+import "./Profile.css";
 import ProfileHeader from "./ProfileHeader";
 
 const Profile = () => {
-    const { user } = useContext(UserContext);
-    return (
-        <div className="profile">
-            <ProfileHeader />
+  const { user } = useContext(UserContext);
+  return (
+    <div className="profile">
+      <ProfileHeader />
 
-            <div className="user-profile">
-                <div className="user-detail">
-                    <div className="pro-container">
-                        <BiUser className="user-icon"/>
-                        </div>
-                    <h3 className="user-name">{user?.first_name && user?.last_name || "Guest"}</h3>
-                    <h2>{user.first_name} {user.last_name}</h2>
-                </div>
-            </div>
+      <div className="user-profile">
+        <div className="user-detail">
+          <div className="pro-container">
+            <BiUser className="user-icon" />
+          </div>
+          <h3 className="user-name">
+            {user && user.first_name && user.last_name
+              ? `${user.first_name} ${user.last_name}`
+              : "Guest"}
+          </h3>
         </div>
-    )
-}
-export default Profile
+      </div>
+    </div>
+  );
+};
+export default Profile;
