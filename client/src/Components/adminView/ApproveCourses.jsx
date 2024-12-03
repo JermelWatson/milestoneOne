@@ -95,6 +95,8 @@ function ApproveCourses() {
 
       if (response.ok) {
         const result = await response.json();
+
+        console.log("API results", result.data)
         // Handle prerequisites and courses here
         setCurrentPrerequisites(
           result.data.filter((course) => course.level < 400)
