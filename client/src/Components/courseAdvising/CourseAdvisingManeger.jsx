@@ -53,11 +53,12 @@ function CourseAdvisingManager() {
         );
         if (courseResponse.ok) {
           const result = await courseResponse.json();
+          console.log(result.data)
           const prerequisites = result.data.filter(
-            (course) => course.level < 400
+            (course) => course.level < 361
           );
           const coursePlan = result.data.filter(
-            (course) => course.level >= 390
+            (course) => course.level > 360
           );
           console.log('Prereqs', prerequisites)
           console.log("Course", coursePlan)

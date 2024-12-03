@@ -5,13 +5,15 @@ const get_advising_history = Router();
 get_advising_history.post("/get_advising_history", (req, res) => {
   connection.execute(
     `SELECT 
-  c.course, 
-  c.level 
+  c.course AS course_name, 
+  c.level AS course_level, 
+  p.course_name AS prerequisite_name, 
+  p.level AS prerequisite_level
 FROM 
   records_mapping rm
 JOIN 
   course c ON rm.course_id = c.id
-LEFT JOIN 
+JOIN 
   prerequisites p ON rm.course_id = p.id
 WHERE 
   rm.student_id = ?
