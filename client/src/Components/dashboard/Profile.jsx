@@ -17,7 +17,7 @@ const Profile = () => {
                         <BiUser className="user-icon"/>
                         </div>
                     <h3 className="user-name">{user?.first_name && user?.last_name || "Guest"}</h3>
-
+                    <h2>{user.first_name} {user.last_name}</h2>
                 </div>
             </div>
         </div>
