@@ -13,7 +13,8 @@ approve_courses.put("/approve_courses", (req, res)=>{
             else{
                 res.json({
                     status: 200,
-                    message: "Approved courses successfully"
+                    message: "Approved courses successfully",
+                    data: result
                 });
             }
         }
