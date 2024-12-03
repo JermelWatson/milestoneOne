@@ -27,7 +27,7 @@ const Sidebar = () => {
     if (user.is_admin === true){
       if (option === "Course Advising History") {
         console.log(option)
-      navigate("/course_Advising_history");
+      navigate("/approve_courses");
     } else {
       navigate("/course_Advising_form");
     }
@@ -35,7 +35,7 @@ const Sidebar = () => {
     else{
       if (option === "Course Advising History") {
         console.log(option)
-      navigate("/student_history");
+      navigate("/course_Advising_history");
     } else {
       navigate("/course_Advising_form");
     }
