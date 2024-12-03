@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { connection } from "../database/database.js";
+import { SendMail } from "../utils/SendEmail.js";
 
 const approve_courses = Router();
 
@@ -14,9 +15,14 @@ approve_courses.put("/approve_courses", (req, res)=>{
                 res.json({
                     status: 200,
                     message: "Approved courses successfully",
-                    data: result
                 });
             }
+
+            SendMail(req.body.email, "Your courses have been approved");
+               return res.json({
+                status: "200",
+                message: "Approve message sent to email",
+            });
         }
     );
 });
