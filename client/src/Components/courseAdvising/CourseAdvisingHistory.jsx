@@ -32,6 +32,7 @@ function CourseAdvisingHistory() {
         if (response.ok) {
           const data = await response.json();
           setRecords(data.data); // Update the records state
+          console.log("Student record: ", record)
         } else {
           console.error("Failed to fetch records:", response.statusText);
           setError("Failed to load records");
