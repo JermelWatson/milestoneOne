@@ -2,7 +2,7 @@ import { Router } from "express";
 import { connection } from "../database/database.js";
 const getStudentRecord = Router();
 
-getStudentRecord.get("/get_student_record", (req, res) => {
+getStudentRecord.post("/get_student_record", (req, res) => {
     connection.execute(
         "SELECT * FROM `Records` WHERE student_id = ? ",[req.body.student_id],
         function (err, result) {

@@ -23,7 +23,7 @@ function CourseAdvisingHistory() {
     });
       try {
         const response = await fetch(import.meta.env.VITE_API_KEY + "/get_student_record", {
-          method: "GET",
+          method: "POST",
           body: formBody,
           headers: {
             "Content-Type": "application/json",
