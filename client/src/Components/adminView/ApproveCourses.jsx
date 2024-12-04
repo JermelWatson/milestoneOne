@@ -290,15 +290,14 @@ function ApproveCourses() {
                   <tr>
                     <th>Course Code</th>
                     <th>Course Name</th>
-                    <th>Details</th>
+                    
                   </tr>
                 </thead>
                 <tbody>
                   {currentPrerequisites.map((prerequisite, index) => (
                     <tr key={index}>
-                      <td>{prerequisite.courseCode || "N/A"}</td>
-                      <td>{prerequisite.courseName || "N/A"}</td>
-                      <td>{prerequisite.details || "N/A"}</td>
+                      <td>{prerequisite.prerequisite_level || "N/A"}</td>
+                      <td>{prerequisite.prerequisite_name || "N/A"}</td>
                     </tr>
                   ))}
                 </tbody>
