@@ -50,9 +50,11 @@ function ApproveCourses() {
 
   // Prepare student record data and set current record state
   const sendRecord = (record_id) => {
-    const recordIndex = records.findIndex(record => record.record_id === record_id);
+    const recordIndex = records.findIndex(
+      (record) => record.record_id === record_id
+    );
     if (recordIndex !== -1) {
-      const record = records[recordIndex]
+      const record = records[recordIndex];
       const recordData = {
         student_id: record.student_id,
         studentName: `${record.first_name} ${record.last_name}`,
@@ -80,7 +82,7 @@ function ApproveCourses() {
       setError("Record not found.");
       return;
     }
-    const formBody = JSON.stringify({ student_id: record.student_id});
+    const formBody = JSON.stringify({ student_id: record.student_id });
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_KEY}/get_advising_history`,
@@ -96,10 +98,10 @@ function ApproveCourses() {
       if (response.ok) {
         const result = await response.json();
 
-        console.log("API results", result.data)
+        console.log("API results", result.data);
         // Handle prerequisites and courses here
-        setCurrentPrerequisites(result.data.prerequisites)
-        setCurrentCourses(result.data.courses)
+        setCurrentPrerequisites(result.data.prerequisites);
+        setCurrentCourses(result.data.courses);
       } else {
         console.log("Failed to fetch courses:", response.statusText);
         setError("Failed to load courses");
@@ -116,21 +118,21 @@ function ApproveCourses() {
     await fetchCourses(record_id);
   };
 
-  const resetRecord = ()=>{
+  const resetRecord = () => {
     setCurrentRecord({
-    last_term:'',
-    last_gpa:'',
-    advising_term:'',
-  })
-  }
+      last_term: "",
+      last_gpa: "",
+      advising_term: "",
+    });
+  };
 
   const approveRecord = async () => {
     console.log("Approve clicked for record:", currentRecord);
     // Add logic for approving the record
-    const formBody = JSON.stringify({ 
+    const formBody = JSON.stringify({
       student_id: currentRecord.student_id,
-      email: currentRecord.email 
-  });
+      email: currentRecord.email,
+    });
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_KEY}/approve_courses`,
@@ -146,21 +148,20 @@ function ApproveCourses() {
       if (response.ok) {
         const result = await response.json();
         console.log("Approved courses successfully", result);
-        alert(" Successfully Approved selections")
+        alert(" Successfully Approved selections");
       }
     } catch (error) {
       console.error("Failed to approve courses", error);
     }
+  };
 
-};
-
-const rejectRecord = async () => {
+  const rejectRecord = async () => {
     console.log("Reject clicked for record:", currentRecord);
     // Add logic for rejecting the record
-    const formBody = JSON.stringify({ 
+    const formBody = JSON.stringify({
       student_id: currentRecord.student_id,
-      email: currentRecord.email 
-  });
+      email: currentRecord.email,
+    });
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_KEY}/reject_courses`,
@@ -176,13 +177,12 @@ const rejectRecord = async () => {
       if (response.ok) {
         const result = await response.json();
         console.log("Rejected student courses selection ", result);
-        alert(" Successfully rejected selections")
+        alert(" Successfully rejected selections");
       }
     } catch (error) {
       console.error("Failed to approve courses", error);
     }
-};
-
+  };
 
   // Main render
   return (
@@ -211,10 +211,9 @@ const rejectRecord = async () => {
               {records.map((record) => (
                 <tr
                   key={record.record_id}
-                  onClick={
-                    () => {
-                    setUp(record.record_id)}
-                    }
+                  onClick={() => {
+                    setUp(record.record_id);
+                  }}
                   style={{ cursor: "pointer" }}
                 >
                   <td>
@@ -239,7 +238,12 @@ const rejectRecord = async () => {
       {/* Single Record View */}
       {view === "single_record" && currentRecord && (
         <div>
-          <button onClick={() => {setView("all_records"); resetRecord()}}>
+          <button
+            onClick={() => {
+              setView("all_records");
+              resetRecord();
+            }}
+          >
             Back to All Records
           </button>
           {/* History Section */}
@@ -278,8 +282,33 @@ const rejectRecord = async () => {
             </label>
             {console.log("This is prereqs:", currentPrerequisites)}
             {console.log("This is Courses:", currentCourses)}
+
+            <h3>Prerequisites</h3>
+            {currentPrerequisites.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentPrerequisites.map((prerequisite, index) => (
+                    <tr key={index}>
+                      <td>{prerequisite.courseCode || "N/A"}</td>
+                      <td>{prerequisite.courseName || "N/A"}</td>
+                      <td>{prerequisite.details || "N/A"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No prerequisites available for this record.</p>
+            )}
           </div>
-          <button onClick={()=> approveRecord()}>Approve</button> <button onClick={()=> rejectRecord()}>Reject</button>
+          <button onClick={() => approveRecord()}>Approve</button>{" "}
+          <button onClick={() => rejectRecord()}>Reject</button>
         </div>
       )}
     </div>
