@@ -2,6 +2,7 @@ import request from 'supertest';
 import app from '../app.js';
 import login from '../routes/login.js';
 import sinon from 'sinon';
+import { expect } from 'chai';
   // For using Chai's assertion library
 
 
