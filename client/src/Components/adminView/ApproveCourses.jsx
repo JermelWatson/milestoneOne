@@ -188,6 +188,7 @@ function ApproveCourses() {
   // };
 
   const rejectRecord = async () => {
+    setView("single_record");
     const formBody = JSON.stringify({
       student_id: currentRecord.student_id,
       email: currentRecord.email,
@@ -373,24 +374,16 @@ function ApproveCourses() {
       {/* Reject Modal */}
       {showRejectModal && view === "reject_modal" && (
         <div>
-          <button
-            onClick={() => {
-              setView("all_records");
-              resetRecord();
-            }}
-          >
-            Back to All Records
-          </button>
           <h3>Reject Record</h3>
           <textarea
             placeholder="Enter the reason for rejection..."
             value={rejectionReason}
             onChange={(e) => setRejectionReason(e.target.value)}
             rows="4"
-            style={{ width: "100%", background: "blue" }}
+            style={{ width: "100%", background: "#d3d3d3" }}
           > Didn't change</textarea>
           <button onClick={() => rejectRecord()}>Submit</button>
-          <button onClick={() => setShowRejectModal(false)}>Cancel</button>
+          <button onClick={() => setView("single_record")}>Cancel</button>
         </div>
       )}
     </div>
