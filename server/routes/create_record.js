@@ -8,7 +8,7 @@ const updateRecordMap = async (body, record_id) => {
         const courses = body.courses;
         
         // Extract course IDs from each array
-        const prereqsCourseIds = prereqs.map(course => course.courseId);
+        const prereqsCourseIds = prereqs.map(prereqs => prereqs.courseId);
         const coursesCourseIds = courses.map(course => course.courseId);
         
         // Combine both arrays and remove duplicates
