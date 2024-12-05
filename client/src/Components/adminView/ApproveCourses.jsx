@@ -188,7 +188,6 @@ function ApproveCourses() {
   // };
 
   const rejectRecord = async () => {
-    setView("single_record");
     const formBody = JSON.stringify({
       student_id: currentRecord.student_id,
       email: currentRecord.email,
@@ -208,6 +207,7 @@ function ApproveCourses() {
 
       if (response.ok) {
         alert("Successfully rejected selections");
+        setView("all_records");
       }
     } catch (error) {
       console.error("Failed to reject courses", error);
@@ -380,7 +380,7 @@ function ApproveCourses() {
             value={rejectionReason}
             onChange={(e) => setRejectionReason(e.target.value)}
             rows="4"
-            style={{ width: "100%", background: "#d3d3d3" }}
+            style={{ width: "100%", background: "#222222" }}
           > Didn't change</textarea>
           <button onClick={() => rejectRecord()}>Submit</button>
           <button onClick={() => setView("single_record")}>Cancel</button>
