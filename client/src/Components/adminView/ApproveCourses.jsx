@@ -50,6 +50,33 @@ function ApproveCourses() {
     fetchRecords();
   }, []);
 
+  //test
+  const fetchRecords = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_KEY}/advising_record`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setRecords(data.data);
+      } else {
+        console.error("Failed to fetch records:", response.statusText);
+        setError("Failed to load records");
+      }
+    } catch (error) {
+      console.error("Error fetching records:", error);
+      setError("An error occurred while fetching records");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Prepare student record data and set current record state
   const sendRecord = (record_id) => {
     const recordIndex = records.findIndex(
@@ -129,8 +156,7 @@ function ApproveCourses() {
   };
 
   const approveRecord = async () => {
-    console.log("Approve clicked for record:", currentRecord);
-    // Add logic for approving the record
+    fetchRecords();
     const formBody = JSON.stringify({
       student_id: currentRecord.student_id,
       email: currentRecord.email,
@@ -157,37 +183,10 @@ function ApproveCourses() {
       console.error("Failed to approve courses", error);
     }
   };
-
-  // const rejectRecord = async () => {
-  //   console.log("Reject clicked for record:", currentRecord);
-  //   // Add logic for rejecting the record
-  //   const formBody = JSON.stringify({
-  //     student_id: currentRecord.student_id,
-  //     email: currentRecord.email,
-  //   });
-  //   try {
-  //     const response = await fetch(
-  //       `${import.meta.env.VITE_API_KEY}/reject_courses`,
-  //       {
-  //         method: "PUT",
-  //         body: formBody,
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-
-  //     if (response.ok) {
-  //       const result = await response.json();
-  //       console.log("Rejected student courses selection ", result);
-  //       alert(" Successfully rejected selections");
-  //     }
-  //   } catch (error) {
-  //     console.error("Failed to approve courses", error);
-  //   }
-  // };
+  
 
   const rejectRecord = async () => {
+    fetchRecords()
     const formBody = JSON.stringify({
       student_id: currentRecord.student_id,
       email: currentRecord.email,
