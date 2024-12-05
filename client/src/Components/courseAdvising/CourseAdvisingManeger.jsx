@@ -367,7 +367,7 @@ function CourseAdvisingManager() {
         </>
       )}
 
-      <button type="submit">Submit</button>
+      <button type="submit">Update Entry</button>
     </form>
   );
 }
