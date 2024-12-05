@@ -54,12 +54,12 @@ function CourseAdvisingManager() {
         if (courseResponse.ok) {
           const result = await courseResponse.json();
           console.log(result.data)
-          const prerequisites = result.data.courses;
-          const coursePlan = result.data.prerequisites
-          console.log('Current Prereqs', prerequisites)
-          console.log("Current Course plan", coursePlan)
-          setPrerequisites(prerequisites);
-          setCoursePlan(coursePlan);
+          const prereqs = result.data.prerequisites;
+          const courseplan = result.data.courses
+          console.log('Current Prereqs', prereqs)
+          console.log("Current Course plan", courseplan)
+          setPrerequisites(prereqs);
+          setCoursePlan(courseplan);
         }
       } catch (error) {
         console.error("Error fetching records here:", error);
