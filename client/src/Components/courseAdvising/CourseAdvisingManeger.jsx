@@ -101,6 +101,8 @@ function CourseAdvisingManager() {
   // Submit handler for updating and adding records
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setPrerequisites(currentPrerequisites); 
+    setCoursePlan(currentCoursePlan)
     
     const formBody = JSON.stringify({
       student: user.user_id,
@@ -369,10 +371,7 @@ function CourseAdvisingManager() {
         </>
       )}
 
-      <button 
-      type="submit"
-      onClick={()=> {setPrerequisites(currentPrerequisites); setCoursePlan(currentCoursePlan)}}
-      >Submit</button>
+      <button type="submit">Submit</button>
     </form>
   );
 }
