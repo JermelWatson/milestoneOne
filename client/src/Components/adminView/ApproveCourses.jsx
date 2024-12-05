@@ -305,6 +305,28 @@ function ApproveCourses() {
             ) : (
               <p>No prerequisites available for this record.</p>
             )}
+            <h3>Course Plan</h3>
+            {currentCourses.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentCourses.map((course, index) => (
+                    <tr key={index}>
+                      <td>{course.course_level || "N/A"}</td>
+                      <td>{course.course_name || "N/A"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No courses in course plan.</p>
+            )}
           </div>
           <button onClick={() => approveRecord()}>Approve</button>{" "}
           <button onClick={() => rejectRecord()}>Reject</button>
