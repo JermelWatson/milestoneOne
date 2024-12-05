@@ -12,6 +12,8 @@ function ApproveCourses() {
   const [currentRecord, setCurrentRecord] = useState(null);
   const [currentPrerequisites, setCurrentPrerequisites] = useState([]);
   const [currentCourses, setCurrentCourses] = useState([]);
+  const [showRejectModal, setShowRejectModal] = useState(false);
+  const [rejectionReason, setRejectionReason] = useState("");
   const navigate = useNavigate();
 
   const goBack = () => {
@@ -149,18 +151,47 @@ function ApproveCourses() {
         const result = await response.json();
         console.log("Approved courses successfully", result);
         alert(" Successfully Approved selections");
+        setView("all_records");
       }
     } catch (error) {
       console.error("Failed to approve courses", error);
     }
   };
 
+  // const rejectRecord = async () => {
+  //   console.log("Reject clicked for record:", currentRecord);
+  //   // Add logic for rejecting the record
+  //   const formBody = JSON.stringify({
+  //     student_id: currentRecord.student_id,
+  //     email: currentRecord.email,
+  //   });
+  //   try {
+  //     const response = await fetch(
+  //       `${import.meta.env.VITE_API_KEY}/reject_courses`,
+  //       {
+  //         method: "PUT",
+  //         body: formBody,
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     if (response.ok) {
+  //       const result = await response.json();
+  //       console.log("Rejected student courses selection ", result);
+  //       alert(" Successfully rejected selections");
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to approve courses", error);
+  //   }
+  // };
+
   const rejectRecord = async () => {
-    console.log("Reject clicked for record:", currentRecord);
-    // Add logic for rejecting the record
     const formBody = JSON.stringify({
       student_id: currentRecord.student_id,
       email: currentRecord.email,
+      message: rejectionReason
     });
     try {
       const response = await fetch(
@@ -175,12 +206,13 @@ function ApproveCourses() {
       );
 
       if (response.ok) {
-        const result = await response.json();
-        console.log("Rejected student courses selection ", result);
-        alert(" Successfully rejected selections");
+        alert("Successfully rejected selections");
       }
     } catch (error) {
-      console.error("Failed to approve courses", error);
+      console.error("Failed to reject courses", error);
+    } finally {
+      setShowRejectModal(false); // Close the modal
+      setRejectionReason(""); // Clear the reason
     }
   };
 
@@ -328,8 +360,26 @@ function ApproveCourses() {
               <p>No courses in course plan.</p>
             )}
           </div>
-          <button onClick={() => approveRecord()}>Approve</button>{" "}
-          <button onClick={() => rejectRecord()}>Reject</button>
+          <button onClick={() => approveRecord()}>Approve</button>
+          <button onClick={() => setShowRejectModal(true)}>Reject</button>
+        </div>
+      )}
+
+       {/* Reject Modal */}
+       {showRejectModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>Reject Record</h3>
+            <textarea
+              placeholder="Enter the reason for rejection..."
+              value={rejectionReason}
+              onChange={(e) => setRejectionReason(e.target.value)}
+              rows="4"
+              style={{ width: "100%" }}
+            ></textarea>
+            <button onClick={() => rejectRecord()}>Submit</button>
+            <button onClick={() => setShowRejectModal(false)}>Cancel</button>
+          </div>
         </div>
       )}
     </div>
