@@ -54,8 +54,8 @@ function CourseAdvisingManager() {
         if (courseResponse.ok) {
           const result = await courseResponse.json();
           console.log(result.data)
-          const prerequisites = result.courses;
-          const coursePlan = result.prerequisites
+          const prerequisites = result.data.courses;
+          const coursePlan = result.data.prerequisites
           console.log('Current Prereqs', prerequisites)
           console.log("Current Course plan", coursePlan)
           setPrerequisites(prerequisites);
