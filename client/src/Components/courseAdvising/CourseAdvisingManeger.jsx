@@ -8,8 +8,6 @@ import AddCourse from "./AddCourse";
 function CourseAdvisingManager() {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
-  const [currentPrerequisites, setCurrentPrerequisites] = useState([]);
-  const [currentCoursePlan, setCurrentCoursePlan] = useState([]);
   const [prerequisites, setPrerequisites] = useState([]);
   const [coursePlan, setCoursePlan] = useState([]);
   const [record, setRecord] = useState({
@@ -62,8 +60,8 @@ function CourseAdvisingManager() {
           const courseplan = result.data.courses;
           console.log("Current Prereqs", prereqs);
           console.log("Current Course plan", courseplan);
-          setCurrentPrerequisites(prereqs);
-          setCurrentCoursePlan(courseplan);
+          setPrerequisites(prereqs);
+          setCoursePlan(courseplan);
         }
       } catch (error) {
         console.error("Error fetching records here:", error);
@@ -101,8 +99,6 @@ function CourseAdvisingManager() {
   // Submit handler for updating and adding records
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setPrerequisites(currentPrerequisites); 
-    setCoursePlan(currentCoursePlan)
     
     const formBody = JSON.stringify({
       student: user.user_id,
@@ -142,7 +138,7 @@ function CourseAdvisingManager() {
 
   //handling updates
   const checkIfPrerequisiteExists = (newPrerequisite) => {
-    return currentPrerequisites.some(
+    return prerequisites.some(
       (prereq) =>
         prereq.prerequisite_level === newPrerequisite.level &&
         prereq.prerequisite_name === newPrerequisite.courseName
@@ -161,17 +157,17 @@ function CourseAdvisingManager() {
   };
 
   const handleRemovePrerequisite = (indexToRemove) => {
-    const updatedPrerequisites = currentPrerequisites.filter(
+    const updatedPrerequisites = prerequisites.filter(
       (_, index) => index !== indexToRemove
     );
-    setCurrentPrerequisites(updatedPrerequisites);
+    setPrerequisites(updatedPrerequisites);
   };
   
   const handleRemoveCourse = (indexToRemove) => {
-    const updatedCoursePlan = currentCoursePlan.filter(
+    const updatedCoursePlan = coursePlan.filter(
       (_, index) => index !== indexToRemove
     );
-    setCurrentCoursePlan(updatedCoursePlan);
+    setCoursePlan(updatedCoursePlan);
   };  
 
   return (
@@ -220,7 +216,7 @@ function CourseAdvisingManager() {
         <>
           <div>
             <h2>Current Prerequisites</h2>
-            {currentPrerequisites.length > 0 ? (
+            {prerequisites.length > 0 ? (
               <table>
                 <thead>
                   <tr>
@@ -229,7 +225,7 @@ function CourseAdvisingManager() {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentPrerequisites.map((prerequisite, index) => (
+                  {prerequisites.map((prerequisite, index) => (
                     <tr key={index}>
                       <td>{prerequisite.prerequisite_level || "N/A"}</td>
                       <td>{prerequisite.prerequisite_name || "N/A"}</td>
@@ -243,7 +239,7 @@ function CourseAdvisingManager() {
           </div>
           <div>
             <h2>Current Course Plan</h2>
-            {currentCoursePlan.length > 0 ? (
+            {coursePlan.length > 0 ? (
               <table>
                 <thead>
                   <tr>
@@ -252,7 +248,7 @@ function CourseAdvisingManager() {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentCoursePlan.map((course, index) => (
+                  {coursePlan.map((course, index) => (
                     <tr key={index}>
                       <td>{course.course_level || "N/A"}</td>
                       <td>{course.course_name || "N/A"}</td>
@@ -270,7 +266,7 @@ function CourseAdvisingManager() {
           // Inside the return statement:
           <div>
             <h2>Current Prerequisites</h2>
-            {currentPrerequisites.length > 0 ? (
+            {prerequisites.length > 0 ? (
               <table>
                 <thead>
                   <tr>
@@ -280,7 +276,7 @@ function CourseAdvisingManager() {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentPrerequisites.map((prerequisite, index) => (
+                  {prerequisites.map((prerequisite, index) => (
                     <tr key={index}>
                       <td>{prerequisite.prerequisite_level || "N/A"}</td>
                       <td>{prerequisite.prerequisite_name || "N/A"}</td>
@@ -302,7 +298,7 @@ function CourseAdvisingManager() {
           </div>
           <div>
             <h2>Current Course Plan</h2>
-            {currentCoursePlan.length > 0 ? (
+            {coursePlan.length > 0 ? (
               <table>
                 <thead>
                   <tr>
@@ -312,7 +308,7 @@ function CourseAdvisingManager() {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentCoursePlan.map((course, index) => (
+                  {coursePlan.map((course, index) => (
                     <tr key={index}>
                       <td>{course.course_level || "N/A"}</td>
                       <td>{course.course_name || "N/A"}</td>
