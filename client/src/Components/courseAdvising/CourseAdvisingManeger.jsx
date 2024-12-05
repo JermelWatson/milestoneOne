@@ -54,19 +54,15 @@ function CourseAdvisingManager() {
         if (courseResponse.ok) {
           const result = await courseResponse.json();
           console.log(result.data)
-          const prerequisites = result.data.filter(
-            (course) => course.level < 361
-          );
-          const coursePlan = result.data.filter(
-            (course) => course.level > 360
-          );
-          console.log('Prereqs', prerequisites)
-          console.log("Course", coursePlan)
+          const prerequisites = result.courses;
+          const coursePlan = result.prerequisites
+          console.log('Current Prereqs', prerequisites)
+          console.log("Current Course plan", coursePlan)
           setPrerequisites(prerequisites);
           setCoursePlan(coursePlan);
         }
       } catch (error) {
-        console.error("Error fetching records:", error);
+        console.error("Error fetching records here:", error);
       }
     };
 
@@ -180,29 +176,100 @@ function CourseAdvisingManager() {
         <>
           <div>
             <h2>Current Prerequisites</h2>
-            <ul>
-              {prerequisites.map((course, index) => (
-                <li key={index}>
-                  <strong>Course Name:</strong> {course.course} |{" "}
-                  <strong>Level:</strong> {course.level}
-                </li>
-              ))}
-            </ul>
+            {prerequisites.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {prerequisites.map((prerequisite, index) => (
+                    <tr key={index}>
+                      <td>{prerequisite.prerequisite_level || "N/A"}</td>
+                      <td>{prerequisite.prerequisite_name || "N/A"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No prerequisites available for this record.</p>
+            )}
           </div>
           <div>
             <h2>Current Course Plan</h2>
-            <ul>
-              {coursePlan.map((course, index) => (
-                <li key={index}>
-                  <strong>Course Name:</strong> {course.course} |{" "}
-                  <strong>Level:</strong> {course.level}
-                </li>
-              ))}
-            </ul>
+            {coursePlan.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {coursePlan.map((course, index) => (
+                    <tr key={index}>
+                      <td>{course.course_level || "N/A"}</td>
+                      <td>{course.course_name || "N/A"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No courses in course plan.</p>
+            )}
           </div>
         </>
       ) : (
         <>
+        <div>
+            <h2>Current Prerequisites</h2>
+            {prerequisites.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {prerequisites.map((prerequisite, index) => (
+                    <tr key={index}>
+                      <td>{prerequisite.prerequisite_level || "N/A"}</td>
+                      <td>{prerequisite.prerequisite_name || "N/A"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No prerequisites available for this record.</p>
+            )}
+          </div>
+          <div>
+            <h2>Current Course Plan</h2>
+            {coursePlan.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {coursePlan.map((course, index) => (
+                    <tr key={index}>
+                      <td>{course.course_level || "N/A"}</td>
+                      <td>{course.course_name || "N/A"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No courses in course plan.</p>
+            )}
+          </div>
+        <h3>Edit Course plan here</h3>
           <AddPrereqs
             title="Prerequisites"
             data={prerequisites}
