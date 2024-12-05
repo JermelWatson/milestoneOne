@@ -361,12 +361,12 @@ function ApproveCourses() {
             )}
           </div>
           <button onClick={() => approveRecord()}>Approve</button>
-          <button onClick={() => setShowRejectModal(true)}>Reject</button>
+          <button onClick={() => {setShowRejectModal(true); setView("reject_modal")}}>Reject</button>
         </div>
       )}
 
        {/* Reject Modal */}
-       {showRejectModal && (
+       {showRejectModal && view === "reject_modal" && (
         <div className="modal">
           <div className="modal-content">
             <h3>Reject Record</h3>
