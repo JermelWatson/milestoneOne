@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function AddPrereqs({ title, data, setData, addRow, handleChange }) {
+function AddPrereqs({ title, data, setData, addRow, handleChange, onAddPrerequisite }) {
     const [courses, setCourses] = useState([]);
 
     // Fetch courses on component mount
@@ -47,6 +47,12 @@ function AddPrereqs({ title, data, setData, addRow, handleChange }) {
         setData(updatedData);
     };
 
+    //handling adding similar courses
+    const handleAdd = () => {
+        const newPrerequisite = { level: "", courseName: "" }; // Replace with actual values
+        onAddPrerequisite(newPrerequisite);
+      };
+
     return (
         <div>
             <h2>{title}</h2>
@@ -68,7 +74,7 @@ function AddPrereqs({ title, data, setData, addRow, handleChange }) {
                         Course Name:
                         <select
                             value={item.courseId || ""}
-                            onChange={(e) => handleChange(index, e.target.value, "courseId", data, setData)}
+                            onChange={(e) => {handleChange(index, e.target.value, "courseId", data, setData); handleAdd()}}
                         >
                             <option value="">Select Course</option>
                             {(item.level ? filterCoursesByLevel(item.level) : []).map(course => (

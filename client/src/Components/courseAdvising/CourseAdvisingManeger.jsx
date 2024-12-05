@@ -133,6 +133,27 @@ function CourseAdvisingManager() {
     navigate(-1);
   };
 
+  //handling updates
+  const checkIfPrerequisiteExists = (newPrerequisite) => {
+    return currentPrerequisites.some(
+      (prereq) =>
+        prereq.prerequisite_level === newPrerequisite.level &&
+        prereq.prerequisite_name === newPrerequisite.courseName
+    );
+  };
+  const handleAddPrerequisite = (newPrerequisite) => {
+    if (checkIfPrerequisiteExists(newPrerequisite)) {
+      alert("This course is already in your prerequisite selection.");
+      return;
+    }
+  
+    setPrerequisites((prevPrerequisites) => [
+      ...prevPrerequisites,
+      newPrerequisite,
+    ]);
+  };
+  
+
   return (
     <form onSubmit={handleSubmit}>
       <button onClick={goBack}>
@@ -288,6 +309,7 @@ function CourseAdvisingManager() {
                 setPrerequisites
               )
             }
+            onAddPrerequisite={handleAddPrerequisite}
           />
 
           <AddCourse
