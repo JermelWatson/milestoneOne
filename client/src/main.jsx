@@ -4,10 +4,11 @@ import App from './App.jsx'
 import './index.css'
 
 if(window.self != window.top){
-  throw new Error("There was an error in loading application")
-}
+  alert("Iframe involved")
+  throw new Error("Iframe detected!! There was an error in loading application")
+}else{
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
   </StrictMode>,
-)
+)}

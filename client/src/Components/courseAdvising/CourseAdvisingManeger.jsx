@@ -119,6 +119,7 @@ function CourseAdvisingManager() {
       );
       if (response.ok) {
         //alert("Successfully updated advising record");
+        navigate(-1);
       } else {
         console.log("Error occurred:", response.statusText);
       }
