@@ -387,7 +387,7 @@ function ApproveCourses() {
             value={rejectionReason}
             onChange={(e) => setRejectionReason(e.target.value)}
             rows="4"
-            style={{ width: "100%", backgroundColor: blue }}
+            style={{ width: "100%", background: "blue" }}
           > Didn't change</textarea>
           <button onClick={() => rejectRecord()}>Submit</button>
           <button onClick={() => setShowRejectModal(false)}>Cancel</button>
