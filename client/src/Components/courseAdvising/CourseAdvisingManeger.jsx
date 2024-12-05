@@ -155,20 +155,6 @@ function CourseAdvisingManager() {
     ]);
   };
 
-  const handleRemovePrerequisite = (indexToRemove) => {
-    const updatedPrerequisites = currentPrerequisites.filter(
-      (_, index) => index !== indexToRemove
-    );
-    setCurrentPrerequisites(updatedPrerequisites);
-  };
-  
-  const handleRemoveCourse = (indexToRemove) => {
-    const updatedCoursePlan = currentCoursePlan.filter(
-      (_, index) => index !== indexToRemove
-    );
-    setCurrentCoursePlan(updatedCoursePlan);
-  };
-  
   return (
     <form onSubmit={handleSubmit}>
       <button onClick={goBack}>
@@ -213,6 +199,56 @@ function CourseAdvisingManager() {
 
       {record.status !== "Pending" ? (
         <>
+          <div>
+            <h2>Current Prerequisites</h2>
+            {currentPrerequisites.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentPrerequisites.map((prerequisite, index) => (
+                    <tr key={index}>
+                      <td>{prerequisite.prerequisite_level || "N/A"}</td>
+                      <td>{prerequisite.prerequisite_name || "N/A"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No prerequisites available for this record.</p>
+            )}
+          </div>
+          <div>
+            <h2>Current Course Plan</h2>
+            {currentCoursePlan.length > 0 ? (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentCoursePlan.map((course, index) => (
+                    <tr key={index}>
+                      <td>{course.course_level || "N/A"}</td>
+                      <td>{course.course_name || "N/A"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No courses in course plan.</p>
+            )}
+          </div>
+        </>
+      ) : (
+        <>
+          // Inside the return statement:
           <div>
             <h2>Current Prerequisites</h2>
             {currentPrerequisites.length > 0 ? (
@@ -277,55 +313,6 @@ function CourseAdvisingManager() {
               <p>No courses in course plan.</p>
             )}
           </div>
-        </>
-      ) : (
-        <>
-          <div>
-            <h2>Current Prerequisites</h2>
-            {currentPrerequisites.length > 0 ? (
-              <table>
-                <thead>
-                  <tr>
-                    <th>Course Code</th>
-                    <th>Course Name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentPrerequisites.map((prerequisite, index) => (
-                    <tr key={index}>
-                      <td>{prerequisite.prerequisite_level || "N/A"}</td>
-                      <td>{prerequisite.prerequisite_name || "N/A"}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p>No prerequisites available for this record.</p>
-            )}
-          </div>
-          <div>
-            <h2>Current Course Plan</h2>
-            {currentCoursePlan.length > 0 ? (
-              <table>
-                <thead>
-                  <tr>
-                    <th>Course Code</th>
-                    <th>Course Name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentCoursePlan.map((course, index) => (
-                    <tr key={index}>
-                      <td>{course.course_level || "N/A"}</td>
-                      <td>{course.course_name || "N/A"}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : (
-              <p>No courses in course plan.</p>
-            )}
-          </div>
           <h3>Edit Course plan here</h3>
           <AddPrereqs
             title="Prerequisites"
@@ -346,7 +333,6 @@ function CourseAdvisingManager() {
             }
             onAddPrerequisite={handleAddPrerequisite}
           />
-
           <AddCourse
             title="Course Plan"
             data={coursePlan}
