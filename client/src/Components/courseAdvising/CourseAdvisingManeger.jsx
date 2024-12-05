@@ -22,7 +22,6 @@ function CourseAdvisingManager() {
   // Fetch initial advising records and course history
   useEffect(() => {
     const fetchInitialRecords = async () => {
-      
       const formBody = JSON.stringify({ student_id: user.user_id });
 
       try {
@@ -36,11 +35,14 @@ function CourseAdvisingManager() {
           }
         );
         if (recordResponse.ok) {
-
-            
           const result = await recordResponse.json();
           setRecord(
-            result.data[0] || { last_term: "", last_gpa: "", advising_term: "", status: "" }
+            result.data[0] || {
+              last_term: "",
+              last_gpa: "",
+              advising_term: "",
+              status: "",
+            }
           );
         }
 
@@ -55,11 +57,11 @@ function CourseAdvisingManager() {
         );
         if (courseResponse.ok) {
           const result = await courseResponse.json();
-          console.log(result.data)
+          console.log(result.data);
           const prereqs = result.data.prerequisites;
-          const courseplan = result.data.courses
-          console.log('Current Prereqs', prereqs)
-          console.log("Current Course plan", courseplan)
+          const courseplan = result.data.courses;
+          console.log("Current Prereqs", prereqs);
+          console.log("Current Course plan", courseplan);
           setCurrentPrerequisites(prereqs);
           setCurrentCoursePlan(courseplan);
         }
@@ -146,14 +148,27 @@ function CourseAdvisingManager() {
       alert("This course is already in your prerequisite selection.");
       return;
     }
-  
+
     setPrerequisites((prevPrerequisites) => [
       ...prevPrerequisites,
       newPrerequisite,
     ]);
   };
-  
 
+  const handleRemovePrerequisite = (indexToRemove) => {
+    const updatedPrerequisites = currentPrerequisites.filter(
+      (_, index) => index !== indexToRemove
+    );
+    setCurrentPrerequisites(updatedPrerequisites);
+  };
+  
+  const handleRemoveCourse = (indexToRemove) => {
+    const updatedCoursePlan = currentCoursePlan.filter(
+      (_, index) => index !== indexToRemove
+    );
+    setCurrentCoursePlan(updatedCoursePlan);
+  };
+  
   return (
     <form onSubmit={handleSubmit}>
       <button onClick={goBack}>
@@ -206,6 +221,7 @@ function CourseAdvisingManager() {
                   <tr>
                     <th>Course Code</th>
                     <th>Course Name</th>
+                    <th>Actions</th> {/* Add an Actions column */}
                   </tr>
                 </thead>
                 <tbody>
@@ -213,6 +229,14 @@ function CourseAdvisingManager() {
                     <tr key={index}>
                       <td>{prerequisite.prerequisite_level || "N/A"}</td>
                       <td>{prerequisite.prerequisite_name || "N/A"}</td>
+                      <td>
+                        <button
+                          onClick={() => handleRemovePrerequisite(index)}
+                          style={{ color: "red" }}
+                        >
+                          Remove
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -229,6 +253,7 @@ function CourseAdvisingManager() {
                   <tr>
                     <th>Course Code</th>
                     <th>Course Name</th>
+                    <th>Actions</th> {/* Add an Actions column */}
                   </tr>
                 </thead>
                 <tbody>
@@ -236,6 +261,14 @@ function CourseAdvisingManager() {
                     <tr key={index}>
                       <td>{course.course_level || "N/A"}</td>
                       <td>{course.course_name || "N/A"}</td>
+                      <td>
+                        <button
+                          onClick={() => handleRemoveCourse(index)}
+                          style={{ color: "red" }}
+                        >
+                          Remove
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -247,7 +280,7 @@ function CourseAdvisingManager() {
         </>
       ) : (
         <>
-        <div>
+          <div>
             <h2>Current Prerequisites</h2>
             {currentPrerequisites.length > 0 ? (
               <table>
@@ -293,13 +326,15 @@ function CourseAdvisingManager() {
               <p>No courses in course plan.</p>
             )}
           </div>
-        <h3>Edit Course plan here</h3>
+          <h3>Edit Course plan here</h3>
           <AddPrereqs
             title="Prerequisites"
             data={prerequisites}
             setData={setPrerequisites}
             addRow={() => addRow(prerequisites, setPrerequisites)}
-            removeRow={(index) => removeRow(index, prerequisites, setPrerequisites)}
+            removeRow={(index) =>
+              removeRow(index, prerequisites, setPrerequisites)
+            }
             handleChange={(index, value, field) =>
               handleSectionChange(
                 index,
@@ -319,7 +354,13 @@ function CourseAdvisingManager() {
             addRow={() => addRow(coursePlan, setCoursePlan)}
             removeRow={(index) => removeRow(index, coursePlan, setCoursePlan)}
             handleChange={(index, value, field) =>
-              handleSectionChange(index, value, field, coursePlan, setCoursePlan)
+              handleSectionChange(
+                index,
+                value,
+                field,
+                coursePlan,
+                setCoursePlan
+              )
             }
           />
         </>
