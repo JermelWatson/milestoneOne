@@ -191,7 +191,7 @@ function ApproveCourses() {
     const formBody = JSON.stringify({
       student_id: currentRecord.student_id,
       email: currentRecord.email,
-      message: rejectionReason
+      message: rejectionReason,
     });
     try {
       const response = await fetch(
@@ -322,7 +322,6 @@ function ApproveCourses() {
                   <tr>
                     <th>Course Code</th>
                     <th>Course Name</th>
-                    
                   </tr>
                 </thead>
                 <tbody>
@@ -344,7 +343,6 @@ function ApproveCourses() {
                   <tr>
                     <th>Course Code</th>
                     <th>Course Name</th>
-                    
                   </tr>
                 </thead>
                 <tbody>
@@ -361,25 +359,38 @@ function ApproveCourses() {
             )}
           </div>
           <button onClick={() => approveRecord()}>Approve</button>
-          <button onClick={() => {setShowRejectModal(true); setView("reject_modal")}}>Reject</button>
+          <button
+            onClick={() => {
+              setShowRejectModal(true);
+              setView("reject_modal");
+            }}
+          >
+            Reject
+          </button>
         </div>
       )}
 
-       {/* Reject Modal */}
-       {showRejectModal && view === "reject_modal" && (
-        <div className="modal">
-          <div className="modal-content">
-            <h3>Reject Record</h3>
-            <textarea
-              placeholder="Enter the reason for rejection..."
-              value={rejectionReason}
-              onChange={(e) => setRejectionReason(e.target.value)}
-              rows="4"
-              style={{ width: "100%" }}
-            ></textarea>
-            <button onClick={() => rejectRecord()}>Submit</button>
-            <button onClick={() => setShowRejectModal(false)}>Cancel</button>
-          </div>
+      {/* Reject Modal */}
+      {showRejectModal && view === "reject_modal" && (
+        <div>
+          <button
+            onClick={() => {
+              setView("all_records");
+              resetRecord();
+            }}
+          >
+            Back to All Records
+          </button>
+          <h3>Reject Record</h3>
+          <textarea
+            placeholder="Enter the reason for rejection..."
+            value={rejectionReason}
+            onChange={(e) => setRejectionReason(e.target.value)}
+            rows="4"
+            style={{ width: "100%", backgroundColor: blue }}
+          > Didn't change</textarea>
+          <button onClick={() => rejectRecord()}>Submit</button>
+          <button onClick={() => setShowRejectModal(false)}>Cancel</button>
         </div>
       )}
     </div>
