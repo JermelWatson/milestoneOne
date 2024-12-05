@@ -363,10 +363,9 @@ function CourseAdvisingManager() {
               )
             }
           />
+          <button type="submit">Update Entry</button>
         </>
       )}
-
-      <button type="submit">Update Entry</button>
     </form>
   );
 }
