@@ -8,6 +8,8 @@ import AddCourse from "./AddCourse";
 function CourseAdvisingManager() {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
+  const [currentPrerequisites, setCurrentPrerequisites] = useState([]);
+  const [currentCoursePlan, setCurrentCoursePlan] = useState([]);
   const [prerequisites, setPrerequisites] = useState([]);
   const [coursePlan, setCoursePlan] = useState([]);
   const [record, setRecord] = useState({
@@ -58,8 +60,8 @@ function CourseAdvisingManager() {
           const courseplan = result.data.courses
           console.log('Current Prereqs', prereqs)
           console.log("Current Course plan", courseplan)
-          setPrerequisites(prereqs);
-          setCoursePlan(courseplan);
+          setCurrentPrerequisites(prereqs);
+          setCurrentCoursePlan(courseplan);
         }
       } catch (error) {
         console.error("Error fetching records here:", error);
@@ -116,7 +118,7 @@ function CourseAdvisingManager() {
         }
       );
       if (response.ok) {
-        //alert("Successfully updated and added new advising record");
+        //alert("Successfully updated advising record");
       } else {
         console.log("Error occurred:", response.statusText);
       }
@@ -176,7 +178,7 @@ function CourseAdvisingManager() {
         <>
           <div>
             <h2>Current Prerequisites</h2>
-            {prerequisites.length > 0 ? (
+            {currentPrerequisites.length > 0 ? (
               <table>
                 <thead>
                   <tr>
@@ -185,7 +187,7 @@ function CourseAdvisingManager() {
                   </tr>
                 </thead>
                 <tbody>
-                  {prerequisites.map((prerequisite, index) => (
+                  {currentPrerequisites.map((prerequisite, index) => (
                     <tr key={index}>
                       <td>{prerequisite.prerequisite_level || "N/A"}</td>
                       <td>{prerequisite.prerequisite_name || "N/A"}</td>
@@ -199,7 +201,7 @@ function CourseAdvisingManager() {
           </div>
           <div>
             <h2>Current Course Plan</h2>
-            {coursePlan.length > 0 ? (
+            {currentCoursePlan.length > 0 ? (
               <table>
                 <thead>
                   <tr>
@@ -208,7 +210,7 @@ function CourseAdvisingManager() {
                   </tr>
                 </thead>
                 <tbody>
-                  {coursePlan.map((course, index) => (
+                  {currentCoursePlan.map((course, index) => (
                     <tr key={index}>
                       <td>{course.course_level || "N/A"}</td>
                       <td>{course.course_name || "N/A"}</td>
@@ -225,7 +227,7 @@ function CourseAdvisingManager() {
         <>
         <div>
             <h2>Current Prerequisites</h2>
-            {prerequisites.length > 0 ? (
+            {currentPrerequisites.length > 0 ? (
               <table>
                 <thead>
                   <tr>
@@ -234,7 +236,7 @@ function CourseAdvisingManager() {
                   </tr>
                 </thead>
                 <tbody>
-                  {prerequisites.map((prerequisite, index) => (
+                  {currentPrerequisites.map((prerequisite, index) => (
                     <tr key={index}>
                       <td>{prerequisite.prerequisite_level || "N/A"}</td>
                       <td>{prerequisite.prerequisite_name || "N/A"}</td>
@@ -248,7 +250,7 @@ function CourseAdvisingManager() {
           </div>
           <div>
             <h2>Current Course Plan</h2>
-            {coursePlan.length > 0 ? (
+            {currentCoursePlan.length > 0 ? (
               <table>
                 <thead>
                   <tr>
@@ -257,7 +259,7 @@ function CourseAdvisingManager() {
                   </tr>
                 </thead>
                 <tbody>
-                  {coursePlan.map((course, index) => (
+                  {currentCoursePlan.map((course, index) => (
                     <tr key={index}>
                       <td>{course.course_level || "N/A"}</td>
                       <td>{course.course_name || "N/A"}</td>
