@@ -155,6 +155,20 @@ function CourseAdvisingManager() {
     ]);
   };
 
+  const handleRemovePrerequisite = (indexToRemove) => {
+    const updatedPrerequisites = currentPrerequisites.filter(
+      (_, index) => index !== indexToRemove
+    );
+    setCurrentPrerequisites(updatedPrerequisites);
+  };
+  
+  const handleRemoveCourse = (indexToRemove) => {
+    const updatedCoursePlan = currentCoursePlan.filter(
+      (_, index) => index !== indexToRemove
+    );
+    setCurrentCoursePlan(updatedCoursePlan);
+  };  
+
   return (
     <form onSubmit={handleSubmit}>
       <button onClick={goBack}>
