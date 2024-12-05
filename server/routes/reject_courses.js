@@ -12,7 +12,7 @@ reject_courses.put("/reject_courses", (req, res)=>{
                 res.json(err.message)
             }
             else{
-                SendMail(req.body.email, "Admin decision",req.body.message);
+                SendMail(req.body.email, "Admin decision",`Rejected submission: ${req.body.message}`);
                 res.json({
                     status: 200,
                     message: "Rejected courses selection",
