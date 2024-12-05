@@ -263,7 +263,6 @@ function CourseAdvisingManager() {
         </>
       ) : (
         <>
-          // Inside the return statement:
           <div>
             <h2>Current Prerequisites</h2>
             {prerequisites.length > 0 ? (
