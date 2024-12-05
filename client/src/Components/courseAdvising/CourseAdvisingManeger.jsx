@@ -101,6 +101,7 @@ function CourseAdvisingManager() {
   // Submit handler for updating and adding records
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     const formBody = JSON.stringify({
       student: user.user_id,
       last_term: record.last_term,
@@ -109,6 +110,8 @@ function CourseAdvisingManager() {
       prereqs: prerequisites,
       courses: coursePlan,
     });
+
+    console.log(`Form body to send to api ${formBody}`);
 
     try {
       const response = await fetch(
@@ -366,7 +369,10 @@ function CourseAdvisingManager() {
         </>
       )}
 
-      <button type="submit">Submit</button>
+      <button 
+      type="submit"
+      onClick={()=> {setPrerequisites(currentPrerequisites); setCoursePlan(currentCoursePlan)}}
+      >Submit</button>
     </form>
   );
 }
