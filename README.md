@@ -14,7 +14,7 @@ The **University Course Portal** is a web-based platform designed to streamline 
 ## Architecture
 Below is the high-level system architecture of the University Course Portal. It illustrates the flow of data between the frontend, backend, and database:
 
-![System Architecture]([https://github.com/JermelWatson/milestoneOne/blob/main/archtecture.png])
+![System Architecture]([https://github.com/JermelWatson/milestoneOne/blob/main/archtecture.jpg])
 
 ### Key Components
 1. **Frontend (React)**: Handles the user interface and interacts with the backend through API calls.
