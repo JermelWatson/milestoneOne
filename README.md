@@ -49,5 +49,12 @@ Below is the high-level system architecture of the University Course Portal. It 
 - **Frontend:** Hosted on Firebase at [https://milestonetwo-6ec19.web.app/dashboard](https://milestonetwo-6ec19.web.app/dashboard)
 - **Backend:** Hosted on Clever Cloud at [Backend URL](be4fmkjwckpdzvd4lgrh-mysql.services.clever-cloud.com)
 
+## Screenshots
+- **Signin Page**
+- ![New User signin](https://github.com/JermelWatson/milestoneOne/blob/main/cs%20sign%20in%20portal.png)
+
+- **Login Page**
+- ![User Login](https://github.com/JermelWatson/milestoneOne/blob/main/cs%20login%20portal.png)
+
 ## Conclusion
 The University Course Portal offers an efficient, user-friendly solution for course management, providing a seamless experience for students, faculty, and administrators.
