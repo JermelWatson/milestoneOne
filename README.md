@@ -51,10 +51,10 @@ Below is the high-level system architecture of the University Course Portal. It 
 
 ## Screenshots
 - **Signin Page**
-- ![New User signin](https://github.com/JermelWatson/milestoneOne/blob/main/cs%20sign%20in%20portal.png)
+ ![New User signin](https://github.com/JermelWatson/milestoneOne/blob/main/cs%20sign%20in%20portal.png)
 
 - **Login Page**
-- ![User Login](https://github.com/JermelWatson/milestoneOne/blob/main/cs%20login%20portal.png)
+ ![User Login](https://github.com/JermelWatson/milestoneOne/blob/main/cs%20login%20portal.png)
 
 ## Conclusion
 The University Course Portal offers an efficient, user-friendly solution for course management, providing a seamless experience for students, faculty, and administrators.
